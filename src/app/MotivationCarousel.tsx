@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const quotes = [
     // Learning & Knowledge
@@ -158,24 +159,55 @@ const quotes = [
 
 export default function MotivationCarousel() {
     const [isPaused, setIsPaused] = useState(false)
+    const scrollContainerRef = useRef<HTMLDivElement>(null)
 
     // Duplicating the array to create a seamless infinite scroll effect
     const carouselItems = [...quotes, ...quotes]
+
+    const scroll = (direction: 'left' | 'right') => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = 400 // Approximate width of one card + gap
+            const currentScroll = scrollContainerRef.current.scrollLeft
+            scrollContainerRef.current.scrollTo({
+                left: direction === 'left' ? currentScroll - scrollAmount : currentScroll + scrollAmount,
+                behavior: 'smooth'
+            })
+        }
+    }
 
     return (
         <div className="w-full mt-24 mb-16 overflow-hidden bg-transparent relative">
             <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
 
-            <div className="w-full flex items-center justify-center mb-6">
-                <h3 className="text-xl font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+            <div className="w-full flex items-center justify-between px-4 sm:px-12 mb-6">
+                <div className="flex-1" />
+                <h3 className="text-xl font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 justify-center flex-1">
                     <span>Daily Illuminations</span>
                     <div className="h-px w-12 bg-emerald-500/30" />
                 </h3>
+                <div className="flex-1 flex justify-end gap-2 relative z-20">
+                    <button
+                        onClick={() => scroll('left')}
+                        className="p-2 rounded-full bg-card/60 hover:bg-emerald-500/10 border border-border hover:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 transition-all backdrop-blur-sm"
+                        aria-label="Scroll left"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                        onClick={() => scroll('right')}
+                        className="p-2 rounded-full bg-card/60 hover:bg-emerald-500/10 border border-border hover:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 transition-all backdrop-blur-sm"
+                        aria-label="Scroll right"
+                    >
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
+                </div>
             </div>
 
             <div
-                className="flex gap-6 overflow-hidden group py-4"
+                ref={scrollContainerRef}
+                className="flex gap-6 overflow-x-auto group py-4 scrollbar-hide snap-x snap-mandatory"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
@@ -186,7 +218,7 @@ export default function MotivationCarousel() {
                     {carouselItems.map((quote, idx) => (
                         <div
                             key={idx}
-                            className="w-[350px] md:w-[450px] shrink-0 bg-card/40 hover:bg-card/80 border border-emerald-500/10 shadow-sm rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between"
+                            className="w-[350px] md:w-[450px] shrink-0 bg-card/40 hover:bg-card/80 border border-emerald-500/10 shadow-sm rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between snap-center"
                         >
                             <div>
                                 <p className="text-xl font-serif text-emerald-700 dark:text-emerald-300 text-right mb-4 leading-loose" dir="rtl">

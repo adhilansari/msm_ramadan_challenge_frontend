@@ -73,6 +73,11 @@ export default function RegisterPage() {
                             <Input id="password" name="password" type="password" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="••••••••" />
                         </div>
 
+                        <div className="space-y-2">
+                            <Label htmlFor="confirm_password" className="text-foreground">Confirm Password</Label>
+                            <Input id="confirm_password" name="confirm_password" type="password" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="••••••••" />
+                        </div>
+
                         {state?.error && (
                             <div className="text-red-500 dark:text-red-400 text-sm bg-red-100/50 dark:bg-red-950/20 p-3 rounded-lg border border-red-200 dark:border-red-900/50">
                                 {state.error}

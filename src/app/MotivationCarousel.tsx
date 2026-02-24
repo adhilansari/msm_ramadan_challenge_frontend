@@ -37,7 +37,19 @@ const quotes = [
     {
         text: "Whoever travels a path in search of knowledge, Allah will make easy for him a path to Paradise.",
         arabic: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ",
-        source: "Sahih Muslim",
+        source: "Sahih Muslim 2699",
+        type: "hadith"
+    },
+    {
+        text: "The example of him who remembers his Lord and him who does not remember his Lord is that of the living and the dead.",
+        arabic: "مَثَلُ الَّذِي يَذْكُرُ رَبَّهُ وَالَّذِي لا يَذْكُرُ رَبَّهُ مَثَلُ الْحَيِّ وَالْمَيِّتِ",
+        source: "Sahih Bukhari 6407",
+        type: "hadith"
+    },
+    {
+        text: "He who does not show mercy to others will not be shown mercy.",
+        arabic: "مَنْ لا يَرْحَمُ لا يُرْحَمُ",
+        source: "Sahih Bukhari 5997",
         type: "hadith"
     },
 
@@ -133,7 +145,13 @@ const quotes = [
     {
         text: "When a man dies, his deeds come to an end except for three things: Sadaqah Jariyah (ceaseless charity); a knowledge which is beneficial, or a virtuous descendant who prays for him.",
         arabic: "إِذَا مَاتَ الْإِنْسَانُ انْقَطَعَ عَنْهُ عَمَلُهُ إِلَّا مِنْ ثَلَاثَةٍ: إِلَّا مِنْ صَدَقَةٍ جَارِيَةٍ، أَوْ عِلْمٍ يُنْتَفَعُ بِهِ، أَوْ وَلَدٍ صَالِحٍ يَدْعُو لَهُ",
-        source: "Sahih Muslim",
+        source: "Sahih Muslim 1631",
+        type: "hadith"
+    },
+    {
+        text: "Look at those who are lower than you (in wealth and status), and do not look at those who are higher than you. It is better for you, so that you do not belittle the blessings of Allah.",
+        arabic: "انْظُرُوا إِلَى مَنْ هُوَ أَسْفَلَ مِنْكُمْ وَلا تَنْظُرُوا إِلَى مَنْ هُوَ فَوْقَكُمْ، فَإِنَّهُ أَجْدَرُ أَنْ لا تَزْدَرُوا نِعْمَةَ اللَّهِ",
+        source: "Sahih Muslim 2963",
         type: "hadith"
     }
 ]

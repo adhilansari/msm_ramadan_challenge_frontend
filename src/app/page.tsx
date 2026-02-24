@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { cookies } from 'next/headers'
 import { Trophy, Clock, Medal } from 'lucide-react'
+import MotivationCarousel from './MotivationCarousel'
 
 // Map position to a medal color
 const getMedalColor = (index: number) => {
@@ -185,11 +186,26 @@ export default async function Home() {
           </div>
         </div>
 
+        {/* Interactive Carousel */}
+        <MotivationCarousel />
       </main>
 
       {/* Footer Branding */}
-      <footer className="absolute bottom-6 text-center text-sm text-muted-foreground font-medium tracking-widest">
-        MSM • PREMIUM ID CARD
+      <footer className="absolute bottom-6 w-full px-4 text-center z-20">
+        <div className="flex flex-col items-center justify-center gap-1">
+          <a
+            href="https://chat.whatsapp.com/YOUR_INVITE_LINK"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm font-semibold tracking-wide text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors bg-emerald-500/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-emerald-500/20"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+            Join MSM WhatsApp Group
+          </a>
+          <span className="text-xs text-muted-foreground font-medium mt-1">
+            Questions? Contact: +91 9497 453 607
+          </span>
+        </div>
       </footer>
     </div>
   )

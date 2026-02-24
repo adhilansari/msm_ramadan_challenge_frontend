@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import "./globals.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -64,7 +65,9 @@ export default function RootLayout({
                 <svg className="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
-                <span className="font-bold text-lg tracking-tight text-emerald-500 hidden sm:inline-block">Surah Mulk Challenge</span>
+                <Link href="/">
+                  <span className="font-bold text-lg tracking-tight text-emerald-500 hidden sm:inline-block">Surah Mulk Challenge</span>
+                </Link>
                 <span className="font-bold text-lg tracking-tight text-emerald-500 sm:hidden">SMC</span>
               </div>
               <div className="flex items-center gap-4">

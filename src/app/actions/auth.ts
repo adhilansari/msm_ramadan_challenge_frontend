@@ -9,6 +9,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
 export async function signup(state: any, formData: FormData) {
     try {
         const data = Object.fromEntries(formData.entries()) as Record<string, string>;
+
+        if (data.password !== data.confirm_password) {
+            return { error: 'Passwords do not match.' };
+        }
+        delete data.confirm_password; // Don't send confirm_password to the backend
+
         if (data.country_code && data.phone_number_local) {
             data.phone_number = data.country_code + data.phone_number_local;
             delete data.country_code;

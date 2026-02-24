@@ -206,36 +206,36 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
         <div className="space-y-6 md:space-y-8 animate-in fade-in duration-500">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-xl md:text-2xl font-bold tracking-tight text-neutral-100">
-                        Ayat {currentIndex + 1} <span className="text-neutral-500 text-lg">/ {ayats.length}</span>
+                    <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
+                        Ayat {currentIndex + 1} <span className="text-muted-foreground text-lg">/ {ayats.length}</span>
                     </h2>
-                    <p className="text-neutral-400 text-xs md:text-sm mt-1">Surah Al-Mulk</p>
+                    <p className="text-muted-foreground text-xs md:text-sm mt-1">Surah Al-Mulk</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-neutral-900 border border-neutral-800 text-emerald-400 font-mono text-lg md:text-xl flex items-center justify-center min-w-[80px] md:min-w-[100px] shadow-inner">
+                <div className="px-4 py-2 rounded-xl bg-muted border border-border text-emerald-600 dark:text-emerald-400 font-mono text-lg md:text-xl flex items-center justify-center min-w-[80px] md:min-w-[100px] shadow-inner">
                     {formatTime(elapsed)}
                 </div>
             </div>
 
-            <Card className="p-4 md:p-8 border-neutral-800 bg-neutral-900/50 backdrop-blur-sm shadow-xl min-h-[350px] flex flex-col items-center justify-between space-y-6 md:space-y-8">
+            <Card className="p-4 md:p-8 border-border bg-card/50 backdrop-blur-sm shadow-xl min-h-[350px] flex flex-col items-center justify-between space-y-6 md:space-y-8">
 
                 <div className="w-full space-y-4">
-                    <p className="text-neutral-400 text-center font-medium text-sm md:text-base">
+                    <p className="text-muted-foreground text-center font-medium text-sm md:text-base">
                         Your Answer (Tap a word to remove):
                     </p>
 
                     {/* Selected Box */}
                     <div
-                        className="flex flex-wrap gap-2 md:gap-4 justify-center p-4 bg-neutral-950/80 border border-neutral-800/80 rounded-2xl min-h-[120px] items-center text-right shadow-inner transition-all"
+                        className="flex flex-wrap gap-2 md:gap-4 justify-center p-4 bg-muted/50 border border-border rounded-2xl min-h-[120px] items-center text-right shadow-inner transition-all"
                         dir="rtl"
                     >
                         {selectedChunks.length === 0 ? (
-                            <span className="text-neutral-600 italic text-sm md:text-base">Tap the words below to move them here...</span>
+                            <span className="text-muted-foreground italic text-sm md:text-base">Tap the words below to move them here...</span>
                         ) : (
                             selectedChunks.map(chunk => (
                                 <div
                                     key={`selected-${chunk.id}`}
                                     onClick={() => handleDeselect(chunk)}
-                                    className="cursor-pointer font-arabic text-3xl md:text-4xl lg:text-5xl p-3 md:p-5 rounded-2xl border border-emerald-500/50 bg-emerald-900/30 text-emerald-100 shadow-sm transition-all hover:bg-red-900/40 hover:border-red-500/50 hover:text-red-200"
+                                    className="cursor-pointer font-arabic text-3xl md:text-4xl lg:text-5xl p-3 md:p-5 rounded-2xl border border-emerald-500/50 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-900 dark:text-emerald-100 shadow-sm transition-all hover:bg-red-100 dark:hover:bg-red-900/40 hover:border-red-500/50 hover:text-red-900 dark:hover:text-red-200"
                                     dangerouslySetInnerHTML={{ __html: chunk.htmlText }}
                                 />
                             ))
@@ -244,7 +244,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                 </div>
 
                 <div className="w-full space-y-4">
-                    <p className="text-neutral-400 text-center font-medium text-sm md:text-base">
+                    <p className="text-muted-foreground text-center font-medium text-sm md:text-base">
                         Available Words (Tap to select):
                     </p>
 
@@ -257,7 +257,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                             <div
                                 key={`available-${chunk.id}`}
                                 onClick={() => handleSelect(chunk)}
-                                className="cursor-pointer font-arabic text-3xl md:text-4xl lg:text-5xl p-3 md:p-5 rounded-2xl border border-neutral-700 bg-neutral-800 text-neutral-200 shadow-lg transition-all hover:scale-105 hover:bg-neutral-700 hover:border-neutral-500 active:scale-95"
+                                className="cursor-pointer font-arabic text-3xl md:text-4xl lg:text-5xl p-3 md:p-5 rounded-2xl border border-border bg-background text-foreground shadow-sm transition-all hover:scale-105 hover:bg-muted active:scale-95"
                                 dangerouslySetInnerHTML={{ __html: chunk.htmlText }}
                             />
                         ))}
@@ -274,14 +274,14 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                 </Button>
             </Card>
 
-            <div className="bg-neutral-900/40 border border-neutral-800/60 p-4 md:p-8 rounded-2xl relative overflow-hidden">
+            <div className="bg-muted/40 border border-border p-4 md:p-8 rounded-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-4 opacity-10 blur-[1px] select-none pointer-events-none transition-opacity hover:opacity-20 flex">
                     <svg className="w-24 h-24" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                 </div>
                 <h3 className="text-xs font-bold tracking-widest text-emerald-500/80 uppercase mb-3 md:mb-4 relative z-10">
                     Malayalam Translation
                 </h3>
-                <p className="text-neutral-300 leading-relaxed font-malayalam text-base md:text-lg relative z-10">
+                <p className="text-foreground leading-relaxed font-malayalam text-base md:text-lg relative z-10">
                     {translationText || 'Translation loading...'}
                 </p>
             </div>

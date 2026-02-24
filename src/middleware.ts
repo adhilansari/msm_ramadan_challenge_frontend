@@ -23,7 +23,14 @@ export async function middleware(request: NextRequest) {
         }
     }
 
-    // Handle protected route logic
+    // Handle admin route logic specifically
+    if (path.startsWith('/admin')) {
+        if (!session?.payload || session.payload.role !== 'ADMIN') {
+            return NextResponse.redirect(new URL('/login', request.nextUrl))
+        }
+    }
+
+    // Handle standard protected route logic
     if (isProtectedRoute && !session?.payload) {
         return NextResponse.redirect(new URL('/login', request.nextUrl))
     }

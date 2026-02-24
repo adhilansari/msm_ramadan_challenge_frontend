@@ -18,13 +18,13 @@ export default function LoginPage() {
     }, initialState)
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-transparent text-neutral-50 relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/20 via-neutral-950/80 to-neutral-950 -z-10" />
+        <div className="min-h-screen flex items-center justify-center p-4 bg-transparent text-foreground relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-100/50 via-background to-background dark:from-emerald-900/20 dark:via-neutral-950/80 dark:to-neutral-950 -z-10" />
 
-            <Card className="max-w-md w-full border-neutral-800 bg-neutral-900/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500">
+            <Card className="max-w-md w-full border-border bg-card/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500">
                 <CardHeader className="space-y-1">
-                    <CardTitle className="text-2xl font-bold tracking-tight text-emerald-400">Welcome Back</CardTitle>
-                    <CardDescription className="text-neutral-400">
+                    <CardTitle className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">Welcome Back</CardTitle>
+                    <CardDescription className="text-muted-foreground">
                         Sign in with your phone number to continue the challenge.
                     </CardDescription>
                 </CardHeader>
@@ -32,10 +32,10 @@ export default function LoginPage() {
                     <form action={formAction} className="space-y-4">
 
                         <div className="space-y-2">
-                            <Label htmlFor="phone_number_input" className="text-neutral-300">Phone Number</Label>
+                            <Label htmlFor="phone_number_input" className="text-foreground">Phone Number</Label>
                             <div className="flex gap-2">
                                 <select
-                                    className="bg-neutral-900/50 border border-neutral-700 text-white rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
                                     name="country_code"
                                     defaultValue="+91"
                                 >
@@ -47,17 +47,17 @@ export default function LoginPage() {
                                     <option value="+60">🇲🇾 +60</option>
                                     <option value="+65">🇸🇬 +65</option>
                                 </select>
-                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-neutral-900/50 flex-1 border-neutral-700 text-white placeholder:text-neutral-500 rounded-lg h-12" placeholder="1234567890" />
+                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="9876543210" />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-neutral-300">Password</Label>
-                            <Input id="password" name="password" type="password" required className="bg-neutral-900/50 border-neutral-700 text-white placeholder:text-neutral-500 rounded-lg h-12" placeholder="••••••••" />
+                            <Label htmlFor="password" className="text-foreground">Password</Label>
+                            <Input id="password" name="password" type="password" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="••••••••" />
                         </div>
 
                         {state?.error && (
-                            <div className="text-red-400 text-sm bg-red-950/20 p-3 rounded-lg border border-red-900/50">
+                            <div className="text-red-500 dark:text-red-400 text-sm bg-red-100/50 dark:bg-red-950/20 p-3 rounded-lg border border-red-200 dark:border-red-900/50">
                                 {state.error}
                             </div>
                         )}
@@ -67,9 +67,9 @@ export default function LoginPage() {
                         </Button>
                     </form>
 
-                    <div className="mt-6 text-center text-sm text-neutral-400">
+                    <div className="mt-6 text-center text-sm text-muted-foreground">
                         Don't have an account?{' '}
-                        <Link href="/register" className="text-emerald-400 hover:text-emerald-300 font-medium underline underline-offset-4">
+                        <Link href="/register" className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300 font-medium underline underline-offset-4">
                             Register here
                         </Link>
                     </div>

@@ -34,26 +34,26 @@ export default async function PlayLayout({
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-transparent text-neutral-50 relative">
+        <div className="min-h-screen flex flex-col bg-transparent text-foreground relative">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-            <div className="absolute inset-0 bg-neutral-950/60 pointer-events-none -z-10" />
+            <div className="absolute inset-0 bg-neutral-100/60 dark:bg-neutral-950/60 pointer-events-none -z-10" />
 
-            <header className="sticky top-0 z-50 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-xl">
+            <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
                             M
                         </div>
-                        <span className="font-semibold hidden sm:inline-block">Surah Mulk Challenge</span>
+                        <span className="font-semibold hidden sm:inline-block text-foreground">Surah Mulk Challenge</span>
                     </div>
 
                     <div className="flex items-center gap-4">
                         <ThemeToggle />
-                        <span className="text-sm text-neutral-400">
+                        <span className="text-sm text-muted-foreground font-medium">
                             {profile?.full_name}
                         </span>
                         <form action={signout}>
-                            <Button variant="ghost" size="sm" type="submit" className="text-neutral-400 hover:text-white hover:bg-neutral-800">
+                            <Button variant="ghost" size="sm" type="submit" className="text-muted-foreground hover:text-foreground hover:bg-muted">
                                 Log Out
                             </Button>
                         </form>

@@ -58,6 +58,11 @@ export async function signup(state: any, formData: FormData) {
 export async function login(state: any, formData: FormData) {
     try {
         const data = Object.fromEntries(formData.entries()) as Record<string, string>;
+
+        // Save these for returning to the frontend on an error
+        const returnedPhoneNumberLocal = data.phone_number_local;
+        const returnedCountryCode = data.country_code;
+
         if (data.country_code && data.phone_number_local) {
             data.phone_number = data.country_code + data.phone_number_local;
             delete data.country_code;
@@ -73,7 +78,11 @@ export async function login(state: any, formData: FormData) {
         const body = await res.json()
 
         if (!res.ok) {
-            return { error: body.message || 'Invalid credentials' }
+            return {
+                error: body.message || 'Invalid credentials',
+                country_code: returnedCountryCode,
+                phone_number_local: returnedPhoneNumberLocal
+            }
         }
 
         // Forward Set-Cookie JWT down to Next.js Client Cookie store

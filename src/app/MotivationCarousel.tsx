@@ -26,13 +26,13 @@ const quotes = [
     {
         text: "The best among you are those who learn the Quran and teach it.",
         arabic: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
-        source: "Sahih Bukhari",
+        source: "Sahih Bukhari 5027",
         type: "hadith"
     },
     {
         text: "Seeking knowledge is an obligation upon every Muslim.",
         arabic: "طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ",
-        source: "Sunan Ibn Majah",
+        source: "Sunan Ibn Majah 224",
         type: "hadith"
     },
     {
@@ -64,13 +64,13 @@ const quotes = [
     {
         text: "The most beloved of deeds to Allah are those that are most consistent, even if it is small.",
         arabic: "أَحَبُّ الْأَعْمَالِ إِلَى اللَّهِ تَعَالَى أَدْوَمُهَا وَإِنْ قَلَّ",
-        source: "Sahih Muslim",
+        source: "Sahih Muslim 782",
         type: "hadith"
     },
     {
         text: "Indeed, Allah loves that when one of you does a job, he perfects it.",
         arabic: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ",
-        source: "Al-Bayhaqi",
+        source: "Al-Bayhaqi 5312",
         type: "hadith"
     },
 
@@ -108,13 +108,13 @@ const quotes = [
     {
         text: "He who has in his heart the weight of a mustard seed of pride shall not enter Paradise.",
         arabic: "لَا يَدْخُلُ الْجَنَّةَ مَنْ كَانَ فِي قَلْبِهِ مِثْقَالُ ذَرَّةٍ مِنْ كِبْرٍ",
-        source: "Sahih Muslim",
+        source: "Sahih Muslim 91",
         type: "hadith"
     },
     {
         text: "Richness does not lie in the abundance of (worldly) goods, but richness is the richness of the soul.",
         arabic: "لَيْسَ الْغِنَى عَنْ كَثْرَةِ الْعَرَضِ، وَلَكِنَّ الْغِنَى غِنَى النَّفْسِ",
-        source: "Sahih Bukhari",
+        source: "Sahih Bukhari 6446",
         type: "hadith"
     },
 
@@ -134,13 +134,13 @@ const quotes = [
     {
         text: "Remember often the destroyer of pleasures (i.e. death).",
         arabic: "أَكْثِرُوا ذِكْرَ هَاذِمِ اللَّذَّاتِ",
-        source: "Sunan at-Tirmidhi",
+        source: "Sunan at-Tirmidhi 2307",
         type: "hadith"
     },
     {
         text: "Be in this world as if you were a stranger or a traveler along a path.",
         arabic: "كُنْ فِي الدُّنْيَا كَأَنَّكَ غَرِيبٌ، أَوْ عَابِرُ سَبِيلٍ",
-        source: "Sahih Bukhari",
+        source: "Sahih Bukhari 6416",
         type: "hadith"
     },
     {

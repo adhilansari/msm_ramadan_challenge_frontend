@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { cookies } from 'next/headers'
+import { API_URL } from '@/lib/constants'
 import { Trophy, Clock, Medal } from 'lucide-react'
 import MotivationCarousel from './MotivationCarousel'
 
@@ -32,7 +33,7 @@ export default async function Home() {
 
   let topPerformers: any[] = []
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001'}/game/leaderboard/top`, {
+    const res = await fetch(`${API_URL}/game/leaderboard/top`, {
       cache: 'no-store'
     })
     if (res.ok) {

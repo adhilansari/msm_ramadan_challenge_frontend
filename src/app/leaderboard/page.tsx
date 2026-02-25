@@ -2,10 +2,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { API_URL } from '@/lib/constants'
 
 export const dynamic = 'force-dynamic'
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001'
 
 export default async function LeaderboardPage() {
     let leaderboard: any[] | null = null

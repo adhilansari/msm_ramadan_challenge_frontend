@@ -1,3 +1,5 @@
+import { API_URL } from '@/lib/constants'
+
 export interface QuranWord {
     id: number
     position: number
@@ -22,7 +24,7 @@ export async function fetchSurahMulk(): Promise<Ayat[]> {
         let start_ayat = 1;
         let end_ayat = 30;
         try {
-            const configRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001'}/game/config`, { next: { revalidate: 0 } });
+            const configRes = await fetch(`${API_URL}/game/config`, { next: { revalidate: 0 } });
             if (configRes.ok) {
                 const config = await configRes.json();
                 start_ayat = config.start_ayat;

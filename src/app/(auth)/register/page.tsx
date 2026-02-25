@@ -8,7 +8,16 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-const initialState = {
+interface ActionState {
+    error: string;
+    full_name?: string;
+    place?: string;
+    district?: string;
+    country_code?: string;
+    phone_number_local?: string;
+}
+
+const initialState: ActionState = {
     error: '',
     full_name: '',
     place: '',
@@ -18,9 +27,9 @@ const initialState = {
 }
 
 export default function RegisterPage() {
-    const [state, formAction, isPending] = useActionState(async (prevState: any, formData: FormData) => {
-        const error = await signup(prevState, formData);
-        if (error?.error) return error;
+    const [state, formAction, isPending] = useActionState<ActionState, FormData>(async (prevState: any, formData: FormData) => {
+        const result = await signup(prevState, formData);
+        if (result?.error) return result as ActionState;
         return initialState;
     }, initialState)
 

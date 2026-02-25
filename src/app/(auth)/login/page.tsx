@@ -8,12 +8,18 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-const initialState = { error: '', country_code: '+91', phone_number_local: '' }
+interface ActionState {
+    error: string;
+    country_code?: string;
+    phone_number_local?: string;
+}
+
+const initialState: ActionState = { error: '', country_code: '+91', phone_number_local: '' }
 
 export default function LoginPage() {
-    const [state, formAction, isPending] = useActionState(async (prevState: any, formData: FormData) => {
-        const error = await login(prevState, formData);
-        if (error?.error) return error;
+    const [state, formAction, isPending] = useActionState<ActionState, FormData>(async (prevState: any, formData: FormData) => {
+        const result = await login(prevState, formData);
+        if (result?.error) return result as ActionState;
         return initialState;
     }, initialState)
 

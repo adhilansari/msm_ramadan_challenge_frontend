@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useState } from 'react'
 import { login } from '@/app/actions/auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -17,9 +17,18 @@ interface ActionState {
 const initialState: ActionState = { error: '', country_code: '+91', phone_number_local: '' }
 
 export default function LoginPage() {
+    const [countryCode, setCountryCode] = useState('+91');
+    const [phoneLocal, setPhoneLocal] = useState('');
+    const [password, setPassword] = useState('');
+
     const [state, formAction, isPending] = useActionState<ActionState, FormData>(async (prevState: any, formData: FormData) => {
         const result = await login(prevState, formData);
-        if (result?.error) return result as ActionState;
+        if (result?.error) {
+            // Restore state if backend returns it
+            if (result.country_code) setCountryCode(result.country_code);
+            if (result.phone_number_local) setPhoneLocal(result.phone_number_local);
+            return result as ActionState;
+        }
         return initialState;
     }, initialState)
 
@@ -43,7 +52,8 @@ export default function LoginPage() {
                                 <select
                                     className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
                                     name="country_code"
-                                    defaultValue={state?.country_code || "+91"}
+                                    value={countryCode}
+                                    onChange={(e) => setCountryCode(e.target.value)}
                                 >
                                     <option value="+91">🇮🇳 +91</option>
                                     <option value="+971">🇦🇪 +971</option>
@@ -53,13 +63,34 @@ export default function LoginPage() {
                                     <option value="+60">🇲🇾 +60</option>
                                     <option value="+65">🇸🇬 +65</option>
                                 </select>
-                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="9876543210" defaultValue={state?.phone_number_local || ''} />
+                                <Input
+                                    id="phone_number_input"
+                                    name="phone_number_local"
+                                    type="tel"
+                                    required
+                                    className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                    placeholder="9876543210"
+                                    value={phoneLocal}
+                                    onChange={(e) => setPhoneLocal(e.target.value.replace(/\D/g, ''))}
+                                    maxLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' ? 9 : 10)}
+                                    minLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' || countryCode === '+60' ? 9 : 10)}
+                                    pattern="[0-9]*"
+                                />
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="password" className="text-foreground">Password</Label>
-                            <Input id="password" name="password" type="password" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="••••••••" />
+                            <Input
+                                id="password"
+                                name="password"
+                                type="password"
+                                required
+                                className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
 
                         {state?.error && (

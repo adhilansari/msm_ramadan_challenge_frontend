@@ -28,6 +28,12 @@ const initialState: ActionState = {
 
 export default function RegisterPage() {
     const [countryCode, setCountryCode] = useState('+91');
+    const [phoneLocal, setPhoneLocal] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [place, setPlace] = useState('');
+    const [district, setDistrict] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const [state, formAction, isPending] = useActionState<ActionState, FormData>(async (prevState: any, formData: FormData) => {
         const result = await signup(prevState, formData);
@@ -50,7 +56,15 @@ export default function RegisterPage() {
                     <form action={formAction} className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="full_name" className="text-foreground">Full Name</Label>
-                            <Input id="full_name" name="full_name" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Muhammed Ali" defaultValue={state?.full_name || ''} />
+                            <Input
+                                id="full_name"
+                                name="full_name"
+                                required
+                                className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                placeholder="Muhammed Ali"
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                            />
                         </div>
 
                         <div className="space-y-2">
@@ -59,7 +73,7 @@ export default function RegisterPage() {
                                 <select
                                     className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
                                     name="country_code"
-                                    defaultValue={state?.country_code || "+91"}
+                                    value={countryCode}
                                     onChange={(e) => setCountryCode(e.target.value)}
                                 >
                                     <option value="+91">🇮🇳 +91</option>
@@ -77,7 +91,8 @@ export default function RegisterPage() {
                                     required
                                     className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
                                     placeholder="9876543210"
-                                    defaultValue={state?.phone_number_local || ''}
+                                    value={phoneLocal}
+                                    onChange={(e) => setPhoneLocal(e.target.value.replace(/\D/g, ''))}
                                     maxLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' ? 9 : 10)}
                                     minLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' || countryCode === '+60' ? 9 : 10)}
                                     pattern="[0-9]*"
@@ -89,11 +104,27 @@ export default function RegisterPage() {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="place" className="text-foreground">Place</Label>
-                                <Input id="place" name="place" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Feroke" defaultValue={state?.place || ''} />
+                                <Input
+                                    id="place"
+                                    name="place"
+                                    required
+                                    className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                    placeholder="Feroke"
+                                    value={place}
+                                    onChange={(e) => setPlace(e.target.value)}
+                                />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="district" className="text-foreground">District</Label>
-                                <Input id="district" name="district" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Kozhikode" defaultValue={state?.district || ''} />
+                                <Input
+                                    id="district"
+                                    name="district"
+                                    required
+                                    className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                    placeholder="Kozhikode"
+                                    value={district}
+                                    onChange={(e) => setDistrict(e.target.value)}
+                                />
                             </div>
                         </div>
 
@@ -101,12 +132,30 @@ export default function RegisterPage() {
 
                         <div className="space-y-2">
                             <Label htmlFor="password" className="text-foreground">Password</Label>
-                            <Input id="password" name="password" type="password" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="••••••••" />
+                            <Input
+                                id="password"
+                                name="password"
+                                type="password"
+                                required
+                                className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="confirm_password" className="text-foreground">Confirm Password</Label>
-                            <Input id="confirm_password" name="confirm_password" type="password" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="••••••••" />
+                            <Input
+                                id="confirm_password"
+                                name="confirm_password"
+                                type="password"
+                                required
+                                className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                placeholder="••••••••"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
                         </div>
 
                         {state?.error && (

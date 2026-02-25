@@ -212,7 +212,7 @@ export default async function Home() {
       <footer className="absolute bottom-6 w-full px-4 text-center z-20">
         <div className="flex flex-col items-center justify-center gap-1">
           <a
-            href="https://chat.whatsapp.com/YOUR_INVITE_LINK"
+            href="https://wa.me/919526492238?text=I%20am%20interested%20to%20join%20msm%20whatsapp%20groups"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm font-semibold tracking-wide text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors bg-emerald-500/10 px-4 py-1.5 rounded-full backdrop-blur-md border border-emerald-500/20"
@@ -221,7 +221,7 @@ export default async function Home() {
             Join MSM WhatsApp Group
           </a>
           <span className="text-xs text-muted-foreground font-medium mt-1">
-            Questions? Contact: +91 9497 453 607
+            Questions? Contact: +91 9526 492 238
           </span>
         </div>
       </footer>

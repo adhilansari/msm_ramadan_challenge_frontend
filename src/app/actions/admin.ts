@@ -65,3 +65,33 @@ export async function updateAdminConfig(start_ayat: number, end_ayat: number) {
         return { error: 'An unexpected error occurred while saving configuration.' }
     }
 }
+
+export async function resetAdminUserPassword(userId: string, newPassword: string) {
+    try {
+        const cookieStore = await cookies()
+        const token = cookieStore.get('access_token')?.value
+
+        if (!token) {
+            return { error: 'Unauthorized' }
+        }
+
+        const res = await fetch(`${API_URL}/admin/reset-password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ userId, newPassword })
+        })
+
+        if (!res.ok) {
+            const data = await res.json()
+            return { error: data.message || 'Failed to reset user password' }
+        }
+
+        return { success: true }
+    } catch (err: any) {
+        console.error('Reset Admin User Password error:', err)
+        return { error: 'An unexpected error occurred while resetting the password.' }
+    }
+}

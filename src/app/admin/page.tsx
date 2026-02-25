@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { fetchAdminDashboard, updateAdminConfig } from '@/app/actions/admin'
+import { fetchAdminDashboard, updateAdminConfig, resetAdminUserPassword } from '@/app/actions/admin'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Loader2, Settings2, Users, Download, Trophy, Target, Clock } from 'lucide-react'
+import { Loader2, Settings2, Users, Download, Trophy, Target, Clock, KeyRound } from 'lucide-react'
 import Link from 'next/link'
 
 interface Config {
@@ -47,6 +47,9 @@ export default function AdminDashboard() {
     const [kpis, setKpis] = useState<KPIs | null>(null)
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
+    const [resettingUserId, setResettingUserId] = useState<string | null>(null)
+    const [newPassword, setNewPassword] = useState('')
+    const [isResetting, setIsResetting] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
@@ -120,6 +123,29 @@ export default function AdminDashboard() {
                 error: 'Failed to generate CSV'
             }
         );
+    }
+
+    const handleResetPassword = async (userId: string) => {
+        if (!newPassword || newPassword.length < 6) {
+            toast.error('Password must be at least 6 characters');
+            return;
+        }
+
+        setIsResetting(true);
+        try {
+            const result = await resetAdminUserPassword(userId, newPassword);
+            if (result.success) {
+                toast.success('Password reset successfully!');
+                setResettingUserId(null);
+                setNewPassword('');
+            } else {
+                toast.error(result.error || 'Failed to reset password');
+            }
+        } catch (err) {
+            toast.error('An error occurred during password reset');
+        } finally {
+            setIsResetting(false);
+        }
     }
 
     if (loading) {
@@ -264,6 +290,7 @@ export default function AdminDashboard() {
                                         <TableHead className="text-muted-foreground font-medium">Contact</TableHead>
                                         <TableHead className="text-muted-foreground font-medium">Location</TableHead>
                                         <TableHead className="text-muted-foreground font-medium text-right pr-6">Performance</TableHead>
+                                        <TableHead className="text-muted-foreground font-medium text-center">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -283,6 +310,47 @@ export default function AdminDashboard() {
                                                 <TableCell className="text-right pr-6 py-4">
                                                     <div className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-lg">{bestTime !== '--' ? `${bestTime}s` : '--'}</div>
                                                     <div className="text-xs text-muted-foreground font-medium">{user.game_sessions.length} attempts</div>
+                                                </TableCell>
+                                                <TableCell className="py-4 text-center">
+                                                    {resettingUserId === user.id ? (
+                                                        <div className="flex items-center gap-2 max-w-[200px] ml-auto mr-auto">
+                                                            <Input
+                                                                type="text"
+                                                                placeholder="New pass"
+                                                                className="h-8 text-xs bg-background"
+                                                                value={newPassword}
+                                                                onChange={(e) => setNewPassword(e.target.value)}
+                                                                disabled={isResetting}
+                                                            />
+                                                            <Button
+                                                                size="sm"
+                                                                className="h-8 bg-emerald-600 hover:bg-emerald-500 text-white"
+                                                                onClick={() => handleResetPassword(user.id)}
+                                                                disabled={isResetting}
+                                                            >
+                                                                Save
+                                                            </Button>
+                                                            <Button
+                                                                size="sm"
+                                                                variant="ghost"
+                                                                className="h-8 px-2"
+                                                                onClick={() => { setResettingUserId(null); setNewPassword(''); }}
+                                                                disabled={isResetting}
+                                                            >
+                                                                Cancel
+                                                            </Button>
+                                                        </div>
+                                                    ) : (
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            className="text-muted-foreground hover:text-emerald-500 hover:bg-emerald-500/10"
+                                                            onClick={() => setResettingUserId(user.id)}
+                                                        >
+                                                            <KeyRound className="w-4 h-4 mr-2" />
+                                                            Reset Pass
+                                                        </Button>
+                                                    )}
                                                 </TableCell>
                                             </TableRow>
                                         )

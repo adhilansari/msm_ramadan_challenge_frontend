@@ -82,7 +82,18 @@ export default function LoginPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-foreground">Password</Label>
+                            <div className="flex justify-between items-center">
+                                <Label htmlFor="password" className="text-foreground">Password</Label>
+                                <a
+                                    href="https://wa.me/919526492238?text=Assalamu%20alaikum%2C%20I%20need%20to%20reset%20my%20password%20for%20the%20Mulk%20Challenge."
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
+                                    title="Contact Admin on WhatsApp"
+                                >
+                                    Forgot password?
+                                </a>
+                            </div>
                             <Input
                                 id="password"
                                 name="password"

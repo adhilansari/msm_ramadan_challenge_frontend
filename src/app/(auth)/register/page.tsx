@@ -8,7 +8,14 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-const initialState = { error: '' }
+const initialState = {
+    error: '',
+    full_name: '',
+    place: '',
+    district: '',
+    country_code: '+91',
+    phone_number_local: ''
+}
 
 export default function RegisterPage() {
     const [state, formAction, isPending] = useActionState(async (prevState: any, formData: FormData) => {
@@ -32,7 +39,7 @@ export default function RegisterPage() {
                     <form action={formAction} className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="full_name" className="text-foreground">Full Name</Label>
-                            <Input id="full_name" name="full_name" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Muhammed Ali" />
+                            <Input id="full_name" name="full_name" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Muhammed Ali" defaultValue={state?.full_name || ''} />
                         </div>
 
                         <div className="space-y-2">
@@ -41,7 +48,7 @@ export default function RegisterPage() {
                                 <select
                                     className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
                                     name="country_code"
-                                    defaultValue="+91"
+                                    defaultValue={state?.country_code || "+91"}
                                 >
                                     <option value="+91">🇮🇳 +91</option>
                                     <option value="+971">🇦🇪 +971</option>
@@ -51,18 +58,18 @@ export default function RegisterPage() {
                                     <option value="+60">🇲🇾 +60</option>
                                     <option value="+65">🇸🇬 +65</option>
                                 </select>
-                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="9876543210" />
+                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="9876543210" defaultValue={state?.phone_number_local || ''} />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="place" className="text-foreground">Place</Label>
-                                <Input id="place" name="place" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Feroke" />
+                                <Input id="place" name="place" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Feroke" defaultValue={state?.place || ''} />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="district" className="text-foreground">District</Label>
-                                <Input id="district" name="district" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Kozhikode" />
+                                <Input id="district" name="district" required className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="Kozhikode" defaultValue={state?.district || ''} />
                             </div>
                         </div>
 

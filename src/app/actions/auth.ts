@@ -7,11 +7,20 @@ import { cookies } from 'next/headers'
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
 
 export async function signup(state: any, formData: FormData) {
+    let returnedFormData = {};
     try {
         const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
+        returnedFormData = {
+            full_name: data.full_name,
+            place: data.place,
+            district: data.district,
+            country_code: data.country_code,
+            phone_number_local: data.phone_number_local
+        };
+
         if (data.password !== data.confirm_password) {
-            return { error: 'Passwords do not match.' };
+            return { error: 'Passwords do not match.', ...returnedFormData };
         }
         delete data.confirm_password; // Don't send confirm_password to the backend
 
@@ -31,7 +40,7 @@ export async function signup(state: any, formData: FormData) {
         const body = await res.json()
 
         if (!res.ok) {
-            return { error: body.message || 'Failed to register' }
+            return { error: body.message || 'Failed to register', ...returnedFormData }
         }
 
         // Set cookie returned from backend on Frontend domain
@@ -51,7 +60,7 @@ export async function signup(state: any, formData: FormData) {
     } catch (err: any) {
         if (err.message === 'NEXT_REDIRECT') throw err
         console.error('Signup error:', err)
-        return { error: 'An unexpected error occurred. Please try again.' }
+        return { error: 'An unexpected error occurred. Please try again.', ...returnedFormData }
     }
 }
 

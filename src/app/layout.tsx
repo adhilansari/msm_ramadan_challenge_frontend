@@ -68,7 +68,8 @@ export default function RootLayout({
                 <Link href="/">
                   <span className="font-bold text-lg tracking-tight text-emerald-500 hidden sm:inline-block">Surah Mulk Challenge</span>
                 </Link>
-                <span className="font-bold text-lg tracking-tight text-emerald-500 sm:hidden">SMC</span>
+                <Link href="/">
+                  <span className="font-bold text-lg tracking-tight text-emerald-500 sm:hidden">SMC</span></Link>
               </div>
               <div className="flex items-center gap-4">
                 <ThemeToggle />

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import "./globals.css";
 import Link from "next/link";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -82,6 +83,7 @@ export default function RootLayout({
           </main>
 
           <Toaster />
+          <PWAInstallPrompt />
         </ThemeProvider>
       </body>
     </html>

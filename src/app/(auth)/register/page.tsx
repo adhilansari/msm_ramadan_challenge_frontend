@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useState } from 'react'
 import { signup } from '@/app/actions/auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -27,6 +27,8 @@ const initialState: ActionState = {
 }
 
 export default function RegisterPage() {
+    const [countryCode, setCountryCode] = useState('+91');
+
     const [state, formAction, isPending] = useActionState<ActionState, FormData>(async (prevState: any, formData: FormData) => {
         const result = await signup(prevState, formData);
         if (result?.error) return result as ActionState;
@@ -58,6 +60,7 @@ export default function RegisterPage() {
                                     className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
                                     name="country_code"
                                     defaultValue={state?.country_code || "+91"}
+                                    onChange={(e) => setCountryCode(e.target.value)}
                                 >
                                     <option value="+91">🇮🇳 +91</option>
                                     <option value="+971">🇦🇪 +971</option>
@@ -67,7 +70,19 @@ export default function RegisterPage() {
                                     <option value="+60">🇲🇾 +60</option>
                                     <option value="+65">🇸🇬 +65</option>
                                 </select>
-                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="9876543210" defaultValue={state?.phone_number_local || ''} />
+                                <Input
+                                    id="phone_number_input"
+                                    name="phone_number_local"
+                                    type="tel"
+                                    required
+                                    className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                    placeholder="9876543210"
+                                    defaultValue={state?.phone_number_local || ''}
+                                    maxLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' ? 9 : 10)}
+                                    minLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' || countryCode === '+60' ? 9 : 10)}
+                                    pattern="[0-9]*"
+                                    title="Please enter only numbers"
+                                />
                             </div>
                         </div>
 

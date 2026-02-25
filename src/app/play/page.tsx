@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { fetchSurahMulk } from '@/lib/api'
 import GameBoard from './GameBoard'
+import { API_URL } from '@/lib/constants'
 
 export default async function PlayPage() {
     const cookieStore = await cookies()
@@ -11,7 +12,6 @@ export default async function PlayPage() {
         redirect('/login')
     }
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
     let user = null
 
     try {
@@ -25,7 +25,7 @@ export default async function PlayPage() {
             throw new Error('Failed to fetch user')
         }
     } catch (err) {
-        redirect('/login')
+        redirect('/api/auth/logout')
     }
 
     // Fetch all ayats before rendering GameBoard

@@ -6,11 +6,11 @@ import MotivationCarousel from './MotivationCarousel'
 
 // Map position to a medal color
 const getMedalColor = (index: number) => {
-  if (index === 0) return 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
-  if (index === 1) return 'text-neutral-300 drop-shadow-[0_0_8px_rgba(212,212,212,0.5)]'
-  if (index === 2) return 'text-amber-700 drop-shadow-[0_0_8px_rgba(180,83,9,0.5)]'
+  if (index === 0) return 'text-yellow-500 dark:text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.3)] dark:drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
+  if (index === 1) return 'text-slate-400 dark:text-neutral-300 drop-shadow-[0_0_8px_rgba(148,163,184,0.3)] dark:drop-shadow-[0_0_8px_rgba(212,212,212,0.5)]'
+  if (index === 2) return 'text-amber-600 dark:text-amber-700 drop-shadow-[0_0_8px_rgba(217,119,6,0.3)] dark:drop-shadow-[0_0_8px_rgba(180,83,9,0.5)]'
   // For 4th to 7th place
-  return 'text-emerald-500/50'
+  return 'text-emerald-600/50 dark:text-emerald-500/50'
 }
 
 export default async function Home() {
@@ -32,7 +32,7 @@ export default async function Home() {
 
   let topPerformers: any[] = []
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/game/leaderboard/top`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001'}/game/leaderboard/top`, {
       cache: 'no-store'
     })
     if (res.ok) {
@@ -61,11 +61,11 @@ export default async function Home() {
             <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-wide border border-emerald-500/20 mb-2 animate-in fade-in slide-in-from-bottom-2">
               ✨ MSM Feroke Presents
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-400 drop-shadow-sm py-2">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-400 drop-shadow-sm py-2 leading-tight">
               Surah Mulk <br className="hidden md:block" />
               <span className="text-emerald-600 dark:text-emerald-400 bg-none">Challenge</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground font-medium mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium mx-auto leading-relaxed px-2">
               A premium, gamified word-ordering challenge to test and perfect your memory.
             </p>
           </div>
@@ -131,16 +131,16 @@ export default async function Home() {
                       </span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                         {user.full_name}
                       </h3>
-                      <p className="text-sm text-muted-foreground flex items-center gap-1">
+                      <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 line-clamp-1">
                         {user.msm_unit}, {user.district}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xl sm:text-2xl font-mono font-bold text-foreground drop-shadow-sm">
+                    <div className="text-lg sm:text-xl md:text-2xl font-mono font-bold text-foreground drop-shadow-sm">
                       {user.best_time}
                       <span className="text-sm text-muted-foreground ml-1 font-sans">s</span>
                     </div>

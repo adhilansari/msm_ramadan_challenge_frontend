@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { fetchAdminDashboard, updateAdminConfig } from '@/app/actions/admin'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -54,18 +55,20 @@ export default function AdminDashboard() {
 
     const fetchDashboardData = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/admin/dashboard`, {
-                credentials: 'include'
-            })
+            const { data, error } = await fetchAdminDashboard()
 
-            if (res.status === 401 || res.status === 403) {
+            if (error === 'Unauthorized') {
                 toast.error('Unauthorized access. Admin role required.')
                 router.push('/login')
                 return
             }
 
-            if (res.ok) {
-                const data = await res.json()
+            if (error) {
+                toast.error(error)
+                return
+            }
+
+            if (data) {
                 setUsers(data.users)
                 setConfig(data.config)
                 setKpis(data.kpis)
@@ -83,18 +86,12 @@ export default function AdminDashboard() {
         setSaving(true)
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/admin/config`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ start_ayat: Number(config.start_ayat), end_ayat: Number(config.end_ayat) })
-            })
+            const result = await updateAdminConfig(Number(config.start_ayat), Number(config.end_ayat))
 
-            const data = await res.json()
-            if (res.ok) {
+            if (result.success) {
                 toast.success('Challenge configuration updated successfully!')
             } else {
-                toast.error(data.message || 'Failed to update config')
+                toast.error(result.error || 'Failed to update config')
             }
         } catch (err) {
             toast.error('An error occurred while saving configuration')
@@ -104,13 +101,8 @@ export default function AdminDashboard() {
     }
 
     const handleDownloadCSV = () => {
-        // Direct browser download by navigating to the backend endpoint
-        // Because of CORS and returning file blobs, opening in new window works cleanly
-        // if authentication cookie is sent. Let's do a programmatic fetch instead to secure it.
         toast.promise(
-            fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/admin/download-csv`, {
-                credentials: 'include'
-            }).then(async (res) => {
+            fetch(`/api/admin/download-csv`).then(async (res) => {
                 if (!res.ok) throw new Error('Failed to download CSV');
                 const blob = await res.blob();
                 const url = window.URL.createObjectURL(blob);

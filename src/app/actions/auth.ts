@@ -4,7 +4,8 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+import { API_URL } from '@/lib/constants'
+import { formatAndValidatePhone } from '@/lib/auth-utils'
 
 export async function signup(state: any, formData: FormData) {
     let returnedFormData = {};
@@ -25,7 +26,13 @@ export async function signup(state: any, formData: FormData) {
         delete data.confirm_password; // Don't send confirm_password to the backend
 
         if (data.country_code && data.phone_number_local) {
-            data.phone_number = data.country_code + data.phone_number_local;
+            const { error: phoneError, formattedPhone } = formatAndValidatePhone(data.country_code, data.phone_number_local);
+
+            if (phoneError) {
+                return { error: phoneError, ...returnedFormData };
+            }
+
+            data.phone_number = formattedPhone as string;
             delete data.country_code;
             delete data.phone_number_local;
         }
@@ -73,7 +80,17 @@ export async function login(state: any, formData: FormData) {
         const returnedCountryCode = data.country_code;
 
         if (data.country_code && data.phone_number_local) {
-            data.phone_number = data.country_code + data.phone_number_local;
+            const { error: phoneError, formattedPhone } = formatAndValidatePhone(data.country_code, data.phone_number_local);
+
+            if (phoneError) {
+                return {
+                    error: phoneError,
+                    country_code: returnedCountryCode,
+                    phone_number_local: returnedPhoneNumberLocal
+                };
+            }
+
+            data.phone_number = formattedPhone as string;
             delete data.country_code;
             delete data.phone_number_local;
         }

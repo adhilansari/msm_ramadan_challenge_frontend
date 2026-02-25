@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { signout } from '@/app/actions/auth'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { API_URL } from '@/lib/constants'
 
 export default async function PlayLayout({
     children,
@@ -16,7 +17,6 @@ export default async function PlayLayout({
         redirect('/login')
     }
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
     let profile = null
 
     try {
@@ -29,8 +29,8 @@ export default async function PlayLayout({
         }
         profile = await res.json()
     } catch (err) {
-        // If profile fetch fails (e.g., token invalid), redirect to login
-        redirect('/login')
+        // If profile fetch fails (e.g., token invalid), clear cookie and redirect
+        redirect('/api/auth/logout')
     }
 
     return (

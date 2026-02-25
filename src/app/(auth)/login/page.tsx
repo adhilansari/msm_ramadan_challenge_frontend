@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface ActionState {
     error: string;
@@ -37,7 +38,8 @@ export default function LoginPage() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-100/50 via-background to-background dark:from-emerald-900/20 dark:via-neutral-950/80 dark:to-neutral-950 -z-10" />
 
             <Card className="max-w-md w-full border-border bg-card/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500">
-                <CardHeader className="space-y-1">
+                <CardHeader className="space-y-1 flex flex-col items-center text-center">
+                    <Image src="/logo.svg" alt="Surah Mulk Challenge Logo" width={80} height={80} className="mb-2 drop-shadow-md" />
                     <CardTitle className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">Welcome Back</CardTitle>
                     <CardDescription className="text-muted-foreground">
                         Sign in with your phone number to continue the challenge.

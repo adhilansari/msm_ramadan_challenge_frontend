@@ -18,6 +18,18 @@ export default async function Home() {
   const token = cookieStore.get('access_token')?.value
   const isAuthenticated = !!token
 
+  let userRole = 'USER'
+  if (isAuthenticated && token) {
+    try {
+      const base64Url = token.split('.')[1]
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      }).join(''))
+      userRole = JSON.parse(jsonPayload).role || 'USER'
+    } catch (e) { }
+  }
+
   let topPerformers: any[] = []
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/game/leaderboard/top`, {
@@ -62,11 +74,17 @@ export default async function Home() {
           <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto">
             {isAuthenticated ? (
               <>
-                <Button asChild size="lg" className="w-full sm:w-1/2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-6 text-lg rounded-xl shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] transition-all hover:shadow-[0_0_60px_-15px_rgba(16,185,129,0.7)] hover:-translate-y-1">
-                  <Link href="/play">Start Challenge</Link>
-                </Button>
+                {userRole === 'ADMIN' ? (
+                  <Button asChild size="lg" className="w-full sm:w-1/2 bg-amber-600 hover:bg-amber-500 text-white font-semibold py-6 text-lg rounded-xl shadow-[0_0_40px_-10px_rgba(245,158,11,0.5)] transition-all hover:shadow-[0_0_60px_-15px_rgba(245,158,11,0.7)] hover:-translate-y-1">
+                    <Link href="/admin">Admin Dashboard</Link>
+                  </Button>
+                ) : (
+                  <Button asChild size="lg" className="w-full sm:w-1/2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-6 text-lg rounded-xl shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] transition-all hover:shadow-[0_0_60px_-15px_rgba(16,185,129,0.7)] hover:-translate-y-1">
+                    <Link href="/play">Start Challenge</Link>
+                  </Button>
+                )}
                 <Button asChild size="lg" variant="outline" className="w-full sm:w-1/2 border-border bg-card/50 hover:bg-muted text-foreground font-semibold py-6 text-lg rounded-xl backdrop-blur-md transition-all">
-                  <Link href="/leaderboard">My Scores</Link>
+                  <Link href="/leaderboard">Leaderboard</Link>
                 </Button>
               </>
             ) : (

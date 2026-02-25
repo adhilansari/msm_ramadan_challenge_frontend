@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-const initialState = { error: '' }
+const initialState = { error: '', country_code: '+91', phone_number_local: '' }
 
 export default function LoginPage() {
     const [state, formAction, isPending] = useActionState(async (prevState: any, formData: FormData) => {
@@ -37,7 +37,7 @@ export default function LoginPage() {
                                 <select
                                     className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
                                     name="country_code"
-                                    defaultValue="+91"
+                                    defaultValue={state?.country_code || "+91"}
                                 >
                                     <option value="+91">🇮🇳 +91</option>
                                     <option value="+971">🇦🇪 +971</option>
@@ -47,7 +47,7 @@ export default function LoginPage() {
                                     <option value="+60">🇲🇾 +60</option>
                                     <option value="+65">🇸🇬 +65</option>
                                 </select>
-                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="9876543210" />
+                                <Input id="phone_number_input" name="phone_number_local" type="tel" required className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12" placeholder="9876543210" defaultValue={state?.phone_number_local || ''} />
                             </div>
                         </div>
 

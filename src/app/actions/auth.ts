@@ -86,6 +86,7 @@ export async function login(state: any, formData: FormData) {
         }
 
         // Forward Set-Cookie JWT down to Next.js Client Cookie store
+        let userRole = 'USER'
         const setCookieHeader = res.headers.get('set-cookie')
         if (setCookieHeader) {
             const token = setCookieHeader.split(';')[0].split('=')[1]
@@ -96,10 +97,28 @@ export async function login(state: any, formData: FormData) {
                 path: '/',
                 maxAge: 7 * 24 * 60 * 60 // 7 days
             })
+
+            try {
+                // Decode the JWT payload to check the role natively in NextJS edge/server
+                const base64Url = token.split('.')[1]
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+                }).join(''))
+                const payload = JSON.parse(jsonPayload)
+                userRole = payload.role || 'USER'
+            } catch (e) {
+                console.error('Failed to decode JWT role', e)
+            }
         }
 
         revalidatePath('/', 'layout')
-        redirect('/play')
+
+        if (userRole === 'ADMIN') {
+            redirect('/admin')
+        } else {
+            redirect('/play')
+        }
     } catch (err: any) {
         if (err.message === 'NEXT_REDIRECT') throw err
         return { error: 'Connection failed. Please try again.' }

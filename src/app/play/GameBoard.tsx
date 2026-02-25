@@ -169,7 +169,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                 setSaving(true)
 
                 const totalTimeSeconds = Math.floor((Date.now() - (startTime || Date.now())) / 1000)
-                const intervalString = `${totalTimeSeconds} seconds`
+                const intervalString = totalTimeSeconds.toString()
 
                 const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/game/session`, {
                     method: 'POST',

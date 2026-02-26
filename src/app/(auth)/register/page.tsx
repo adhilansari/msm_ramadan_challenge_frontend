@@ -57,7 +57,7 @@ export default function RegisterPage() {
                 <CardContent>
                     <form action={formAction} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="full_name" className="text-foreground">Full Name</Label>
+                            <Label htmlFor="full_name" className="text-foreground">Full Name <span className="text-red-500">*</span></Label>
                             <Input
                                 id="full_name"
                                 name="full_name"
@@ -70,7 +70,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="phone_number_input" className="text-foreground">Phone Number</Label>
+                            <Label htmlFor="phone_number_input" className="text-foreground">Phone Number <span className="text-red-500">*</span></Label>
                             <div className="flex gap-2">
                                 <select
                                     className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
@@ -105,7 +105,7 @@ export default function RegisterPage() {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <Label htmlFor="place" className="text-foreground">Place</Label>
+                                <Label htmlFor="place" className="text-foreground">Place <span className="text-red-500">*</span></Label>
                                 <Input
                                     id="place"
                                     name="place"
@@ -117,7 +117,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="district" className="text-foreground">District</Label>
+                                <Label htmlFor="district" className="text-foreground">District <span className="text-red-500">*</span></Label>
                                 <Input
                                     id="district"
                                     name="district"
@@ -133,7 +133,17 @@ export default function RegisterPage() {
 
 
                         <div className="space-y-2">
-                            <Label htmlFor="password" className="text-foreground">Password</Label>
+                            <Label htmlFor="msm_unit" className="text-foreground">MSM Unit <span className="text-muted-foreground font-normal text-xs ml-1">(Optional)</span></Label>
+                            <Input
+                                id="msm_unit"
+                                name="msm_unit"
+                                className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                placeholder="e.g. Farook College"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="password" className="text-foreground">Password <span className="text-red-500">*</span></Label>
                             <Input
                                 id="password"
                                 name="password"
@@ -147,7 +157,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="confirm_password" className="text-foreground">Confirm Password</Label>
+                            <Label htmlFor="confirm_password" className="text-foreground">Confirm Password <span className="text-red-500">*</span></Label>
                             <Input
                                 id="confirm_password"
                                 name="confirm_password"

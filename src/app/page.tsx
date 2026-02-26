@@ -146,7 +146,7 @@ export default async function Home() {
                         {user.full_name}
                       </h3>
                       <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 line-clamp-1">
-                        {user.msm_unit}, {user.district}
+                        {user.place}, {user.district}
                       </p>
                     </div>
                   </div>

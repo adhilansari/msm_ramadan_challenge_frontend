@@ -14,6 +14,16 @@ const getMedalColor = (index: number) => {
   return 'text-emerald-600/50 dark:text-emerald-500/50'
 }
 
+function formatTime(totalSeconds: number) {
+  if (!totalSeconds) return '0s';
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
+  if (mins > 0) {
+    return `${mins}m ${secs}s`;
+  }
+  return `${secs}s`;
+}
+
 export default async function Home() {
   const cookieStore = await cookies()
   const token = cookieStore.get('access_token')?.value
@@ -142,8 +152,7 @@ export default async function Home() {
                   </div>
                   <div className="text-right">
                     <div className="text-lg sm:text-xl md:text-2xl font-mono font-bold text-foreground drop-shadow-sm">
-                      {user.best_time}
-                      <span className="text-sm text-muted-foreground ml-1 font-sans">s</span>
+                      {formatTime(user.best_time)}
                     </div>
                     <div className="text-[10px] sm:text-xs text-emerald-600 font-semibold uppercase tracking-wider flex items-center gap-1 justify-end mt-1">
                       <Clock size={12} /> Best Time

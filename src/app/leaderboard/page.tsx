@@ -6,6 +6,16 @@ import { API_URL } from '@/lib/constants'
 
 export const dynamic = 'force-dynamic'
 
+function formatTime(totalSeconds: number) {
+    if (!totalSeconds) return '0s';
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    if (mins > 0) {
+        return `${mins}m ${secs}s`;
+    }
+    return `${secs}s`;
+}
+
 export default async function LeaderboardPage() {
     let leaderboard: any[] | null = null
     let error = null
@@ -61,7 +71,7 @@ export default async function LeaderboardPage() {
                                         <div className="text-[10px] sm:text-xs text-muted-foreground truncate">{entry.place}, {entry.district} ({entry.msm_unit})</div>
                                     </div>
                                     <div className="w-20 sm:w-32 text-right font-mono text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">
-                                        {entry.best_time}s
+                                        {formatTime(entry.best_time)}
                                     </div>
                                 </div>
                             ))}

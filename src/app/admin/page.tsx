@@ -42,6 +42,15 @@ interface KPIs {
 }
 
 export default function AdminDashboard() {
+    const formatTime = (totalSeconds: string | number) => {
+        const secsInt = typeof totalSeconds === 'string' ? parseInt(totalSeconds) : totalSeconds;
+        if (isNaN(secsInt)) return '--';
+        const mins = Math.floor(secsInt / 60);
+        const secs = secsInt % 60;
+        if (mins > 0) return `${mins}m ${secs}s`;
+        return `${secs}s`;
+    };
+
     const [config, setConfig] = useState<Config>({ id: 1, start_ayat: 1, end_ayat: 30 })
     const [users, setUsers] = useState<Profile[]>([])
     const [kpis, setKpis] = useState<KPIs | null>(null)
@@ -308,7 +317,7 @@ export default function AdminDashboard() {
                                                     <div className="text-xs text-muted-foreground">{user.msm_unit}, {user.district}</div>
                                                 </TableCell>
                                                 <TableCell className="text-right pr-6 py-4">
-                                                    <div className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-lg">{bestTime !== '--' ? `${bestTime}s` : '--'}</div>
+                                                    <div className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-lg">{bestTime !== '--' ? formatTime(bestTime) : '--'}</div>
                                                     <div className="text-xs text-muted-foreground font-medium">{user.game_sessions.length} attempts</div>
                                                 </TableCell>
                                                 <TableCell className="py-4 text-center">

@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
+import { saveSession } from '@/app/actions/game'
 
 // Simple synthesizer for audio feedback
 class AudioFeedback {
@@ -171,18 +172,13 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                 const totalTimeSeconds = Math.floor((Date.now() - (startTime || Date.now())) / 1000)
                 const intervalString = totalTimeSeconds.toString()
 
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/game/session`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify({ total_time: intervalString })
-                })
+                const result = await saveSession(intervalString)
 
-                if (res.ok) {
+                if (result.success) {
                     toast.success('Challenge completed and time saved!')
                     router.push('/leaderboard')
                 } else {
-                    toast.error('Failed to save score. Please try again.')
+                    toast.error(result.error || 'Failed to save score. Please try again.')
                     setSaving(false)
                 }
             }

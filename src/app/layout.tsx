@@ -64,7 +64,7 @@ export default function RootLayout({
           <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
               <div className="flex items-center gap-2">
-                <Image src="/logo.svg" alt="Surah Mulk Challenge Logo" width={32} height={32} className="w-8 h-8 rounded-full" />
+                <Image src="/msm-challenge-logo.png" alt="MSM Sura Al-Mulk Challenge Logo" width={32} height={32} className="w-8 h-8 rounded-full" />
                 <Link href="/">
                   <span className="font-bold text-lg tracking-tight text-emerald-500 hidden sm:inline-block">Surah Mulk Challenge</span>
                 </Link>

@@ -1,18 +1,12 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { cookies } from 'next/headers'
 import { API_URL } from '@/lib/constants'
-import { Trophy, Clock, Medal } from 'lucide-react'
+
 import MotivationCarousel from './MotivationCarousel'
 
-// Map position to a medal color
-const getMedalColor = (index: number) => {
-  if (index === 0) return 'text-yellow-500 dark:text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.3)] dark:drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
-  if (index === 1) return 'text-slate-400 dark:text-neutral-300 drop-shadow-[0_0_8px_rgba(148,163,184,0.3)] dark:drop-shadow-[0_0_8px_rgba(212,212,212,0.5)]'
-  if (index === 2) return 'text-amber-600 dark:text-amber-700 drop-shadow-[0_0_8px_rgba(217,119,6,0.3)] dark:drop-shadow-[0_0_8px_rgba(180,83,9,0.5)]'
-  // For 4th to 7th place
-  return 'text-emerald-600/50 dark:text-emerald-500/50'
-}
+
 
 function formatTime(totalSeconds: number) {
   if (!totalSeconds) return '0s';
@@ -64,8 +58,8 @@ export default async function Home() {
 
         {/* Header Section */}
         <div className="text-center space-y-8 max-w-2xl">
-          <div className="inline-flex items-center justify-center p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-500/20 dark:from-emerald-500/20 dark:to-emerald-900/40 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shadow-xl shadow-emerald-900/5 dark:shadow-emerald-900/20 backdrop-blur-md hover:scale-105 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /><path d="M8 7h6" /><path d="M8 11h8" /></svg>
+          <div className="inline-flex items-center justify-center rounded-2xl overflow-hidden shadow-xl shadow-emerald-900/5 dark:shadow-emerald-900/20 hover:scale-105 transition-transform">
+            <Image src="/msm-logo.png" alt="MSM Feroke Zone" width={80} height={80} className="rounded-2xl" />
           </div>
 
           <div className="space-y-4">
@@ -117,54 +111,48 @@ export default async function Home() {
 
         {/* Live Top 7 Leaderboard */}
         {topPerformers.length > 0 && (
-          <div className="w-full max-w-2xl bg-card border border-border shadow-2xl rounded-3xl overflow-hidden backdrop-blur-xl animate-in zoom-in-95 duration-700 delay-200 fill-mode-both">
-            <div className="bg-muted/50 p-6 flex items-center justify-between border-b border-border">
+          <div className="w-full max-w-2xl bg-card/50 border border-border shadow-2xl rounded-3xl overflow-hidden backdrop-blur-xl animate-in zoom-in-95 duration-700 delay-200 fill-mode-both">
+            {/* Header */}
+            <div className="bg-muted/30 px-4 sm:px-6 py-4 border-b border-border/50 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold flex items-center gap-2 text-foreground">
-                  <Trophy className="w-6 h-6 text-emerald-500" />
-                  Live Leaderboard
-                </h2>
-                <p className="text-sm text-muted-foreground mt-1">Top 7 Fastest Performers</p>
+                <h2 className="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400">Live Leaderboard</h2>
+                <p className="text-xs text-muted-foreground mt-0.5">Top 7 Fastest Performers</p>
               </div>
-              <div className="hidden sm:flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-sm font-medium bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Live Tracker
+              <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-xs font-medium bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live
               </div>
             </div>
 
-            <div className="divide-y divide-border">
+            {/* Column headers */}
+            <div className="flex justify-between items-center px-4 sm:px-6 py-2 bg-muted/20 border-b border-border/30 text-xs font-semibold text-muted-foreground">
+              <span className="w-10 sm:w-12 text-center">Rank</span>
+              <span className="flex-1 px-2 sm:px-4">Participant</span>
+              <span className="w-20 sm:w-28 text-right">Time</span>
+            </div>
+
+            {/* Rows */}
+            <div className="divide-y divide-border/50">
               {topPerformers.map((user, idx) => (
-                <div key={idx} className="flex items-center justify-between p-4 sm:p-6 hover:bg-muted/50 transition-colors group">
-                  <div className="flex items-center gap-4 sm:gap-6">
-                    <div className="w-8 flex justify-center text-xl font-black">
-                      <span className={getMedalColor(idx)}>
-                        {idx < 3 ? <Medal size={28} className="drop-shadow-sm" /> : `#${idx + 1}`}
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-base sm:text-lg font-bold text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                        {user.full_name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 line-clamp-1">
-                        {user.place}, {user.district}
-                      </p>
-                    </div>
+                <div key={idx} className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 hover:bg-muted/50 transition-colors">
+                  <div className="w-10 sm:w-12 text-center font-mono text-lg sm:text-xl font-bold text-muted-foreground">
+                    {idx === 0 ? '🏆' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`}
                   </div>
-                  <div className="text-right">
-                    <div className="text-lg sm:text-xl md:text-2xl font-mono font-bold text-foreground drop-shadow-sm">
-                      {formatTime(user.best_time)}
-                    </div>
-                    <div className="text-[10px] sm:text-xs text-emerald-600 font-semibold uppercase tracking-wider flex items-center gap-1 justify-end mt-1">
-                      <Clock size={12} /> Best Time
-                    </div>
+                  <div className="flex-1 px-2 sm:px-4 min-w-0">
+                    <div className="font-semibold text-sm sm:text-base text-foreground truncate">{user.full_name}</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground truncate">{user.place}, {user.district} ({user.msm_unit})</div>
+                  </div>
+                  <div className="w-20 sm:w-28 text-right font-mono text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">
+                    {formatTime(user.best_time)}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="p-4 bg-muted/30 border-t border-border text-center">
+            <div className="p-4 bg-muted/20 border-t border-border/30 text-center">
               <Link href="/leaderboard" className="text-sm font-semibold text-emerald-600 hover:text-emerald-500 flex items-center justify-center gap-2 transition-colors">
-                View Full Global Rank <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                View Full Leaderboard
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
               </Link>
             </div>
           </div>
@@ -175,8 +163,8 @@ export default async function Home() {
           <div className="bg-card/40 hover:bg-card/60 shadow-lg border border-border backdrop-blur-xl rounded-3xl p-6 relative overflow-hidden group transition-all duration-500">
             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-150" />
             <div className="flex flex-col gap-4 relative z-10">
-              <div className="p-3 bg-emerald-500/10 w-fit text-emerald-600 dark:text-emerald-400 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /><path d="M8 7h6" /><path d="M8 11h8" /></svg>
+              <div className="w-fit rounded-2xl overflow-hidden">
+                <Image src="/msm-logo.png" alt="MSM Feroke Zone" width={44} height={44} className="rounded-2xl" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-foreground mb-3 tracking-tight">The Noble Qur'an</h3>

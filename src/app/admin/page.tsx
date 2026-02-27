@@ -314,7 +314,7 @@ export default function AdminDashboard() {
                                                 <TableCell className="text-muted-foreground py-4">{user.phone_number}</TableCell>
                                                 <TableCell className="py-4">
                                                     <div className="text-sm text-foreground">{user.place}</div>
-                                                    <div className="text-xs text-muted-foreground">{user.msm_unit}, {user.district}</div>
+                                                    <div className="text-xs text-muted-foreground">{user.msm_unit && `(${user.msm_unit})`}, {user.district}</div>
                                                 </TableCell>
                                                 <TableCell className="text-right pr-6 py-4">
                                                     <div className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-lg">{bestTime !== '--' ? formatTime(bestTime) : '--'}</div>

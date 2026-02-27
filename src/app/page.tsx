@@ -140,7 +140,7 @@ export default async function Home() {
                   </div>
                   <div className="flex-1 px-2 sm:px-4 min-w-0">
                     <div className="font-semibold text-sm sm:text-base text-foreground truncate">{user.full_name}</div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground truncate">{user.place}, {user.district} ({user.msm_unit})</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground truncate">{user.place}, {user.district} {user.msm_unit && `(${user.msm_unit})`}</div>
                   </div>
                   <div className="w-20 sm:w-28 text-right font-mono text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">
                     {formatTime(user.best_time)}

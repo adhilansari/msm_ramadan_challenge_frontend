@@ -36,7 +36,8 @@ export async function middleware(request: NextRequest) {
     }
 
     // Handle public route logic (if logged in, redirect away from login/signup)
-    if (isPublicRoute && session?.payload && path !== '/') {
+    // Exclude /leaderboard so logged-in users can still access it
+    if (isPublicRoute && session?.payload && path !== '/' && path !== '/leaderboard') {
         return NextResponse.redirect(new URL('/play', request.nextUrl))
     }
 

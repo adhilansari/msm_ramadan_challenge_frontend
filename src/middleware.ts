@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
 
-const protectedRoutes = ['/play', '/admin', '/leaderboard']
-const publicRoutes = ['/login', '/register', '/']
+const protectedRoutes = ['/play', '/admin']
+const publicRoutes = ['/login', '/register', '/', '/leaderboard']
 
 export async function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname

@@ -48,7 +48,7 @@ export default function RegisterPage() {
 
             <Card className="max-w-md w-full border-border bg-card/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500">
                 <CardHeader className="space-y-1 flex flex-col items-center text-center">
-                    <Image src="/logo.svg" alt="Surah Mulk Challenge Logo" width={80} height={80} className="mb-2 drop-shadow-md" />
+                    <Image src="/msm-challenge-logo.png" alt="Surah Mulk Challenge" width={100} height={100} className="mb-2 drop-shadow-md rounded-2xl" />
                     <CardTitle className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">Join the Challenge</CardTitle>
                     <CardDescription className="text-muted-foreground">
                         Create an account to track your Surah Mulk memorization progress.

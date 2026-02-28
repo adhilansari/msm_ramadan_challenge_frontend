@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Loader2, Settings2, Users, Download, Trophy, Target, Clock, KeyRound } from 'lucide-react'
 import Link from 'next/link'
+import ShareChallenge from '@/components/ShareChallenge'
 
 interface Config {
     id: number;
@@ -188,15 +189,16 @@ export default function AdminDashboard() {
                 {/* KPI Highlights */}
                 {kpis && (
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <Card className="bg-card/50 border-border shadow-sm backdrop-blur-sm">
+                        <Card className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border-blue-500/20 shadow-sm backdrop-blur-sm">
                             <CardContent className="p-6">
                                 <div className="flex justify-between items-start">
                                     <div className="space-y-1">
-                                        <p className="text-sm font-medium text-muted-foreground">Total Users</p>
-                                        <p className="text-3xl font-bold text-foreground">{kpis.totalUsers}</p>
+                                        <p className="text-sm font-medium text-blue-600 dark:text-blue-400">Total Users</p>
+                                        <p className="text-4xl font-extrabold text-foreground tracking-tight">{kpis.totalUsers}</p>
+                                        <p className="text-xs text-muted-foreground font-medium">Registered participants</p>
                                     </div>
-                                    <div className="p-3 bg-blue-500/10 text-blue-500 rounded-xl">
-                                        <Users className="w-6 h-6" />
+                                    <div className="p-3 bg-blue-500/15 text-blue-500 rounded-xl">
+                                        <Users className="w-7 h-7" />
                                     </div>
                                 </div>
                             </CardContent>
@@ -376,6 +378,9 @@ export default function AdminDashboard() {
                         </CardContent>
                     </Card>
                 </div>
+
+                {/* Share the Challenge */}
+                <ShareChallenge />
             </div>
         </div>
     )

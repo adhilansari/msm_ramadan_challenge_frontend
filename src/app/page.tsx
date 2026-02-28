@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import { API_URL } from '@/lib/constants'
 
 import MotivationCarousel from './MotivationCarousel'
+import ShareChallenge from '@/components/ShareChallenge'
 
 
 
@@ -156,6 +157,11 @@ export default async function Home() {
               </Link>
             </div>
           </div>
+        )}
+
+        {/* Share Challenge Section (logged-in non-admin users) */}
+        {isAuthenticated && userRole !== 'ADMIN' && (
+          <ShareChallenge />
         )}
 
         {/* Islamic Quotes Section */}

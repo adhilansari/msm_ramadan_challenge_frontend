@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { API_URL } from '@/lib/constants'
+import ShareChallenge from '@/components/ShareChallenge'
+import { Users } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,6 +30,8 @@ export default async function LeaderboardPage() {
         error = err.message
     }
 
+    const participantCount = leaderboard?.length ?? 0
+
     return (
         <div className="min-h-screen bg-transparent text-foreground flex flex-col items-center py-12 px-4 relative">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-100/50 via-background to-background dark:from-emerald-900/20 dark:via-neutral-950/80 dark:to-neutral-950 -z-10" />
@@ -42,6 +46,21 @@ export default async function LeaderboardPage() {
                         <Link href="/play">Play Again</Link>
                     </Button>
                 </div>
+
+                {/* Participant Count Badge */}
+                {participantCount > 0 && (
+                    <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl px-5 py-3 w-fit animate-in fade-in slide-in-from-left-4 duration-500">
+                        <div className="p-2 rounded-xl bg-emerald-500/15">
+                            <Users className="w-4 h-4 text-emerald-500" />
+                        </div>
+                        <div>
+                            <span className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">{participantCount}</span>
+                            <span className="text-sm font-medium text-muted-foreground ml-1.5">
+                                {participantCount === 1 ? 'Participant' : 'Participants'} completed the challenge
+                            </span>
+                        </div>
+                    </div>
+                )}
 
                 <Card className="border-border bg-card/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500 overflow-hidden shadow-xl">
                     <CardHeader className="border-b border-border/50 bg-muted/30">
@@ -78,6 +97,9 @@ export default async function LeaderboardPage() {
                         </div>
                     </CardContent>
                 </Card>
+
+                {/* Share Section */}
+                <ShareChallenge />
             </main>
         </div>
     )

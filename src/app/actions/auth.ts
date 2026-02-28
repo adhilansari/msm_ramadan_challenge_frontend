@@ -7,7 +7,16 @@ import { cookies } from 'next/headers'
 import { API_URL } from '@/lib/constants'
 import { formatAndValidatePhone } from '@/lib/auth-utils'
 
-export async function signup(state: any, formData: FormData) {
+export interface SignupActionState {
+    error: string;
+    full_name?: string;
+    place?: string;
+    district?: string;
+    country_code?: string;
+    phone_number_local?: string;
+}
+
+export async function signup(state: SignupActionState | null, formData: FormData) {
     let returnedFormData = {};
     try {
         const data = Object.fromEntries(formData.entries()) as Record<string, string>;
@@ -64,14 +73,20 @@ export async function signup(state: any, formData: FormData) {
 
         revalidatePath('/', 'layout')
         redirect('/play')
-    } catch (err: any) {
-        if (err.message === 'NEXT_REDIRECT') throw err
+    } catch (err) {
+        if (err instanceof Error && err.message === 'NEXT_REDIRECT') throw err
         console.error('Signup error:', err)
         return { error: 'An unexpected error occurred. Please try again.', ...returnedFormData }
     }
 }
 
-export async function login(state: any, formData: FormData) {
+export interface LoginActionState {
+    error: string;
+    country_code?: string;
+    phone_number_local?: string;
+}
+
+export async function login(state: LoginActionState | null, formData: FormData) {
     try {
         const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
@@ -145,8 +160,8 @@ export async function login(state: any, formData: FormData) {
         } else {
             redirect('/play')
         }
-    } catch (err: any) {
-        if (err.message === 'NEXT_REDIRECT') throw err
+    } catch (err) {
+        if (err instanceof Error && err.message === 'NEXT_REDIRECT') throw err
         return { error: 'Connection failed. Please try again.' }
     }
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useState } from 'react'
-import { signup } from '@/app/actions/auth'
+import { signup, SignupActionState } from '@/app/actions/auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,16 +9,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 
-interface ActionState {
-    error: string;
-    full_name?: string;
-    place?: string;
-    district?: string;
-    country_code?: string;
-    phone_number_local?: string;
-}
-
-const initialState: ActionState = {
+const initialState: SignupActionState = {
     error: '',
     full_name: '',
     place: '',
@@ -36,9 +27,9 @@ export default function RegisterPage() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const [state, formAction, isPending] = useActionState<ActionState, FormData>(async (prevState: any, formData: FormData) => {
+    const [state, formAction, isPending] = useActionState<SignupActionState, FormData>(async (prevState: SignupActionState | null, formData: FormData) => {
         const result = await signup(prevState, formData);
-        if (result?.error) return result as ActionState;
+        if (result?.error) return result as SignupActionState;
         return initialState;
     }, initialState)
 

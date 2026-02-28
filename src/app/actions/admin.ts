@@ -30,7 +30,7 @@ export async function fetchAdminDashboard() {
         const data = await res.json()
         return { data }
 
-    } catch (err: any) {
+    } catch (err) {
         console.error('Fetch Admin Dashboard error:', err)
         return { error: 'An unexpected error occurred.' }
     }
@@ -60,7 +60,7 @@ export async function updateAdminConfig(start_ayat: number, end_ayat: number) {
         }
 
         return { success: true }
-    } catch (err: any) {
+    } catch (err) {
         console.error('Update Admin Config error:', err)
         return { error: 'An unexpected error occurred while saving configuration.' }
     }
@@ -90,7 +90,7 @@ export async function resetAdminUserPassword(userId: string, newPassword: string
         }
 
         return { success: true }
-    } catch (err: any) {
+    } catch (err) {
         console.error('Reset Admin User Password error:', err)
         return { error: 'An unexpected error occurred while resetting the password.' }
     }

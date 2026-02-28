@@ -4,6 +4,12 @@ import { jwtVerify } from 'jose'
 const protectedRoutes = ['/play', '/admin']
 const publicRoutes = ['/login', '/register', '/', '/leaderboard']
 
+interface JWTPayload {
+    id: string;
+    full_name: string;
+    role: 'USER' | 'ADMIN';
+}
+
 export async function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
     const isProtectedRoute = protectedRoutes.some(route => path.startsWith(route))
@@ -11,13 +17,14 @@ export async function middleware(request: NextRequest) {
 
     const token = request.cookies.get('access_token')?.value
 
-    let session: any = null
+    let session: { payload: JWTPayload } | null = null
     if (token) {
         try {
             // Decode JWT without necessarily verifying signature (since Next doesn't have the secret locally without duplicating it)
             // For standard routing, just checking token existence valid shape is enough, backend APIs secure the data payload
             const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'mulk_jwt_challenge_secret_key')
-            session = await jwtVerify(token, secret)
+            const result = await jwtVerify(token, secret)
+            session = result as unknown as { payload: JWTPayload }
         } catch (e) {
             session = null
         }

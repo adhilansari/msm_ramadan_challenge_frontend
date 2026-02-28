@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useState } from 'react'
-import { login } from '@/app/actions/auth'
+import { login, LoginActionState } from '@/app/actions/auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,26 +9,20 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 
-interface ActionState {
-    error: string;
-    country_code?: string;
-    phone_number_local?: string;
-}
-
-const initialState: ActionState = { error: '', country_code: '+91', phone_number_local: '' }
+const initialState: LoginActionState = { error: '', country_code: '+91', phone_number_local: '' }
 
 export default function LoginPage() {
     const [countryCode, setCountryCode] = useState('+91');
     const [phoneLocal, setPhoneLocal] = useState('');
     const [password, setPassword] = useState('');
 
-    const [state, formAction, isPending] = useActionState<ActionState, FormData>(async (prevState: any, formData: FormData) => {
+    const [state, formAction, isPending] = useActionState<LoginActionState, FormData>(async (prevState: LoginActionState | null, formData: FormData) => {
         const result = await login(prevState, formData);
         if (result?.error) {
             // Restore state if backend returns it
             if (result.country_code) setCountryCode(result.country_code);
             if (result.phone_number_local) setPhoneLocal(result.phone_number_local);
-            return result as ActionState;
+            return result as LoginActionState;
         }
         return initialState;
     }, initialState)
@@ -118,7 +112,7 @@ export default function LoginPage() {
                     </form>
 
                     <div className="mt-6 text-center text-sm text-muted-foreground">
-                        Don't have an account?{' '}
+                        Don&apos;t have an account?{' '}
                         <Link href="/register" className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300 font-medium underline underline-offset-4">
                             Register here
                         </Link>

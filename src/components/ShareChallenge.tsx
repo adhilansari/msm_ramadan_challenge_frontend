@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { Copy, Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://mulkchallenge.msm.org'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmquranchallenge.vercel.app'
 
 const ISLAMIC_QUOTES = [
     {

@@ -7,6 +7,9 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
+import Navbar from "@/components/Navbar";
+import { cookies } from "next/headers";
+import { API_URL } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -42,11 +45,29 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  let profile = null;
+
+  if (token) {
+    try {
+      const res = await fetch(`${API_URL}/auth/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      });
+      if (res.ok) {
+        profile = await res.json();
+      }
+    } catch (err) {
+      console.error("Failed to fetch user in layout", err);
+    }
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -61,24 +82,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
-              <div className="flex items-center gap-2">
-                <Link href="/">
-                  <Image src="/msm-challenge-logo.png" alt="MSM Sura Al-Mulk Challenge Logo" width={32} height={32} className="w-8 h-8 rounded-full hover:opacity-80 transition-opacity" />
-                </Link>
-                <Link href="/">
-                  <span className="font-bold text-lg tracking-tight text-emerald-500 hidden sm:inline-block">Surah Mulk Challenge</span>
-                </Link>
-                <Link href="/">
-                  <span className="font-bold text-lg tracking-tight text-emerald-500 sm:hidden">SMC</span>
-                </Link>
-              </div>
-              <div className="flex items-center gap-4">
-                <ThemeToggle />
-              </div>
-            </div>
-          </header>
+          <Navbar user={profile} />
 
           <main className="flex-1 flex flex-col">
             {children}

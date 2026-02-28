@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { API_URL } from '@/lib/constants'
 import ShareChallenge from '@/components/ShareChallenge'
 import { Users } from 'lucide-react'
+import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
 
@@ -21,6 +22,9 @@ function formatTime(totalSeconds: number) {
 export default async function LeaderboardPage() {
     let leaderboard: any[] | null = null
     let error = null
+
+    const cookieStore = await cookies()
+    const isLoggedIn = !!cookieStore.get('access_token')?.value
 
     try {
         const res = await fetch(`${API_URL}/game/leaderboard`, { cache: 'no-store' })
@@ -42,9 +46,15 @@ export default async function LeaderboardPage() {
                         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">Surah Mulk Challenge</h1>
                         <p className="text-sm sm:text-base text-muted-foreground mt-1">Global Top 100 Leaderboard</p>
                     </div>
-                    <Button asChild variant="outline" className="w-full sm:w-auto border-emerald-500/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-950/30">
-                        <Link href="/play">Play Again</Link>
-                    </Button>
+                    {isLoggedIn ? (
+                        <Button asChild variant="outline" className="w-full sm:w-auto border-emerald-500/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 dark:hover:bg-emerald-950/30">
+                            <Link href="/play">Play Again</Link>
+                        </Button>
+                    ) : (
+                        <Button asChild className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl">
+                            <Link href="/register">Join the Challenge</Link>
+                        </Button>
+                    )}
                 </div>
 
                 {/* Participant Count Badge */}

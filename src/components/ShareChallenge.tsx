@@ -176,7 +176,7 @@ export default function ShareChallenge() {
 
     return (
         <div className="w-full max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="relative bg-gradient-to-br from-emerald-950/60 via-card/60 to-emerald-900/40 dark:from-emerald-950/80 dark:via-neutral-900/80 dark:to-emerald-900/60 border border-emerald-500/20 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-xl">
+            <div className="relative bg-gradient-to-br from-emerald-50 via-card to-emerald-100/60 dark:from-emerald-950/80 dark:via-neutral-900/80 dark:to-emerald-900/60 border border-emerald-500/20 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-xl">
 
                 {/* Decorative blobs */}
                 <div className="absolute -top-8 -right-8 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -191,7 +191,7 @@ export default function ShareChallenge() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-foreground text-sm sm:text-base leading-tight">Share the Challenge</h3>
-                                <p className="text-xs text-muted-foreground">Spread the word & earn reward</p>
+                                <p className="text-xs text-emerald-600 dark:text-muted-foreground">Spread the word & earn reward</p>
                             </div>
                         </div>
                         <button
@@ -204,32 +204,32 @@ export default function ShareChallenge() {
                     </div>
 
                     {/* Islamic Quote Card */}
-                    <div className="bg-black/20 dark:bg-black/30 border border-white/5 rounded-2xl p-4 sm:p-6 mb-5 space-y-3">
+                    <div className="bg-emerald-500/5 dark:bg-black/30 border border-emerald-500/10 dark:border-white/5 rounded-2xl p-4 sm:p-6 mb-5 space-y-3">
                         <div className="flex items-center gap-2 mb-3">
                             <span className={`text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full border ${quote.type === 'ayat'
-                                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-                                    : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                                ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                                : 'bg-blue-500/10 text-blue-400 border-blue-500/20'
                                 }`}>
                                 {quote.type === 'ayat' ? '📖 Ayat' : '☪️ Hadees'}
                             </span>
                         </div>
                         <p
-                            className="text-2xl sm:text-3xl text-right font-arabic leading-relaxed text-emerald-300 dark:text-emerald-300"
+                            className="text-2xl sm:text-3xl text-right font-arabic leading-relaxed text-emerald-700 dark:text-emerald-300"
                             dir="rtl"
                         >
                             {quote.arabic}
                         </p>
                         <div className="border-l-2 border-emerald-500/40 pl-4 pt-1">
-                            <p className="text-sm sm:text-base text-foreground/90 italic leading-relaxed font-medium">
+                            <p className="text-sm sm:text-base text-foreground italic leading-relaxed font-medium">
                                 {quote.translation}
                             </p>
-                            <p className="text-xs text-emerald-500/80 font-semibold mt-1.5 font-mono">— {quote.source}</p>
+                            <p className="text-xs text-emerald-600 dark:text-emerald-500/80 font-semibold mt-1.5 font-mono">— {quote.source}</p>
                         </div>
                     </div>
 
                     {/* Share Buttons */}
                     <div className="space-y-3">
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Share via</p>
+                        <p className="text-xs font-semibold text-emerald-700 dark:text-muted-foreground uppercase tracking-wider">Share via</p>
                         <div className="flex flex-wrap gap-2 sm:gap-3">
                             {/* WhatsApp */}
                             <button

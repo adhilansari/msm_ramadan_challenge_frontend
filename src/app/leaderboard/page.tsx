@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -6,35 +5,27 @@ import { API_URL } from '@/lib/constants'
 import ShareChallenge from '@/components/ShareChallenge'
 import { Users } from 'lucide-react'
 import { cookies } from 'next/headers'
+import LeaderboardList from './LeaderboardList'
 
 export const dynamic = 'force-dynamic'
 
-function formatTime(totalSeconds: number) {
-    if (!totalSeconds) return '0s';
-    const mins = Math.floor(totalSeconds / 60);
-    const secs = totalSeconds % 60;
-    if (mins > 0) {
-        return `${mins}m ${secs}s`;
-    }
-    return `${secs}s`;
-}
-
 export default async function LeaderboardPage() {
-    let leaderboard: any[] | null = null
+    let leaderboardData: { totalParticipants: number, data: any[] } | null = null
     let error = null
 
     const cookieStore = await cookies()
     const isLoggedIn = !!cookieStore.get('access_token')?.value
 
     try {
-        const res = await fetch(`${API_URL}/game/leaderboard`, { cache: 'no-store' })
+        const res = await fetch(`${API_URL}/game/leaderboard?page=1&limit=20`, { cache: 'no-store' })
         if (!res.ok) throw new Error('Failed to fetch leaderboard')
-        leaderboard = await res.json()
+        leaderboardData = await res.json()
     } catch (err: any) {
         error = err.message
     }
 
-    const participantCount = leaderboard?.length ?? 0
+    const participantCount = leaderboardData?.totalParticipants ?? 0
+    const initialItems = leaderboardData?.data ?? []
 
     return (
         <div className="min-h-screen bg-transparent text-foreground flex flex-col items-center py-12 px-4 relative">
@@ -81,30 +72,14 @@ export default async function LeaderboardPage() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
-                        {error && <div className="p-6 text-red-500 dark:text-red-400 text-center font-medium">{error}</div>}
-
-                        {!leaderboard?.length && !error && (
-                            <div className="p-12 text-center text-muted-foreground">
-                                No entries yet. Be the first to play!
-                            </div>
+                        {error ? (
+                            <div className="p-6 text-red-500 dark:text-red-400 text-center font-medium">{error}</div>
+                        ) : (
+                            <LeaderboardList
+                                initialData={initialItems}
+                                totalParticipants={participantCount}
+                            />
                         )}
-
-                        <div className="divide-y divide-border/50">
-                            {leaderboard?.map((entry, index) => (
-                                <div key={entry.user_id} className="flex justify-between items-center p-3 sm:p-4 hover:bg-muted/50 transition-colors">
-                                    <div className="w-10 sm:w-12 text-center font-mono text-lg sm:text-xl font-bold text-muted-foreground">
-                                        {index === 0 ? '🏆' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
-                                    </div>
-                                    <div className="flex-1 px-2 sm:px-4 min-w-0">
-                                        <div className="font-semibold text-sm sm:text-base text-foreground truncate">{entry.full_name}</div>
-                                        <div className="text-[10px] sm:text-xs text-muted-foreground truncate">{entry.place}, {entry.district} ({entry.msm_unit})</div>
-                                    </div>
-                                    <div className="w-20 sm:w-32 text-right font-mono text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">
-                                        {formatTime(entry.best_time)}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
                     </CardContent>
                 </Card>
 

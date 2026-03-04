@@ -39,7 +39,7 @@ export default async function Home() {
   let topPerformers: any[] = []
   try {
     const res = await fetch(`${API_URL}/game/leaderboard/top`, {
-      cache: 'no-store'
+      next: { revalidate: 30 }
     })
     if (res.ok) {
       topPerformers = await res.json()

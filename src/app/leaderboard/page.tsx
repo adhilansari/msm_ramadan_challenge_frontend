@@ -17,7 +17,7 @@ export default async function LeaderboardPage() {
     const isLoggedIn = !!cookieStore.get('access_token')?.value
 
     try {
-        const res = await fetch(`${API_URL}/game/leaderboard?page=1&limit=20`, { cache: 'no-store' })
+        const res = await fetch(`${API_URL}/game/leaderboard?page=1&limit=20`, { next: { revalidate: 15 } })
         if (!res.ok) throw new Error('Failed to fetch leaderboard')
         leaderboardData = await res.json()
     } catch (err: any) {

@@ -171,7 +171,7 @@ export default function ShareChallenge() {
             try {
                 const response = await fetch('/poster.png')
                 const blob = await response.blob()
-                const file = new File([blob], 'round1-champions.png', { type: blob.type })
+                const file = new File([blob], 'poster.png', { type: 'image/png' })
 
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     shareData.files = [file]

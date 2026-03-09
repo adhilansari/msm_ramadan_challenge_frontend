@@ -28,6 +28,7 @@ const malayalam = Noto_Sans_Malayalam({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://msmquranchallenge.vercel.app"),
   title: "Surah Mulk Challenge",
   description: "Gamified word-ordering challenge to test your memory of Surah Al-Mulk.",
   manifest: "/manifest.json",
@@ -35,6 +36,28 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "Mulk Game",
+  },
+  openGraph: {
+    title: "Surah Mulk Challenge",
+    description: "Gamified word-ordering challenge to test your memory of Surah Al-Mulk.",
+    url: "/",
+    siteName: "Surah Mulk Challenge",
+    images: [
+      {
+        url: "/poster.png",
+        width: 1200,
+        height: 630,
+        alt: "Surah Mulk Challenge Poster",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Surah Mulk Challenge",
+    description: "Gamified word-ordering challenge to test your memory of Surah Al-Mulk.",
+    images: ["/poster.png"],
   },
 };
 

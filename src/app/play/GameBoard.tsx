@@ -92,6 +92,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
     const [elapsed, setElapsed] = useState(0)
     const [isFinished, setIsFinished] = useState(false)
     const [saving, setSaving] = useState(false)
+    const [isTransitioning, setIsTransitioning] = useState(false)
     const [audio] = useState(() => typeof window !== 'undefined' ? new AudioFeedback() : null)
 
     const router = useRouter()
@@ -125,6 +126,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
             }
             setAvailableChunks(shuffled);
             setSelectedChunks([]); // reset selections for new ayat
+            setIsTransitioning(false); // Enable interactions for the new ayat
         }
     }, [currentIndex])
 
@@ -155,9 +157,12 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
             return;
         }
 
+        if (isTransitioning) return; // Prevent double clicks that skip ayats
+
         const isCorrect = selectedChunks.every((chunk, index) => chunk.orderIndex === index);
 
         if (isCorrect) {
+            setIsTransitioning(true); // Lock the board during success animation
             audio?.playSuccess();
             toast.success('Correct! Masha Allah.', { icon: '✨' });
 
@@ -180,6 +185,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                 } else {
                     toast.error(result.error || 'Failed to save score. Please try again.')
                     setSaving(false)
+                    setIsTransitioning(false) // Unlock if save fails
                 }
             }
         } else {

@@ -240,6 +240,88 @@ export default function AdminDashboard() {
                     </div>
                 )}
 
+                {/* Round 1 Champions Panel */}
+                <Card className="bg-card/50 border-amber-500/30 shadow-xl shadow-amber-500/5 backdrop-blur-sm overflow-hidden mb-6">
+                    <CardHeader className="border-b border-border bg-gradient-to-r from-amber-500/10 to-transparent">
+                        <CardTitle className="text-xl text-foreground flex items-center gap-2">
+                            <Trophy className="w-5 h-5 text-amber-500" />
+                            Round 1 Champions Details
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
+                            {/* Rank 1 */}
+                            <div className="p-6 relative group hover:bg-muted/30 transition-colors">
+                                <div className="absolute top-4 right-4 text-3xl opacity-20 group-hover:opacity-100 transition-opacity">🥇</div>
+                                <h3 className="text-xl font-bold text-foreground mb-1">Hanan</h3>
+                                <div className="space-y-4">
+                                    <div className="bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono font-bold px-3 py-1 rounded-md inline-block">1m 2s</div>
+                                    <div className="space-y-2 text-sm">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Phone:</span>
+                                            <span className="font-medium text-foreground">+91 8590 004 033</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Place:</span>
+                                            <span className="font-medium text-foreground text-right">Karaparamb<br /><span className="text-xs text-muted-foreground mr-1">(Kozhikode)</span></span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Unit:</span>
+                                            <span className="font-medium text-foreground text-right">Karaparamb</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Rank 2 */}
+                            <div className="p-6 relative group hover:bg-muted/30 transition-colors">
+                                <div className="absolute top-4 right-4 text-3xl opacity-20 group-hover:opacity-100 transition-opacity">🥈</div>
+                                <h3 className="text-xl font-bold text-foreground mb-1">Adil Noufan</h3>
+                                <div className="space-y-4">
+                                    <div className="bg-slate-500/10 text-slate-600 dark:text-slate-400 font-mono font-bold px-3 py-1 rounded-md inline-block">1m 6s</div>
+                                    <div className="space-y-2 text-sm">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Phone:</span>
+                                            <span className="font-medium text-foreground">+91 7510 209 453</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Place:</span>
+                                            <span className="font-medium text-foreground text-right">Feroke<br /><span className="text-xs text-muted-foreground mr-1">(Kozhikode)</span></span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Unit:</span>
+                                            <span className="font-medium text-foreground text-right">Feroke town</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Rank 3 */}
+                            <div className="p-6 relative group hover:bg-muted/30 transition-colors">
+                                <div className="absolute top-4 right-4 text-3xl opacity-20 group-hover:opacity-100 transition-opacity">🥉</div>
+                                <h3 className="text-xl font-bold text-foreground mb-1">Nafi</h3>
+                                <div className="space-y-4">
+                                    <div className="bg-orange-500/10 text-orange-600 dark:text-orange-400 font-mono font-bold px-3 py-1 rounded-md inline-block">1m 18s</div>
+                                    <div className="space-y-2 text-sm">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Phone:</span>
+                                            <span className="font-medium text-foreground">+91 9562 064 737</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Place:</span>
+                                            <span className="font-medium text-foreground text-right">Athanikkal<br /><span className="text-xs text-muted-foreground mr-1">(Malappuram)</span></span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-muted-foreground">Unit:</span>
+                                            <span className="font-medium text-foreground text-right">Athanikkal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Config Panel */}
                     <Card className="col-span-1 bg-card/50 border-border shadow-xl backdrop-blur-sm h-fit">

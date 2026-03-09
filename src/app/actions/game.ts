@@ -1,6 +1,7 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { revalidatePath } from 'next/cache'
 import { API_URL } from '@/lib/constants'
 
 export async function saveSession(total_time: string) {
@@ -25,6 +26,10 @@ export async function saveSession(total_time: string) {
             const error = await res.json()
             return { error: error.message || 'Failed to save session' }
         }
+
+        revalidatePath('/leaderboard')
+        revalidatePath('/admin')
+        revalidatePath('/')
 
         return { success: true }
     } catch (error) {

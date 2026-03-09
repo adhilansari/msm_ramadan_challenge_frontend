@@ -51,10 +51,6 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-transparent text-foreground flex flex-col items-center justify-start pt-16 pb-24 px-4 relative overflow-x-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-emerald-100/50 via-background to-background dark:from-emerald-900/30 dark:via-neutral-950/80 dark:to-neutral-950 -z-10" />
-      <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-emerald-600/10 rounded-full blur-[128px] pointer-events-none fade-in-out" />
-      <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-emerald-800/10 rounded-full blur-[128px] pointer-events-none fade-in-out" />
-
       <main className="max-w-4xl w-full flex flex-col items-center space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
 
         {/* Header Section */}

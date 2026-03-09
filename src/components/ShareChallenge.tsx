@@ -159,13 +159,31 @@ export default function ShareChallenge() {
 
     const handleNativeShare = async () => {
         try {
-            await navigator.share({
+            const shareData: ShareData = {
                 title: 'Surah Mulk Challenge',
                 text: buildShareText(),
                 url: SITE_URL,
-            })
-        } catch {
-            handleCopy()
+            }
+
+            // Try to fetch the poster image and attach it if supported
+            try {
+                const response = await fetch('/poster.png')
+                const blob = await response.blob()
+                const file = new File([blob], 'round1-champions.png', { type: blob.type })
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    shareData.files = [file]
+                }
+            } catch (e) {
+                console.warn('Could not attach image to share:', e)
+            }
+
+            await navigator.share(shareData)
+        } catch (error: any) {
+            // AbortError is perfectly fine (user closed the share sheet)
+            if (error.name !== 'AbortError') {
+                handleCopy()
+            }
         }
     }
 

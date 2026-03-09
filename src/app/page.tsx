@@ -6,8 +6,7 @@ import { API_URL } from '@/lib/constants'
 
 import MotivationCarousel from './MotivationCarousel'
 import ShareChallenge from '@/components/ShareChallenge'
-
-
+import FloatingShareButton from '@/components/FloatingShareButton'
 
 function formatTime(totalSeconds: number) {
   if (!totalSeconds) return '0s';
@@ -312,6 +311,8 @@ export default async function Home() {
         {/* Interactive Carousel */}
         <MotivationCarousel />
       </main>
+
+      <FloatingShareButton />
 
       {/* Footer Branding */}
       <footer className="absolute bottom-6 w-full px-4 text-center z-20">

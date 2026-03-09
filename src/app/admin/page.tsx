@@ -173,7 +173,7 @@ export default function AdminDashboard() {
                             <Settings2 className="w-8 h-8 text-emerald-600 dark:text-emerald-500" />
                             Admin Center
                         </h1>
-                        <p className="text-muted-foreground mt-1">Manage challenge parameters and view top-tier analytics.</p>
+                        <p className="text-muted-foreground mt-1">Manage challenge parameters and view top-tier analytics. <span className="font-bold text-emerald-600 dark:text-emerald-400">Round 2 (Ayat 10-20)</span> is active.</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Button onClick={handleDownloadCSV} variant="outline" className="border-emerald-500/50 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">

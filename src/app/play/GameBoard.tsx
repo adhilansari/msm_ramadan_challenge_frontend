@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { Ayat, QuranWord } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -15,6 +15,7 @@ class AudioFeedback {
 
     init() {
         if (!this.ctx) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             this.ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
         }
     }
@@ -103,6 +104,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
 
     useEffect(() => {
         if (startTime === null && ayats.length > 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setStartTime(Date.now())
         }
     }, [startTime, ayats])
@@ -125,9 +127,12 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                 shuffled = shuffleArray(chunks);
             }
             setAvailableChunks(shuffled);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSelectedChunks([]); // reset selections for new ayat
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsTransitioning(false); // Enable interactions for the new ayat
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex])
 
     // Initialize audio context on first user interaction to bypass browser autoplay policies

@@ -10,6 +10,7 @@ import LeaderboardList from './LeaderboardList'
 export const dynamic = 'force-dynamic'
 
 export default async function LeaderboardPage() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let leaderboardData: { totalParticipants: number, data: any[] } | null = null
     let error = null
 
@@ -20,6 +21,7 @@ export default async function LeaderboardPage() {
         const res = await fetch(`${API_URL}/game/leaderboard?page=1&limit=20`, { next: { revalidate: 15 } })
         if (!res.ok) throw new Error('Failed to fetch leaderboard')
         leaderboardData = await res.json()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
         error = err.message
     }

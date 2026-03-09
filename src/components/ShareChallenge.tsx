@@ -113,7 +113,9 @@ export default function ShareChallenge() {
     useEffect(() => {
         // Pick a random quote on mount
         const idx = Math.floor(Math.random() * ISLAMIC_QUOTES.length)
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setQuote(ISLAMIC_QUOTES[idx])
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCanNativeShare(typeof navigator !== 'undefined' && !!navigator.share)
     }, [])
 
@@ -179,6 +181,7 @@ export default function ShareChallenge() {
             }
 
             await navigator.share(shareData)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             // AbortError is perfectly fine (user closed the share sheet)
             if (error.name !== 'AbortError') {

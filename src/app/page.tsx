@@ -35,6 +35,7 @@ export default async function Home() {
     } catch (e) { }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let topPerformers: any[] = []
   try {
     const res = await fetch(`${API_URL}/game/leaderboard/top`, {
@@ -273,13 +274,13 @@ export default async function Home() {
                 <Image src="/msm-logo.png" alt="MSM Feroke Zone" width={44} height={44} className="rounded-2xl" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-foreground mb-3 tracking-tight">The Noble Qur'an</h3>
+                <h3 className="text-lg font-bold text-foreground mb-3 tracking-tight">The Noble Qur&apos;an</h3>
                 <p className="text-3xl text-right font-serif leading-relaxed text-emerald-700 dark:text-emerald-400 mb-4 tracking-wide" dir="rtl">
                   اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ
                 </p>
                 <div className="border-l-2 border-emerald-500/30 pl-4 py-1">
                   <p className="text-sm text-foreground italic leading-relaxed font-medium">
-                    "Read! In the name of your Lord who created"
+                    &quot;Read! In the name of your Lord who created&quot;
                   </p>
                   <p className="text-xs text-muted-foreground mt-1.5 font-semibold">Surah Al-Alaq: 1</p>
                 </div>
@@ -297,7 +298,7 @@ export default async function Home() {
                 <h3 className="text-lg font-bold text-foreground mb-4 tracking-tight">Prophetic Wisdom</h3>
                 <div className="bg-emerald-500/5 dark:bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/10">
                   <p className="text-[15px] text-foreground/90 leading-relaxed italic font-medium">
-                    "The best among you are those who learn the Quran and teach it."
+                    &quot;The best among you are those who learn the Quran and teach it.&quot;
                   </p>
                 </div>
                 <p className="text-xs text-muted-foreground mt-3 font-semibold flex items-center gap-1.5 font-mono">

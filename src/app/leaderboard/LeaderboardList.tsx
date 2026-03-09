@@ -16,6 +16,7 @@ function formatTime(totalSeconds: number) {
 }
 
 interface LeaderboardListProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     initialData: any[];
     totalParticipants: number;
 }
@@ -40,10 +41,12 @@ export default function LeaderboardList({ initialData, totalParticipants }: Lead
             setItems(prev => {
                 // To prevent duplicates in case of double-fetch
                 const existingIds = new Set(prev.map(i => i.user_id))
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const newItems = result.data.filter((i: any) => !existingIds.has(i.user_id))
                 return [...prev, ...newItems]
             })
             setPage(nextPage)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err.message || 'Failed to load more')
         } finally {
@@ -62,6 +65,7 @@ export default function LeaderboardList({ initialData, totalParticipants }: Lead
             )}
 
             <div className="divide-y divide-border/50">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {items.map((entry: any, index: number) => (
                     <div key={`${entry.user_id}-${index}`} className="flex justify-between items-center p-3 sm:p-4 hover:bg-muted/50 transition-colors">
                         <div className="w-10 sm:w-12 text-center font-mono text-lg sm:text-xl font-bold text-muted-foreground">

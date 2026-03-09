@@ -225,7 +225,7 @@ export default function MotivationCarousel() {
                                     {quote.arabic}
                                 </p>
                                 <p className="text-[15px] font-medium text-foreground/90 italic leading-relaxed">
-                                    "{quote.text}"
+                                    &quot;{quote.text}&quot;
                                 </p>
                             </div>
                             <div className="mt-6 flex items-center justify-between border-t border-emerald-500/10 pt-4">

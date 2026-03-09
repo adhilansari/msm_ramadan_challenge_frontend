@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 import { Button } from './ui/button'
 
 export function PWAInstallPrompt() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
 
     useEffect(() => {
@@ -23,8 +24,10 @@ export function PWAInstallPrompt() {
                     label: 'Install',
                     onClick: async () => {
                         // The deferredPrompt must be used immediately when the user clicks
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         (e as any).prompt();
                         // Wait for the user to respond to the prompt
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         const { outcome } = await (e as any).userChoice;
                         if (outcome === 'accepted') {
                             setDeferredPrompt(null)

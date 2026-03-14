@@ -7,7 +7,7 @@ The user has explicitly mandated that under zero circumstances should production
 ## Rule 1: Separation of `.env` Files
 - **Never** develop against the live production Supabase database.
 - The default `.env` file should point ONLY to a local PostgreSQL instance or a dedicated testing DB.
-- Production `.env` variables (like Supabase `DATABASE_URL`) should only be set in the production hosting provider (e.g., Railway).
+- Production `.env` variables (like Supabase `DATABASE_URL`) should only be set in the production hosting provider (e.g., Fly.io).
 - Do not commit any production secrets, URLs, or API keys to the Git repository.
 
 ## Rule 2: Database Migrations over Database Pushes
@@ -18,7 +18,7 @@ The user has explicitly mandated that under zero circumstances should production
 ## Rule 3: API & CORS Separation
 - **Frontend URL Routing:**
   - Local mode: Frontend calls backend at `http://localhost:3001`
-  - Production mode: Vercel frontend MUST use the Railway *Public Domain* URL (not `.internal`) set in `NEXT_PUBLIC_API_URL`.
+  - Production mode: Vercel frontend MUST use the Fly.io *Public Domain* URL (not `.internal`) set in `NEXT_PUBLIC_API_URL`.
 - **Backend CORS Policy:**
   - Local mode: Backend allows traffic from `http://localhost:3000`
   - Production mode: Backend `process.env.FRONTEND_URL` MUST be `https://msmquranchallenge.vercel.app` (without a trailing slash).

@@ -240,82 +240,85 @@ export default function AdminDashboard() {
                     </div>
                 )}
 
-                {/* Round 1 Champions Panel */}
+                {/* Hall of Champions Panel */}
                 <Card className="bg-card/50 border-amber-500/30 shadow-xl shadow-amber-500/5 backdrop-blur-sm overflow-hidden mb-6">
                     <CardHeader className="border-b border-border bg-gradient-to-r from-amber-500/10 to-transparent">
                         <CardTitle className="text-xl text-foreground flex items-center gap-2">
                             <Trophy className="w-5 h-5 text-amber-500" />
-                            Round 1 Champions Details
+                            Hall of Champions
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-0">
-                        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
-                            {/* Rank 1 */}
-                            <div className="p-6 relative group hover:bg-muted/30 transition-colors">
-                                <div className="absolute top-4 right-4 text-3xl opacity-20 group-hover:opacity-100 transition-opacity">🥇</div>
-                                <h3 className="text-xl font-bold text-foreground mb-1">Hanan</h3>
-                                <div className="space-y-4">
-                                    <div className="bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono font-bold px-3 py-1 rounded-md inline-block">1m 2s</div>
-                                    <div className="space-y-2 text-sm">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Phone:</span>
-                                            <span className="font-medium text-foreground">+91 8590 004 033</span>
+                    <CardContent className="p-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            {/* Round 1 */}
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-2 mb-2 px-2">
+                                    <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-500/30">Round 1</span>
+                                    <span className="text-sm text-muted-foreground font-medium">Ayat 1 to 10</span>
+                                </div>
+                                <div className="space-y-3">
+                                    {[
+                                        { name: 'Hanan', place: 'Karaparamb', unit: 'Karaparamb', time: '1m 2s', phone: '+91 8590 004 033' },
+                                        { name: 'Adil Noufan', place: 'Feroke', unit: 'Feroke town', time: '1m 6s', phone: '+91 7510 209 453' },
+                                        { name: 'Nafi', place: 'Athanikkal', unit: 'Athanikkal', time: '1m 18s', phone: '+91 9562 064 737' },
+                                    ].map((champ, idx) => (
+                                        <div key={idx} className="flex flex-col gap-2 bg-background border border-border p-3 sm:p-4 rounded-xl shadow-sm hover:shadow-md transition-all">
+                                            <div className="flex items-center gap-3">
+                                                <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
+                                                    {idx === 0 ? '🏆' : idx === 1 ? '🥈' : '🥉'}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="font-bold text-foreground text-sm truncate">{champ.name}</h4>
+                                                    <p className="text-xs text-muted-foreground truncate">{champ.place} {champ.unit && `(${champ.unit})`}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/20">
+                                                        {champ.time}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="text-xs text-muted-foreground flex justify-between border-t border-border pt-2 mt-1">
+                                                <span>Contact:</span>
+                                                <span className="font-medium text-foreground">{champ.phone}</span>
+                                            </div>
                                         </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Place:</span>
-                                            <span className="font-medium text-foreground text-right">Karaparamb<br /><span className="text-xs text-muted-foreground mr-1">(Kozhikode)</span></span>
-                                        </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Unit:</span>
-                                            <span className="font-medium text-foreground text-right">Karaparamb</span>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
 
-                            {/* Rank 2 */}
-                            <div className="p-6 relative group hover:bg-muted/30 transition-colors">
-                                <div className="absolute top-4 right-4 text-3xl opacity-20 group-hover:opacity-100 transition-opacity">🥈</div>
-                                <h3 className="text-xl font-bold text-foreground mb-1">Adil Noufan</h3>
-                                <div className="space-y-4">
-                                    <div className="bg-slate-500/10 text-slate-600 dark:text-slate-400 font-mono font-bold px-3 py-1 rounded-md inline-block">1m 6s</div>
-                                    <div className="space-y-2 text-sm">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Phone:</span>
-                                            <span className="font-medium text-foreground">+91 7510 209 453</span>
-                                        </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Place:</span>
-                                            <span className="font-medium text-foreground text-right">Feroke<br /><span className="text-xs text-muted-foreground mr-1">(Kozhikode)</span></span>
-                                        </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Unit:</span>
-                                            <span className="font-medium text-foreground text-right">Feroke town</span>
-                                        </div>
-                                    </div>
+                            {/* Round 2 */}
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-2 mb-2 px-2">
+                                    <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-500/30">Round 2</span>
+                                    <span className="text-sm text-muted-foreground font-medium">Ayat 10 to 20</span>
                                 </div>
-                            </div>
-
-                            {/* Rank 3 */}
-                            <div className="p-6 relative group hover:bg-muted/30 transition-colors">
-                                <div className="absolute top-4 right-4 text-3xl opacity-20 group-hover:opacity-100 transition-opacity">🥉</div>
-                                <h3 className="text-xl font-bold text-foreground mb-1">Nafi</h3>
-                                <div className="space-y-4">
-                                    <div className="bg-orange-500/10 text-orange-600 dark:text-orange-400 font-mono font-bold px-3 py-1 rounded-md inline-block">1m 18s</div>
-                                    <div className="space-y-2 text-sm">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Phone:</span>
-                                            <span className="font-medium text-foreground">+91 9562 064 737</span>
+                                <div className="space-y-3">
+                                    {[
+                                        { name: 'Adil Noufan', place: 'Feroke', unit: 'Feroke town', time: '1m 10s', phone: '+91 7510 209 453' },
+                                        { name: 'afthab', place: 'athanikkal', unit: '', time: '1m 19s', phone: '+91 9526 492 238' },
+                                        { name: 'Umaiban.C', place: 'Feroke', unit: 'Feroke', time: '1m 34s', phone: '+91 9744 250 300' },
+                                    ].map((champ, idx) => (
+                                        <div key={idx} className="flex flex-col gap-2 bg-background border border-border p-3 sm:p-4 rounded-xl shadow-sm hover:shadow-md transition-all">
+                                            <div className="flex items-center gap-3">
+                                                <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
+                                                    {idx === 0 ? '🏆' : idx === 1 ? '🥈' : '🥉'}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="font-bold text-foreground text-sm truncate">{champ.name}</h4>
+                                                    <p className="text-xs text-muted-foreground truncate">{champ.place} {champ.unit && `(${champ.unit})`}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/20">
+                                                        {champ.time}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="text-xs text-muted-foreground flex justify-between border-t border-border pt-2 mt-1">
+                                                <span>Contact:</span>
+                                                <span className="font-medium text-foreground">{champ.phone}</span>
+                                            </div>
                                         </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Place:</span>
-                                            <span className="font-medium text-foreground text-right">Athanikkal<br /><span className="text-xs text-muted-foreground mr-1">(Malappuram)</span></span>
-                                        </div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-muted-foreground">Unit:</span>
-                                            <span className="font-medium text-foreground text-right">Athanikkal</span>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>

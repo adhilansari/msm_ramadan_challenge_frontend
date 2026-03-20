@@ -279,6 +279,34 @@ export default async function Home() {
 
         {/* Interactive Carousel */}
         <MotivationCarousel />
+
+        {/* Vichinthanam Weekly Banner */}
+        <div className="w-full max-w-4xl mt-8 mb-4 animate-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both">
+          <a
+            href="https://www.vichinthanamweekly.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-emerald-900/60 via-emerald-800/60 to-emerald-900/60 hover:from-emerald-800/70 hover:via-emerald-700/70 hover:to-emerald-800/70 border border-emerald-500/20 hover:border-emerald-500/40 p-6 sm:p-8 rounded-3xl shadow-xl backdrop-blur-md transition-all group overflow-hidden relative"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -mr-20 -mt-20 transition-transform duration-700 group-hover:scale-150" />
+            <div className="flex items-center gap-5 relative z-10 text-center sm:text-left flex-col sm:flex-row">
+              <div className="bg-emerald-500/20 p-4 rounded-2xl border border-emerald-500/30 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+              </div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors tracking-tight">Read Vichinthanam Weekly</h3>
+                <p className="text-emerald-100/70 text-sm mt-1.5 font-medium leading-relaxed max-w-md">Discover authentic Islamic literature and insightful articles in Malayalam online.</p>
+              </div>
+            </div>
+
+            <div className="mt-6 sm:mt-0 relative z-10 flex-shrink-0 w-full sm:w-auto">
+              <div className="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-100 px-6 py-3.5 rounded-xl font-bold text-sm tracking-wide border border-emerald-500/30 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]">
+                Visit Website
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1.5 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </div>
+            </div>
+          </a>
+        </div>
       </main>
 
       <FloatingShareButton />

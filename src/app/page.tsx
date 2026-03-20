@@ -69,7 +69,7 @@ export default async function Home() {
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium mx-auto leading-relaxed px-2">
               A premium, gamified word-ordering challenge. <br />
-              <span className="text-emerald-500 font-bold dark:text-emerald-400">🔥 Round 2 is Live (Ayat 10 to 20)</span>
+              <span className="text-emerald-500 font-bold dark:text-emerald-400">🔥 Final Stage is Live (Ayat 1 to 30)</span>
             </p>
           </div>
 

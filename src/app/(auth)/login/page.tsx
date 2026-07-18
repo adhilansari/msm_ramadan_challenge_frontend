@@ -35,11 +35,11 @@ export default function LoginPage() {
             
             {/* Background Madrasa Image with soft blur & overlay */}
             <div 
-                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.06] dark:opacity-[0.04] pointer-events-none filter blur-[1px]" 
+                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px]" 
                 style={{ backgroundImage: `url('/village-madrasa.png')` }}
             />
 
-            <Card className="max-w-md w-full border-border bg-card/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500">
+            <Card className="max-w-md w-full glass-panel border-none animate-in slide-in-from-bottom-4 duration-500 rounded-3xl">
                 <CardHeader className="space-y-1 flex flex-col items-center text-center">
                     <Image src="/favicon.png" alt="Salafi Madrasa Learning Portal" width={100} height={100} className="mb-2 drop-shadow-md rounded-2xl" />
                     <CardTitle className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">Welcome Back</CardTitle>

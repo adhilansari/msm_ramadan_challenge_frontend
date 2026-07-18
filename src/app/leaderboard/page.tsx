@@ -44,7 +44,7 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
             
             {/* Background Madrasa Image with soft blur & overlay */}
             <div 
-                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.06] dark:opacity-[0.04] pointer-events-none filter blur-[1px]" 
+                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px]" 
                 style={{ backgroundImage: `url('/village-madrasa.png')` }}
             />
 
@@ -70,7 +70,7 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
 
                 {/* Participant Count Badge */}
                 {participantCount > 0 && (
-                    <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl px-5 py-3 w-fit animate-in fade-in slide-in-from-left-4 duration-500">
+                    <div className="flex items-center gap-3 glass-card border-emerald-500/30 rounded-2xl px-5 py-3 w-fit animate-in fade-in slide-in-from-left-4 duration-500">
                         <div className="p-2 rounded-xl bg-emerald-500/15">
                             {selectedClass === 'All' ? (
                                 <Users className="w-4 h-4 text-emerald-500" />
@@ -87,7 +87,7 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
                     </div>
                 )}
 
-                <Card className="border-border bg-card/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500 overflow-hidden shadow-xl">
+                <Card className="glass-panel border-none animate-in slide-in-from-bottom-4 duration-500 overflow-hidden rounded-3xl">
                     <CardHeader className="border-b border-border/50 bg-muted/30">
                         <CardTitle className="text-base sm:text-lg text-foreground flex justify-between">
                             <span className="w-10 sm:w-12 text-center text-muted-foreground">Rank</span>

@@ -63,7 +63,7 @@ export default function ClassWiseResults() {
             </div>
 
             {/* Class Selector Pills */}
-            <div className="flex flex-wrap gap-2 justify-center max-w-2xl mx-auto p-2 bg-muted/20 border border-border/50 rounded-3xl backdrop-blur-md">
+            <div className="flex flex-wrap gap-2 justify-center max-w-2xl mx-auto p-2 glass-card rounded-3xl">
                 {CLASSES.map((cls) => (
                     <button
                         key={cls}
@@ -93,7 +93,7 @@ export default function ClassWiseResults() {
                         {error}
                     </div>
                 ) : performers.length === 0 ? (
-                    <div className="p-8 text-center bg-card/40 border border-dashed border-border rounded-3xl backdrop-blur-md">
+                    <div className="p-8 text-center glass-panel border border-dashed border-border/60 rounded-3xl">
                         <GraduationCap className="w-10 h-10 text-muted-foreground/60 mx-auto mb-3" />
                         <h4 className="font-bold text-foreground">No Records Yet</h4>
                         <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
@@ -105,7 +105,7 @@ export default function ClassWiseResults() {
                         {performers.map((champ, idx) => (
                             <div
                                 key={idx}
-                                className={`flex items-center gap-4 bg-card/60 backdrop-blur-md border p-4 rounded-3xl shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 group ${
+                                className={`flex items-center gap-4 glass-card p-4 rounded-3xl shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 group ${
                                     idx === 0 
                                         ? "border-amber-500/30 dark:border-amber-500/20" 
                                         : idx === 1 

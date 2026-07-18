@@ -242,21 +242,22 @@ export default function MotivationCarousel() {
                     {carouselItems.map((quote, idx) => (
                         <div
                             key={idx}
-                            className="w-[350px] md:w-[450px] shrink-0 border border-emerald-500/10 shadow-sm rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between snap-center relative overflow-hidden group"
+                            tabIndex={0}
+                            className="w-[350px] md:w-[450px] shrink-0 border border-emerald-500/10 shadow-sm rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between snap-center relative overflow-hidden group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer"
                         >
                             {/* Card Background Image with overlay */}
                             <div 
-                                className="absolute inset-0 bg-cover bg-center opacity-[0.06] dark:opacity-[0.04] transition-transform duration-700 group-hover:scale-105"
+                                className="absolute inset-0 bg-cover bg-center opacity-[0.18] dark:opacity-[0.12] transition-all duration-700 group-hover:scale-105 group-hover:opacity-[0.45] dark:group-hover:opacity-[0.35] group-focus-within:scale-105 group-focus-within:opacity-[0.45] dark:group-focus-within:opacity-[0.35] group-active:scale-105 group-active:opacity-[0.45] dark:group-active:opacity-[0.35]"
                                 style={{ backgroundImage: `url('${quote.bgImage}')` }}
                             />
                             {/* Subtle background color overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-card/90 via-card/95 to-card/98 -z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-card/90 via-card/95 to-card/98 -z-10 transition-opacity duration-700 group-hover:opacity-[0.75] group-focus-within:opacity-[0.75] group-active:opacity-[0.75]" />
 
                             <div className="relative z-10">
-                                <p className="text-xl font-serif text-emerald-700 dark:text-emerald-300 text-right mb-4 leading-loose" dir="rtl">
+                                <p className="text-xl font-serif text-emerald-700 dark:text-emerald-300 text-right mb-4 leading-loose text-glow-arabic transition-all" dir="rtl">
                                     {quote.arabic}
                                 </p>
-                                <p className="text-[15px] font-medium text-foreground/90 italic leading-relaxed">
+                                <p className="text-[15px] font-medium text-foreground/90 italic leading-relaxed text-glow-translation transition-all">
                                     &quot;{quote.text}&quot;
                                 </p>
                             </div>

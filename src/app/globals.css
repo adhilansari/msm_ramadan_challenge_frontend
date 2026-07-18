@@ -144,3 +144,61 @@
 .qalaqah { color: #DD0008; }
 .ham_wasl { color: #AAAAAA; } /* Silent/wasl */
 .slnt { color: #AAAAAA; } /* Silent letter */
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+}
+.dark .glass-panel {
+  background: rgba(20, 20, 20, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+}
+.dark .glass-card {
+  background: rgba(23, 23, 23, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.18);
+}
+
+/* Custom Text Glow Effects on Card Hover/Touch/Focus */
+.group:hover .text-glow-arabic,
+.group:active .text-glow-arabic,
+.group:focus .text-glow-arabic {
+  text-shadow: 0 0 10px rgba(5, 150, 105, 0.25);
+  transition: text-shadow 0.3s ease-in-out;
+}
+.dark .group:hover .text-glow-arabic,
+.dark .group:active .text-glow-arabic,
+.dark .group:focus .text-glow-arabic {
+  text-shadow: 0 0 12px rgba(110, 231, 183, 0.4), 0 0 24px rgba(110, 231, 183, 0.15);
+  transition: text-shadow 0.3s ease-in-out;
+}
+
+.group:hover .text-glow-translation,
+.group:active .text-glow-translation,
+.group:focus .text-glow-translation {
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transition: text-shadow 0.3s ease-in-out;
+}
+.dark .group:hover .text-glow-translation,
+.dark .group:active .text-glow-translation,
+.dark .group:focus .text-glow-translation {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: text-shadow 0.3s ease-in-out;
+}

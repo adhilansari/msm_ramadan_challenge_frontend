@@ -89,12 +89,12 @@ export default function StudentLobby({ user, challenge, leaderboard }: StudentLo
         <div className="max-w-5xl mx-auto px-4 py-8 space-y-12">
             {/* Background Backdrop Image */}
             <div 
-                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.06] dark:opacity-[0.03] pointer-events-none filter blur-[1px]" 
+                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px]" 
                 style={{ backgroundImage: `url('/village-madrasa.png')` }}
             />
 
             {/* Top Welcome Header */}
-            <div className="bg-card/40 backdrop-blur-xl border border-border/80 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
                 <div className="flex items-center gap-4 relative z-10">
                     <div className="p-3.5 bg-emerald-600/10 text-emerald-600 dark:text-emerald-400 rounded-2xl border border-emerald-500/20 shadow-inner">
@@ -110,7 +110,7 @@ export default function StudentLobby({ user, challenge, leaderboard }: StudentLo
                     </div>
                 </div>
 
-                <div className="flex-shrink-0 flex items-center gap-3 bg-muted/40 px-5 py-3 rounded-2xl border border-border/60 relative z-10 w-fit">
+                <div className="flex-shrink-0 flex items-center gap-3 glass-card px-5 py-3 rounded-2xl relative z-10 w-fit">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span className="text-xs sm:text-sm font-bold text-foreground">
                         {user.class || "No Class Assigned"}
@@ -125,7 +125,7 @@ export default function StudentLobby({ user, challenge, leaderboard }: StudentLo
                 <div className="lg:col-span-7 space-y-8">
                     
                     {/* Active Challenge Card */}
-                    <div className="bg-gradient-to-br from-emerald-950/40 to-emerald-900/40 dark:from-emerald-950/60 dark:to-neutral-900/60 backdrop-blur-xl border border-emerald-500/20 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[320px] group">
+                    <div className="glass-panel border-emerald-500/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between min-h-[320px] group">
                         <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-500/10 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none" />
                         
                         <div className="space-y-4 relative z-10">
@@ -133,17 +133,17 @@ export default function StudentLobby({ user, challenge, leaderboard }: StudentLo
                                 <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500 animate-pulse" />
                                 Active Challenge
                             </div>
-                            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                            <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
                                 Surah {challenge.surahName}
                             </h2>
-                            <p className="text-emerald-100/70 text-sm sm:text-base font-medium max-w-md">
+                            <p className="text-muted-foreground text-sm sm:text-base font-medium max-w-md">
                                 Arrange the tajweed-colored Quranic word chunks in their correct sequential order to set a record time!
                             </p>
-                            <div className="flex flex-wrap gap-4 text-xs font-bold text-emerald-100 pt-2">
-                                <span className="bg-emerald-800/40 px-3.5 py-2 rounded-xl border border-emerald-500/20 backdrop-blur-sm">
+                            <div className="flex flex-wrap gap-4 text-xs font-bold text-foreground pt-2">
+                                <span className="glass-card px-3.5 py-2 rounded-xl border border-emerald-500/20">
                                     Verse range: {challenge.startAyat} - {challenge.endAyat}
                                 </span>
-                                <span className="bg-emerald-800/40 px-3.5 py-2 rounded-xl border border-emerald-500/20 backdrop-blur-sm">
+                                <span className="glass-card px-3.5 py-2 rounded-xl border border-emerald-500/20">
                                     Total Verses: {challenge.ayats.length}
                                 </span>
                             </div>
@@ -171,7 +171,7 @@ export default function StudentLobby({ user, challenge, leaderboard }: StudentLo
                             {SCHOLAR_QUOTES.map((item, idx) => (
                                 <div 
                                     key={idx} 
-                                    className="bg-card/40 hover:bg-card/60 backdrop-blur-xl border border-border/80 rounded-3xl p-6 relative overflow-hidden group transition-all duration-300 flex items-start gap-4"
+                                    className="glass-card hover:bg-white/40 dark:hover:bg-neutral-900/40 rounded-3xl p-6 relative overflow-hidden group transition-all duration-300 flex items-start gap-4"
                                 >
                                     <Quote className="w-6 h-6 text-emerald-500/30 flex-shrink-0 mt-1" />
                                     <div className="space-y-2">
@@ -201,7 +201,7 @@ export default function StudentLobby({ user, challenge, leaderboard }: StudentLo
                         </span>
                     </div>
 
-                    <div className="bg-card/40 backdrop-blur-xl border border-border/80 rounded-3xl shadow-xl overflow-hidden">
+                    <div className="glass-panel rounded-3xl overflow-hidden">
                         <div className="bg-muted/40 p-4 border-b border-border/60">
                             <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                                 Top 10 Best Times

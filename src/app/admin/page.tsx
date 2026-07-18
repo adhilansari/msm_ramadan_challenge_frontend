@@ -205,7 +205,7 @@ export default function AdminDashboard() {
             
             {/* Background Madrasa Image with soft blur & overlay */}
             <div 
-                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.06] dark:opacity-[0.04] pointer-events-none filter blur-[1px]" 
+                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px]" 
                 style={{ backgroundImage: `url('/village-madrasa.png')` }}
             />
 
@@ -223,7 +223,7 @@ export default function AdminDashboard() {
                             <Download className="w-4 h-4 mr-2" />
                             Export CSV
                         </Button>
-                        <Button asChild variant="outline" className="border-border bg-card/50 hover:bg-muted text-foreground">
+                        <Button asChild variant="outline" className="glass-card hover:bg-muted text-foreground">
                             <Link href="/">Back to Home</Link>
                         </Button>
                     </div>
@@ -232,7 +232,7 @@ export default function AdminDashboard() {
                 {/* KPI Highlights */}
                 {kpis && (
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <Card className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border-blue-500/20 shadow-sm backdrop-blur-sm">
+                        <Card className="glass-card border-blue-500/30">
                             <CardContent className="p-6">
                                 <div className="flex justify-between items-start">
                                     <div className="space-y-1">
@@ -247,7 +247,7 @@ export default function AdminDashboard() {
                             </CardContent>
                         </Card>
 
-                        <Card className="bg-card/50 border-border shadow-sm backdrop-blur-sm">
+                        <Card className="glass-card">
                             <CardContent className="p-6">
                                 <div className="flex justify-between items-start">
                                     <div className="space-y-1">
@@ -261,7 +261,7 @@ export default function AdminDashboard() {
                             </CardContent>
                         </Card>
 
-                        <Card className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 shadow-sm backdrop-blur-sm md:col-span-2">
+                        <Card className="glass-card border-emerald-500/30 md:col-span-2">
                             <CardContent className="p-6">
                                 <div className="flex justify-between items-start">
                                     <div className="space-y-1">
@@ -284,7 +284,7 @@ export default function AdminDashboard() {
                 )}
 
                 {/* Archive Hall of Champions */}
-                <Card className="bg-card/50 border-amber-500/30 shadow-xl shadow-amber-500/5 backdrop-blur-sm overflow-hidden mb-6">
+                <Card className="glass-panel border-amber-500/30 overflow-hidden mb-6 rounded-3xl">
                     <CardHeader className="border-b border-border bg-gradient-to-r from-amber-500/10 to-transparent">
                         <CardTitle className="text-xl text-foreground flex items-center gap-2">
                             <Trophy className="w-5 h-5 text-amber-500" />
@@ -305,7 +305,7 @@ export default function AdminDashboard() {
                                         { name: 'Adil Noufan', place: 'Feroke', unit: 'Feroke town', time: '1m 6s', phone: '+91 7510 209 453' },
                                         { name: 'Nafi', place: 'Athanikkal', unit: 'Athanikkal', time: '1m 18s', phone: '+91 9562 064 737' },
                                     ].map((champ, idx) => (
-                                        <div key={idx} className="flex flex-col gap-2 bg-background border border-border p-3 sm:p-4 rounded-xl shadow-sm hover:shadow-md transition-all">
+                                        <div key={idx} className="flex flex-col gap-2 glass-card p-3 sm:p-4 rounded-xl hover:shadow-md transition-all">
                                             <div className="flex items-center gap-3">
                                                 <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
                                                     {idx === 0 ? '🏆' : idx === 1 ? '🥈' : '🥉'}
@@ -341,7 +341,7 @@ export default function AdminDashboard() {
                                         { name: 'afthab', place: 'athanikkal', unit: '', time: '1m 19s', phone: '+91 9526 492 238' },
                                         { name: 'Umaiban.C', place: 'Feroke', unit: 'Feroke', time: '1m 34s', phone: '+91 9744 250 300' },
                                     ].map((champ, idx) => (
-                                        <div key={idx} className="flex flex-col gap-2 bg-background border border-border p-3 sm:p-4 rounded-xl shadow-sm hover:shadow-md transition-all">
+                                        <div key={idx} className="flex flex-col gap-2 glass-card p-3 sm:p-4 rounded-xl hover:shadow-md transition-all">
                                             <div className="flex items-center gap-3">
                                                 <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
                                                     {idx === 0 ? '🏆' : idx === 1 ? '🥈' : '🥉'}
@@ -370,7 +370,7 @@ export default function AdminDashboard() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Config Panel */}
-                    <Card className="col-span-1 bg-card/50 border-border shadow-xl backdrop-blur-sm h-fit">
+                    <Card className="col-span-1 glass-panel h-fit rounded-3xl">
                         <CardHeader>
                             <CardTitle className="text-xl text-foreground">Class Challenge Configuration</CardTitle>
                         </CardHeader>
@@ -437,7 +437,7 @@ export default function AdminDashboard() {
                     </Card>
 
                     {/* Analytics Panel */}
-                    <Card className="col-span-1 md:col-span-2 bg-card/50 border-border shadow-xl backdrop-blur-sm h-fit overflow-hidden">
+                    <Card className="col-span-1 md:col-span-2 glass-panel h-fit overflow-hidden rounded-3xl">
                         <CardHeader className="border-b border-border bg-muted/20">
                             <CardTitle className="text-xl text-foreground flex items-center gap-2">
                                 <Users className="w-5 h-5 text-emerald-600 dark:text-emerald-500" />

@@ -53,7 +53,7 @@ export default async function Home() {
     <div className="min-h-screen bg-transparent text-foreground flex flex-col items-center justify-start pt-16 pb-24 px-4 relative overflow-x-hidden">
       {/* Background Madrasa Image with soft blur & overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.06] dark:opacity-[0.04] pointer-events-none filter blur-[1px]" 
+        className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px]" 
         style={{ backgroundImage: `url('/village-madrasa.png')` }}
       />
       {/* Background Effects */}
@@ -92,7 +92,7 @@ export default async function Home() {
                     <Link href="/play">Start Challenge</Link>
                   </Button>
                 )}
-                <Button asChild size="lg" variant="outline" className="w-full sm:w-1/2 border-border bg-card/50 hover:bg-muted text-foreground font-semibold py-6 text-lg rounded-xl backdrop-blur-md transition-all">
+                <Button asChild size="lg" variant="outline" className="w-full sm:w-1/2 glass-card hover:bg-muted text-foreground font-semibold py-6 text-lg rounded-xl transition-all">
                   <Link href="/leaderboard">Leaderboard</Link>
                 </Button>
               </>
@@ -118,7 +118,7 @@ export default async function Home() {
 
         {/* Live Top 7 Leaderboard */}
         {topPerformers.length > 0 && (
-          <div className="w-full max-w-2xl bg-card/50 border border-border shadow-2xl rounded-3xl overflow-hidden backdrop-blur-xl animate-in zoom-in-95 duration-700 delay-200 fill-mode-both">
+          <div className="w-full max-w-2xl glass-panel rounded-3xl overflow-hidden animate-in zoom-in-95 duration-700 delay-200 fill-mode-both">
             {/* Header */}
             <div className="bg-muted/30 px-4 sm:px-6 py-4 border-b border-border/50 flex items-center justify-between">
               <div>
@@ -181,7 +181,7 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             {/* Left Column: Natural Village Madrasa Card */}
-            <div className="bg-card/40 backdrop-blur-xl border border-border/80 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col group">
+            <div className="glass-panel rounded-3xl overflow-hidden flex flex-col group">
               <div className="relative h-64 w-full overflow-hidden">
                 <Image 
                   src="/village-madrasa.png" 
@@ -214,7 +214,7 @@ export default async function Home() {
             {/* Right Column: Authenticated Sahih Hadees List */}
             <div className="space-y-4 flex flex-col justify-between">
               {/* Hadees 1 */}
-              <div className="bg-card/40 hover:bg-card/60 border border-border/80 backdrop-blur-xl rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
+              <div className="glass-card hover:bg-white/40 dark:hover:bg-neutral-900/40 rounded-3xl p-5 hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-6 -mt-6" />
                 <div className="relative z-10 space-y-2">
                   <span className="text-[10px] font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
@@ -228,7 +228,7 @@ export default async function Home() {
               </div>
 
               {/* Hadees 2 */}
-              <div className="bg-card/40 hover:bg-card/60 border border-border/80 backdrop-blur-xl rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
+              <div className="glass-card hover:bg-white/40 dark:hover:bg-neutral-900/40 rounded-3xl p-5 hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-6 -mt-6" />
                 <div className="relative z-10 space-y-2">
                   <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
@@ -242,7 +242,7 @@ export default async function Home() {
               </div>
 
               {/* Hadees 3 */}
-              <div className="bg-card/40 hover:bg-card/60 border border-border/80 backdrop-blur-xl rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
+              <div className="glass-card hover:bg-white/40 dark:hover:bg-neutral-900/40 rounded-3xl p-5 hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-6 -mt-6" />
                 <div className="relative z-10 space-y-2">
                   <span className="text-[10px] font-bold text-blue-500 bg-blue-500/10 border border-blue-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">

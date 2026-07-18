@@ -27,6 +27,7 @@ interface UserSession {
 
 interface Profile {
     id: string;
+    student_id: string;
     first_name?: string;
     last_name?: string;
     full_name: string;
@@ -467,6 +468,7 @@ export default function AdminDashboard() {
                             <Table>
                                 <TableHeader className="bg-muted/50 sticky top-0 backdrop-blur-md">
                                     <TableRow className="border-border hover:bg-transparent">
+                                        <TableHead className="text-muted-foreground font-medium w-[80px]">ID</TableHead>
                                         <TableHead className="text-muted-foreground font-medium">Name</TableHead>
                                         <TableHead className="text-muted-foreground font-medium">Contact</TableHead>
                                         <TableHead className="text-muted-foreground font-medium">Info</TableHead>
@@ -483,6 +485,9 @@ export default function AdminDashboard() {
 
                                         return (
                                             <TableRow key={user.id} className="border-border hover:bg-muted/50 transition-colors">
+                                                <TableCell className="font-mono font-bold text-emerald-600 dark:text-emerald-400 py-4">
+                                                    {user.student_id || 'N/A'}
+                                                </TableCell>
                                                 <TableCell className="font-medium text-foreground py-4">
                                                     <div>{user.first_name || ''} {user.last_name || ''}</div>
                                                     <div className="text-xs text-muted-foreground">{user.full_name}</div>

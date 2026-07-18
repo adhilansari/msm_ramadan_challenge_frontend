@@ -86,7 +86,7 @@ export async function signup(state: SignupActionState | null, formData: FormData
         }
 
         revalidatePath('/', 'layout')
-        redirect('/play')
+        redirect(`/register/success?id=${body.user.student_id}`)
     } catch (err) {
         if (err instanceof Error && err.message === 'NEXT_REDIRECT') throw err
         console.error('Signup error:', err)
@@ -107,8 +107,14 @@ export async function login(state: LoginActionState | null, formData: FormData) 
         // Save these for returning to the frontend on an error
         const returnedPhoneNumberLocal = data.phone_number_local;
         const returnedCountryCode = data.country_code;
+        const studentId = data.student_id;
 
-        if (data.country_code && data.phone_number_local) {
+        if (studentId && /^\d{4}$/.test(studentId.trim())) {
+            data.phone_number = studentId.trim();
+            delete data.student_id;
+            delete data.country_code;
+            delete data.phone_number_local;
+        } else if (data.country_code && data.phone_number_local) {
             const { error: phoneError, formattedPhone } = formatAndValidatePhone(data.country_code, data.phone_number_local);
 
             if (phoneError) {
@@ -122,6 +128,12 @@ export async function login(state: LoginActionState | null, formData: FormData) 
             data.phone_number = formattedPhone as string;
             delete data.country_code;
             delete data.phone_number_local;
+        } else {
+            return {
+                error: 'Please enter a valid 10-digit Phone Number or 4-digit Student ID.',
+                country_code: returnedCountryCode,
+                phone_number_local: returnedPhoneNumberLocal
+            };
         }
 
         const res = await fetch(`${API_URL}/auth/login`, {
@@ -185,4 +197,105 @@ export async function signout() {
     cookieStore.delete('access_token')
     revalidatePath('/', 'layout')
     redirect('/login')
+}
+
+export async function getProfile() {
+    const cookieStore = await cookies()
+    const token = cookieStore.get('access_token')?.value
+    if (!token) return null
+
+    try {
+        const res = await fetch(`${API_URL}/auth/me`, {
+            headers: { Authorization: `Bearer ${token}` },
+            cache: 'no-store'
+        })
+        if (!res.ok) return null
+        return await res.json()
+    } catch (err) {
+        console.error('getProfile error:', err)
+        return null
+    }
+}
+
+export async function updateProfile(state: any, formData: FormData) {
+    try {
+        const cookieStore = await cookies()
+        const token = cookieStore.get('access_token')?.value
+        if (!token) {
+            return { error: 'Not authenticated.' }
+        }
+
+        const data = Object.fromEntries(formData.entries()) as Record<string, any>
+
+        // Handle checkbox
+        data.is_msm_member = data.is_msm_member === 'on' || data.is_msm_member === 'true';
+
+        // Prepare return payload
+        const returnedData = {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            place: data.place,
+            district: data.district,
+            msm_unit: data.msm_unit,
+            is_msm_member: data.is_msm_member,
+            dob: data.dob,
+            class: data.class,
+            country_code: data.country_code,
+            phone_number_local: data.phone_number_local,
+        }
+
+        // Validate passwords if user attempts to change it
+        if (data.password || data.confirm_password) {
+            if (data.password !== data.confirm_password) {
+                return { error: 'Passwords do not match.', ...returnedData }
+            }
+        } else {
+            // Delete if empty
+            delete data.password
+        }
+        delete data.confirm_password
+
+        // Format phone number
+        if (data.country_code && data.phone_number_local) {
+            const { error: phoneError, formattedPhone } = formatAndValidatePhone(data.country_code, data.phone_number_local);
+            if (phoneError) {
+                return { error: phoneError, ...returnedData }
+            }
+            data.phone_number = formattedPhone;
+            delete data.country_code;
+            delete data.phone_number_local;
+        }
+
+        const res = await fetch(`${API_URL}/auth/update`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+
+        const body = await res.json()
+
+        if (!res.ok) {
+            return { error: body.message || 'Failed to update profile', ...returnedData }
+        }
+
+        // Set cookies if a new token was returned
+        const setCookieHeader = res.headers.get('set-cookie')
+        if (setCookieHeader) {
+            const newToken = setCookieHeader.split(';')[0].split('=')[1]
+            cookieStore.set('access_token', newToken, {
+                httpOnly: true,
+                path: '/',
+                maxAge: 7 * 24 * 60 * 60
+            })
+        }
+
+        revalidatePath('/', 'layout')
+        return { success: 'Profile updated successfully!', user: body.user }
+    } catch (err) {
+        console.error('updateProfile error:', err)
+        return { error: 'An unexpected error occurred.' }
+    }
 }

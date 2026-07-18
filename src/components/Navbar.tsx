@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ThemeToggle } from './ThemeToggle'
 import { Button } from './ui/button'
+import { User } from 'lucide-react'
 import { signout } from '@/app/actions/auth'
 
 interface NavbarProps {
@@ -40,10 +41,13 @@ export default function Navbar({ user }: NavbarProps) {
                     <ThemeToggle />
 
                     {user ? (
-                        <div className="flex items-center gap-3 sm:gap-4">
-                            <span className="text-sm text-muted-foreground font-medium hidden xs:inline-block">
-                                {user.full_name}
-                            </span>
+                        <div className="flex items-center gap-2 sm:gap-3">
+                            <Link href="/profile" title="View Profile" className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:border-emerald-500/40 transition-all group">
+                                <User className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                                <span className="text-xs sm:text-sm font-semibold hidden xs:inline-block">
+                                    {user.full_name.split(' ')[0]}
+                                </span>
+                            </Link>
                             {user.role === 'ADMIN' && (
                                 <Link href="/admin">
                                     <Button variant="outline" size="sm" className="h-8 px-3 text-xs border-emerald-500/50 text-emerald-600 dark:text-emerald-400">

@@ -33,13 +33,20 @@ export const SURAH_NAMES = [
   "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas"
 ];
 
-export async function fetchClassChallenge(className: string): Promise<{ ayats: Ayat[], surahName: string, surahNumber: number, startAyat: number, endAyat: number } | null> {
+export async function fetchClassChallenge(className: string, token?: string): Promise<{ ayats: Ayat[], surahName: string, surahNumber: number, startAyat: number, endAyat: number } | null> {
     try {
         let surahNumber = 67;
         let startAyat = 1;
         let endAyat = 30;
         try {
-            const configRes = await fetch(`${API_URL}/game/config?class=${encodeURIComponent(className)}`, { next: { revalidate: 0 } });
+            const headers: Record<string, string> = {};
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            const configRes = await fetch(`${API_URL}/game/config?class=${encodeURIComponent(className)}`, { 
+                headers,
+                next: { revalidate: 0 } 
+            });
             if (configRes.ok) {
                 const config = await configRes.json();
                 surahNumber = config.surah_number || 67;

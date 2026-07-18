@@ -81,11 +81,26 @@ export default function LeaderboardList({ initialData, totalParticipants, classF
                         </div>
                         <div className="flex-1 px-2 sm:px-4 min-w-0">
                             <div className="font-semibold text-sm sm:text-base text-foreground truncate">
-                                {entry.first_name || ''} {entry.last_name || ''}
-                                <span className="text-[10px] text-muted-foreground ml-2 font-normal">({entry.full_name})</span>
+                                {entry.full_name || `${entry.first_name || ''} ${entry.last_name || ''}`.trim()}
                             </div>
-                            <div className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                                {entry.place} {entry.class ? `• ${entry.class}` : ''} {entry.is_msm_member ? '• MSM Member' : ''}
+                            <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 flex flex-wrap gap-x-2 gap-y-0.5 items-center">
+                                <span className="font-medium">{entry.place}</span>
+                                {entry.class && (
+                                    <>
+                                        <span className="text-emerald-500/30 font-bold">•</span>
+                                        <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold tracking-wider uppercase">
+                                            {entry.class}
+                                        </span>
+                                    </>
+                                )}
+                                {entry.is_msm_member && (
+                                    <>
+                                        <span className="text-emerald-500/30 font-bold">•</span>
+                                        <span className="bg-blue-500/10 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold tracking-wider uppercase">
+                                            MSM
+                                        </span>
+                                    </>
+                                )}
                             </div>
                         </div>
                         <div className="w-20 sm:w-32 text-right font-mono text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">

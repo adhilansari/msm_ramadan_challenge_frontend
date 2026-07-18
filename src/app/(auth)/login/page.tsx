@@ -13,17 +13,13 @@ import { Eye, EyeOff } from 'lucide-react'
 const initialState: LoginActionState = { error: '', country_code: '+91', phone_number_local: '' }
 
 export default function LoginPage() {
-    const [countryCode, setCountryCode] = useState('+91');
-    const [phoneLocal, setPhoneLocal] = useState('');
+    const [studentId, setStudentId] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
     const [state, formAction, isPending] = useActionState<LoginActionState, FormData>(async (prevState: LoginActionState | null, formData: FormData) => {
         const result = await login(prevState, formData);
         if (result?.error) {
-            // Restore state if backend returns it
-            if (result.country_code) setCountryCode(result.country_code);
-            if (result.phone_number_local) setPhoneLocal(result.phone_number_local);
             return result as LoginActionState;
         }
         return initialState;
@@ -44,43 +40,25 @@ export default function LoginPage() {
                     <Image src="/favicon.png" alt="Salafi Madrasa Learning Portal" width={100} height={100} className="mb-2 drop-shadow-md rounded-2xl" />
                     <CardTitle className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">Welcome Back</CardTitle>
                     <CardDescription className="text-muted-foreground">
-                        Sign in with your phone number to continue the challenge.
+                        Sign in with your 4-digit Student ID to continue the challenge.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form action={formAction} className="space-y-4">
-
                         <div className="space-y-2">
-                            <Label htmlFor="phone_number_input" className="text-foreground">Phone Number</Label>
-                            <div className="flex gap-2">
-                                <select
-                                    className="bg-background dark:bg-neutral-900/50 border border-border text-foreground rounded-lg h-12 px-3 w-[100px] focus:ring-2 focus:ring-emerald-500 outline-none"
-                                    name="country_code"
-                                    value={countryCode}
-                                    onChange={(e) => setCountryCode(e.target.value)}
-                                >
-                                    <option value="+91">🇮🇳 +91</option>
-                                    <option value="+971">🇦🇪 +971</option>
-                                    <option value="+966">🇸🇦 +966</option>
-                                    <option value="+1">🇺🇸 +1</option>
-                                    <option value="+44">🇬🇧 +44</option>
-                                    <option value="+60">🇲🇾 +60</option>
-                                    <option value="+65">🇸🇬 +65</option>
-                                </select>
-                                <Input
-                                    id="phone_number_input"
-                                    name="phone_number_local"
-                                    type="tel"
-                                    required
-                                    className="bg-background dark:bg-neutral-900/50 flex-1 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
-                                    placeholder="9876543210"
-                                    value={phoneLocal}
-                                    onChange={(e) => setPhoneLocal(e.target.value.replace(/\D/g, ''))}
-                                    maxLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' ? 9 : 10)}
-                                    minLength={countryCode === '+65' ? 8 : (countryCode === '+971' || countryCode === '+966' || countryCode === '+60' ? 9 : 10)}
-                                    pattern="[0-9]*"
-                                />
-                            </div>
+                            <Label htmlFor="student_id" className="text-foreground">4-digit Student ID</Label>
+                            <Input
+                                id="student_id"
+                                name="student_id"
+                                type="text"
+                                required
+                                className="bg-background dark:bg-neutral-900/50 border-border text-foreground placeholder:text-muted-foreground rounded-lg h-12"
+                                placeholder="1001"
+                                value={studentId}
+                                onChange={(e) => setStudentId(e.target.value.replace(/\D/g, '').substring(0, 4))}
+                                pattern="[0-9]{4}"
+                                maxLength={4}
+                            />
                         </div>
 
                         <div className="space-y-2">

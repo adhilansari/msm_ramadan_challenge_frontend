@@ -29,7 +29,7 @@ export default async function PlayPage() {
     }
 
     // Fetch challenge dynamically for user's class
-    const challenge = await fetchClassChallenge(user.class || '')
+    const challenge = await fetchClassChallenge(user.class || '', token)
 
     if (!challenge || !challenge.ayats || challenge.ayats.length === 0) {
         return (

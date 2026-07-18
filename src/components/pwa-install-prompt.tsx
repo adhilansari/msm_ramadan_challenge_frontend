@@ -16,7 +16,7 @@ export function PWAInstallPrompt() {
             setDeferredPrompt(e)
 
             // Show a custom toast asking the user to install
-            toast('Install Surah Mulk Challenge', {
+            toast('Install Salafi Madrasa Learning Portal', {
                 description: 'Add this app to your home screen for quick access and full-screen experience.',
                 duration: 10000,
                 position: 'bottom-center',

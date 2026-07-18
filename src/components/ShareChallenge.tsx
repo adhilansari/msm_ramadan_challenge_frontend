@@ -120,7 +120,7 @@ export default function ShareChallenge() {
     }, [])
 
     const buildShareText = () => {
-        return `🕌 *Surah Mulk Challenge*\n\nCan you arrange the words of Surah Al-Mulk? Test your memory and earn your reward!\n\n✨ ${quote.translation}\n— ${quote.source}\n\n🎯 Join me: ${SITE_URL}`
+        return `🕌 *Salafi Madrasa Learning Portal*\n\nJoin the Salafi Madrasa Attanikkal Quran Challenge! Test your memory and earn your reward!\n\n✨ ${quote.translation}\n— ${quote.source}\n\n🎯 Join me: ${SITE_URL}`
     }
 
     const handleWhatsApp = () => {
@@ -162,7 +162,7 @@ export default function ShareChallenge() {
     const handleNativeShare = async () => {
         try {
             const shareData: ShareData = {
-                title: 'Surah Mulk Challenge',
+                title: 'Salafi Madrasa Learning Portal',
                 text: buildShareText(),
                 url: SITE_URL,
             }

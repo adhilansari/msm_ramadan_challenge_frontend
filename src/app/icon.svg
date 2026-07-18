@@ -22,19 +22,19 @@
   <!-- Right dash -->
   <path d="M 320,120 Q 290,105 280,110" stroke="#FFD700" stroke-width="8" stroke-linecap="round" fill="none" />
 
-  <!-- "RAMADAN" Text -->
-  <text x="250" y="240" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="42" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">RAMADAN</text>
+  <!-- "SALAFI" Text -->
+  <text x="250" y="240" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="42" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">SALAFI</text>
 
-  <!-- "SURA AL-MULK" Banner -->
+  <!-- "MADRASA" Banner -->
   <rect x="0" y="260" width="500" height="75" fill="#FFFFFF" />
-  <text x="250" y="312" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="52" fill="#000000" text-anchor="middle" letter-spacing="1">SURA AL-MULK</text>
+  <text x="250" y="312" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="52" fill="#000000" text-anchor="middle" letter-spacing="1">MADRASA</text>
 
-  <!-- "CHALLENGE" Text -->
-  <text x="250" y="390" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="38" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">CHALLENGE</text>
+  <!-- "PORTAL" Text -->
+  <text x="250" y="390" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="38" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">PORTAL</text>
 
-  <!-- "MSM Feroke Zone" Banner -->
+  <!-- "MSM Attanikkal" Banner -->
   <rect x="90" y="420" width="320" height="50" fill="#FFD700" rx="0" />
-  <text x="250" y="454" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="24" fill="#000000" text-anchor="middle" letter-spacing="0.5">MSM Feroke Zone</text>
+  <text x="250" y="454" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="24" fill="#000000" text-anchor="middle" letter-spacing="0.5">MSM ATTANIKKAL</text>
   
   <!-- Hide the bottom part of the circle that extends below the yellow banner if needed -->
   <!-- The circle shouldn't peek under the banner since the banner is at y=420..470, circle bottom is cy+r = 275+180=455. The banner covers it well. -->

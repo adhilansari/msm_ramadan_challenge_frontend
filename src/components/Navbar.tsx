@@ -21,17 +21,17 @@ export default function Navbar({ user }: NavbarProps) {
                 <div className="flex items-center gap-2">
                     <Link href="/" className="flex items-center gap-2">
                         <Image
-                            src="/msm-challenge-logo.png"
-                            alt="MSM Sura Al-Mulk Challenge Logo"
+                            src="/favicon.png"
+                            alt="Salafi Madrasa Learning Portal Logo"
                             width={32}
                             height={32}
                             className="w-8 h-8 rounded-full hover:opacity-80 transition-opacity"
                         />
                         <span className="font-bold text-lg tracking-tight text-emerald-500 hidden sm:inline-block">
-                            Surah Mulk Challenge
+                            Salafi Madrasa Learning Portal
                         </span>
                         <span className="font-bold text-lg tracking-tight text-emerald-500 sm:hidden">
-                            SMC
+                            SMLP
                         </span>
                     </Link>
                 </div>

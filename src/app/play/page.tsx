@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
-import { fetchSurahMulk } from '@/lib/api'
-import GameBoard from './GameBoard'
+import { fetchClassChallenge } from '@/lib/api'
+import StudentLobby from './StudentLobby'
 import { API_URL } from '@/lib/constants'
 
 export default async function PlayPage() {
@@ -28,20 +28,37 @@ export default async function PlayPage() {
         redirect('/api/auth/logout')
     }
 
-    // Fetch all ayats before rendering GameBoard
-    const ayats = await fetchSurahMulk()
+    // Fetch challenge dynamically for user's class
+    const challenge = await fetchClassChallenge(user.class || '')
 
-    if (!ayats || ayats.length === 0) {
+    if (!challenge || !challenge.ayats || challenge.ayats.length === 0) {
         return (
             <div className="flex items-center justify-center min-h-[50vh] text-red-400">
-                Failed to load Ayats. Please try again later.
+                Failed to load Madrasa challenge. Please try again later.
             </div>
         )
     }
 
+    // Fetch class leaderboard entries
+    let leaderboard = { totalParticipants: 0, data: [] }
+    try {
+        const res = await fetch(`${API_URL}/game/leaderboard?limit=10&class=${encodeURIComponent(user.class || '')}`, {
+            headers: { Authorization: `Bearer ${token}` },
+            cache: 'no-store'
+        })
+        if (res.ok) {
+            leaderboard = await res.json()
+        }
+    } catch (err) {
+        console.error('Failed to fetch class leaderboard for lobby', err)
+    }
+
     return (
-        <div className="fade-in animate-in">
-            <GameBoard ayats={ayats} userId={user.id} />
-        </div>
+        <StudentLobby 
+            user={user}
+            challenge={challenge}
+            leaderboard={leaderboard}
+        />
     )
 }
+

@@ -9,24 +9,37 @@ import { formatAndValidatePhone } from '@/lib/auth-utils'
 
 export interface SignupActionState {
     error: string;
-    full_name?: string;
+    first_name?: string;
+    last_name?: string;
     place?: string;
     district?: string;
     country_code?: string;
     phone_number_local?: string;
+    is_msm_member?: boolean;
+    msm_unit?: string;
+    dob?: string;
+    class?: string;
 }
 
 export async function signup(state: SignupActionState | null, formData: FormData) {
     let returnedFormData = {};
     try {
-        const data = Object.fromEntries(formData.entries()) as Record<string, string>;
+        const data = Object.fromEntries(formData.entries()) as Record<string, any>;
+
+        // Checkbox values
+        data.is_msm_member = data.is_msm_member === 'on' || data.is_msm_member === 'true';
 
         returnedFormData = {
-            full_name: data.full_name,
+            first_name: data.first_name,
+            last_name: data.last_name,
             place: data.place,
             district: data.district,
             country_code: data.country_code,
-            phone_number_local: data.phone_number_local
+            phone_number_local: data.phone_number_local,
+            is_msm_member: data.is_msm_member,
+            msm_unit: data.msm_unit,
+            dob: data.dob,
+            class: data.class
         };
 
         if (data.password !== data.confirm_password) {
@@ -45,6 +58,7 @@ export async function signup(state: SignupActionState | null, formData: FormData
             delete data.country_code;
             delete data.phone_number_local;
         }
+
 
         // Send to NestJS Backend
         const res = await fetch(`${API_URL}/auth/register`, {

@@ -36,7 +36,7 @@ export async function fetchAdminDashboard() {
     }
 }
 
-export async function updateAdminConfig(start_ayat: number, end_ayat: number) {
+export async function updateAdminConfig(class_name: string, surah_number: number, start_ayat: number, end_ayat: number) {
     try {
         const cookieStore = await cookies()
         const token = cookieStore.get('access_token')?.value
@@ -51,8 +51,9 @@ export async function updateAdminConfig(start_ayat: number, end_ayat: number) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ start_ayat, end_ayat })
+            body: JSON.stringify({ class_name, surah_number, start_ayat, end_ayat })
         })
+
 
         if (!res.ok) {
             const data = await res.json()

@@ -32,10 +32,16 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex items-center justify-center p-4 bg-transparent text-foreground relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-100/50 via-background to-background dark:from-emerald-900/20 dark:via-neutral-950/80 dark:to-neutral-950 -z-10" />
+            
+            {/* Background Madrasa Image with soft blur & overlay */}
+            <div 
+                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.06] dark:opacity-[0.04] pointer-events-none filter blur-[1px]" 
+                style={{ backgroundImage: `url('/village-madrasa.png')` }}
+            />
 
             <Card className="max-w-md w-full border-border bg-card/50 backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-500">
                 <CardHeader className="space-y-1 flex flex-col items-center text-center">
-                    <Image src="/msm-challenge-logo.png" alt="Surah Mulk Challenge" width={100} height={100} className="mb-2 drop-shadow-md rounded-2xl" />
+                    <Image src="/favicon.png" alt="Salafi Madrasa Learning Portal" width={100} height={100} className="mb-2 drop-shadow-md rounded-2xl" />
                     <CardTitle className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400">Welcome Back</CardTitle>
                     <CardDescription className="text-muted-foreground">
                         Sign in with your phone number to continue the challenge.
@@ -81,7 +87,7 @@ export default function LoginPage() {
                             <div className="flex justify-between items-center">
                                 <Label htmlFor="password" className="text-foreground">Password</Label>
                                 <a
-                                    href="https://wa.me/919526492238?text=Assalamu%20alaikum%2C%20I%20need%20to%20reset%20my%20password%20for%20the%20Mulk%20Challenge."
+                                    href="https://wa.me/919526492238?text=Assalamu%20alaikum%2C%20I%20need%20to%20reset%20my%20password%20for%20the%20Salafi%20Madrasa%20Learning%20Portal."
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"

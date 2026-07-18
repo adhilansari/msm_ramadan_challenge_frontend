@@ -7,6 +7,7 @@ import { API_URL } from '@/lib/constants'
 import MotivationCarousel from './MotivationCarousel'
 import ShareChallenge from '@/components/ShareChallenge'
 import FloatingShareButton from '@/components/FloatingShareButton'
+import ClassWiseResults from './ClassWiseResults'
 
 function formatTime(totalSeconds: number) {
   if (!totalSeconds) return '0s';
@@ -50,26 +51,31 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-transparent text-foreground flex flex-col items-center justify-start pt-16 pb-24 px-4 relative overflow-x-hidden">
+      {/* Background Madrasa Image with soft blur & overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.06] dark:opacity-[0.04] pointer-events-none filter blur-[1px]" 
+        style={{ backgroundImage: `url('/village-madrasa.png')` }}
+      />
       {/* Background Effects */}
       <main className="max-w-4xl w-full flex flex-col items-center space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
 
         {/* Header Section */}
         <div className="text-center space-y-8 max-w-2xl">
           <div className="inline-flex items-center justify-center rounded-2xl overflow-hidden shadow-xl shadow-emerald-900/5 dark:shadow-emerald-900/20 hover:scale-105 transition-transform">
-            <Image src="/msm-logo.png" alt="MSM Feroke Zone" width={80} height={80} className="rounded-2xl" />
+            <Image src="/favicon.png" alt="Salafi Madrasa Attanikkal" width={80} height={80} className="rounded-2xl" />
           </div>
 
           <div className="space-y-4">
             <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-wide border border-emerald-500/20 mb-2 animate-in fade-in slide-in-from-bottom-2">
-              ✨ MSM Feroke Presents
+              ✨ Salafi Madrasa Attanikkal
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-white dark:to-neutral-400 drop-shadow-sm py-2 leading-tight">
-              Surah Mulk <br className="hidden md:block" />
-              <span className="text-emerald-600 dark:text-emerald-400 bg-none">Challenge</span>
+              Quran Challenge <br className="hidden md:block" />
+              <span className="text-emerald-600 dark:text-emerald-400 bg-none">Madrasa Portal</span>
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium mx-auto leading-relaxed px-2">
-              A premium, gamified word-ordering challenge. <br />
-              <span className="text-emerald-500 font-bold dark:text-emerald-400">🔥 Final Stage is Live (Ayat 1 to 30)</span>
+              A premium word-ordering Quran challenge portal. <br />
+              <span className="text-emerald-500 font-bold dark:text-emerald-400">🔥 Class-wise challenges are active</span>
             </p>
           </div>
 
@@ -107,77 +113,8 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Champions Section */}
-        <div className="w-full max-w-5xl space-y-8 animate-in slide-in-from-bottom-10 duration-700 delay-150 fill-mode-both">
-          <div className="text-center space-y-2">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">
-              Hall of Champions
-            </h2>
-            <p className="text-muted-foreground font-medium">Top Performers of Previous Rounds</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Round 1 */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-2 px-2">
-                <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-500/30 shadow-sm">Round 1</span>
-                <span className="text-sm text-muted-foreground font-medium">Ayat 1 to 10</span>
-              </div>
-              <div className="space-y-3">
-                {[
-                  { name: 'Hanan', place: 'Karaparamb', unit: 'Karaparamb', time: '1m 2s' },
-                  { name: 'Adil Noufan', place: 'Feroke', unit: 'Feroke town', time: '1m 6s' },
-                  { name: 'Nafi', place: 'Athanikkal', unit: 'Athanikkal', time: '1m 18s' },
-                ].map((champ, idx) => (
-                  <div key={idx} className="flex items-center gap-4 bg-card/60 backdrop-blur-md border border-amber-500/20 dark:border-amber-500/10 p-3 sm:p-4 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500/40 transition-all hover:-translate-y-0.5 group">
-                    <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
-                      {idx === 0 ? '🏆' : idx === 1 ? '🥈' : '🥉'}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-foreground text-sm sm:text-base truncate group-hover:text-amber-500 transition-colors">{champ.name}</h4>
-                      <p className="text-xs text-muted-foreground truncate">{champ.place} {champ.unit && `(${champ.unit})`}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/20 shadow-inner">
-                        {champ.time}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Round 2 */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-2 px-2">
-                <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-500/30 shadow-sm">Round 2</span>
-                <span className="text-sm text-muted-foreground font-medium">Ayat 10 to 20</span>
-              </div>
-              <div className="space-y-3">
-                {[
-                  { name: 'Adil Noufan', place: 'Feroke', unit: 'Feroke town', time: '1m 10s' },
-                  { name: 'afthab', place: 'athanikkal', unit: '', time: '1m 19s' },
-                  { name: 'Umaiban.C', place: 'Feroke', unit: 'Feroke', time: '1m 34s' },
-                ].map((champ, idx) => (
-                  <div key={idx} className="flex items-center gap-4 bg-card/60 backdrop-blur-md border border-amber-500/20 dark:border-amber-500/10 p-3 sm:p-4 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-500/40 transition-all hover:-translate-y-0.5 group">
-                    <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
-                      {idx === 0 ? '🏆' : idx === 1 ? '🥈' : '🥉'}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-bold text-foreground text-sm sm:text-base truncate group-hover:text-amber-500 transition-colors">{champ.name}</h4>
-                      <p className="text-xs text-muted-foreground truncate">{champ.place} {champ.unit && `(${champ.unit})`}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/20 shadow-inner">
-                        {champ.time}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Class Wise Results */}
+        <ClassWiseResults />
 
         {/* Live Top 7 Leaderboard */}
         {topPerformers.length > 0 && (
@@ -233,45 +170,89 @@ export default async function Home() {
           <ShareChallenge />
         )}
 
-        {/* Islamic Quotes Section */}
-        <div className="w-full max-w-4xl grid md:grid-cols-2 gap-6 mt-8 animate-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both">
-          <div className="bg-card/40 hover:bg-card/60 shadow-lg border border-border backdrop-blur-xl rounded-3xl p-6 relative overflow-hidden group transition-all duration-500">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-150" />
-            <div className="flex flex-col gap-4 relative z-10">
-              <div className="w-fit rounded-2xl overflow-hidden">
-                <Image src="/msm-logo.png" alt="MSM Feroke Zone" width={44} height={44} className="rounded-2xl" />
+        {/* Importance of Quranic Learning & Madrasa Section */}
+        <div className="w-full max-w-4xl space-y-8 animate-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both">
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-400 dark:from-white dark:to-neutral-400">
+              Virtues of Quranic Knowledge
+            </h2>
+            <p className="text-muted-foreground text-sm font-medium">The high status of seeking Islamic education & memorizing the Quran</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            {/* Left Column: Natural Village Madrasa Card */}
+            <div className="bg-card/40 backdrop-blur-xl border border-border/80 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col group">
+              <div className="relative h-64 w-full overflow-hidden">
+                <Image 
+                  src="/village-madrasa.png" 
+                  alt="Serene Village Madrasa" 
+                  fill 
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-w-720px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <span className="absolute top-4 left-4 bg-emerald-600/90 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-emerald-500/30">
+                  OUR MADRASA
+                </span>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h4 className="font-bold text-white text-base leading-tight">Salafi Madrasa Attanikkal</h4>
+                  <p className="text-xs text-neutral-300 mt-1">A peaceful center for spiritual growth & memorization.</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground mb-3 tracking-tight">The Noble Qur&apos;an</h3>
-                <p className="text-3xl text-right font-serif leading-relaxed text-emerald-700 dark:text-emerald-400 mb-4 tracking-wide" dir="rtl">
-                  اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ
+              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  Attanikkal Salafi Madrasa stands as a beacon of classical Islamic education, cultivating a deep love for the Quran in young hearts. By offering structured class-wise challenges, our students learn correctly, build strong retention, and understand the correct ordering of Quranic words.
                 </p>
-                <div className="border-l-2 border-emerald-500/30 pl-4 py-1">
-                  <p className="text-sm text-foreground italic leading-relaxed font-medium">
-                    &quot;Read! In the name of your Lord who created&quot;
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1.5 font-semibold">Surah Al-Alaq: 1</p>
+                <div className="bg-emerald-500/5 dark:bg-emerald-500/10 p-3 rounded-2xl border border-emerald-500/10 text-center">
+                  <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">
+                    📖 &quot;Recite in the name of your Lord who created.&quot; (Surah Al-Alaq: 1)
+                  </span>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-card/40 hover:bg-card/60 shadow-lg border border-border backdrop-blur-xl rounded-3xl p-6 relative overflow-hidden group transition-all duration-500">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-transform duration-700 group-hover:scale-150" />
-            <div className="flex flex-col gap-4 relative z-10">
-              <div className="p-3 bg-emerald-500/10 w-fit text-emerald-600 dark:text-emerald-400 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 14 4-4" /><path d="M3.34 19a10 10 0 1 1 17.32 0" /></svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground mb-4 tracking-tight">Prophetic Wisdom</h3>
-                <div className="bg-emerald-500/5 dark:bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/10">
-                  <p className="text-[15px] text-foreground/90 leading-relaxed italic font-medium">
-                    &quot;The best among you are those who learn the Quran and teach it.&quot;
+            {/* Right Column: Authenticated Sahih Hadees List */}
+            <div className="space-y-4 flex flex-col justify-between">
+              {/* Hadees 1 */}
+              <div className="bg-card/40 hover:bg-card/60 border border-border/80 backdrop-blur-xl rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-6 -mt-6" />
+                <div className="relative z-10 space-y-2">
+                  <span className="text-[10px] font-bold text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    Sahih Bukhari
+                  </span>
+                  <p className="text-xs sm:text-sm text-foreground/90 font-medium leading-relaxed italic">
+                    &quot;The best of you is the one who learns the Qur&apos;an and teaches it.&quot;
                   </p>
+                  <p className="text-[10px] text-muted-foreground font-semibold font-mono text-right">— Sahih Al-Bukhari: 5027</p>
                 </div>
-                <p className="text-xs text-muted-foreground mt-3 font-semibold flex items-center gap-1.5 font-mono">
-                  <span className="w-4 h-[1px] bg-emerald-500/50"></span> Sahih Bukhari
-                </p>
+              </div>
+
+              {/* Hadees 2 */}
+              <div className="bg-card/40 hover:bg-card/60 border border-border/80 backdrop-blur-xl rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-6 -mt-6" />
+                <div className="relative z-10 space-y-2">
+                  <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    Sahih Muslim
+                  </span>
+                  <p className="text-xs sm:text-sm text-foreground/90 font-medium leading-relaxed italic">
+                    &quot;Whoever takes a path seeking knowledge, Allah makes easy for him the path to Paradise.&quot;
+                  </p>
+                  <p className="text-[10px] text-muted-foreground font-semibold font-mono text-right">— Sahih Muslim: 2699</p>
+                </div>
+              </div>
+
+              {/* Hadees 3 */}
+              <div className="bg-card/40 hover:bg-card/60 border border-border/80 backdrop-blur-xl rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300 relative group overflow-hidden flex flex-col justify-center">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl -mr-6 -mt-6" />
+                <div className="relative z-10 space-y-2">
+                  <span className="text-[10px] font-bold text-blue-500 bg-blue-500/10 border border-blue-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    Sunan Ibn Majah
+                  </span>
+                  <p className="text-xs sm:text-sm text-foreground/90 font-medium leading-relaxed italic">
+                    &quot;Seeking knowledge is an obligation upon every Muslim.&quot;
+                  </p>
+                  <p className="text-[10px] text-muted-foreground font-semibold font-mono text-right">— Sunan Ibn Majah: 224</p>
+                </div>
               </div>
             </div>
           </div>
@@ -280,33 +261,7 @@ export default async function Home() {
         {/* Interactive Carousel */}
         <MotivationCarousel />
 
-        {/* Vichinthanam Weekly Banner */}
-        <div className="w-full max-w-4xl mt-8 mb-4 animate-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both">
-          <a
-            href="https://www.vichinthanamweekly.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-emerald-900/60 via-emerald-800/60 to-emerald-900/60 hover:from-emerald-800/70 hover:via-emerald-700/70 hover:to-emerald-800/70 border border-emerald-500/20 hover:border-emerald-500/40 p-6 sm:p-8 rounded-3xl shadow-xl backdrop-blur-md transition-all group overflow-hidden relative"
-          >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -mr-20 -mt-20 transition-transform duration-700 group-hover:scale-150" />
-            <div className="flex items-center gap-5 relative z-10 text-center sm:text-left flex-col sm:flex-row">
-              <div className="bg-emerald-500/20 p-4 rounded-2xl border border-emerald-500/30 group-hover:scale-110 transition-transform duration-500 shadow-inner">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-              </div>
-              <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors tracking-tight">Read Vichinthanam Weekly</h3>
-                <p className="text-emerald-100/70 text-sm mt-1.5 font-medium leading-relaxed max-w-md">Discover authentic Islamic literature and insightful articles in Malayalam online.</p>
-              </div>
-            </div>
 
-            <div className="mt-6 sm:mt-0 relative z-10 flex-shrink-0 w-full sm:w-auto">
-              <div className="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-100 px-6 py-3.5 rounded-xl font-bold text-sm tracking-wide border border-emerald-500/30 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)]">
-                Visit Website
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1.5 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-              </div>
-            </div>
-          </a>
-        </div>
       </main>
 
       <FloatingShareButton />
@@ -325,6 +280,9 @@ export default async function Home() {
           </a>
           <span className="text-xs text-muted-foreground font-medium mt-1">
             Questions? Contact: +91 9526 492 238
+          </span>
+          <span className="text-[10px] text-muted-foreground/60 uppercase tracking-widest font-bold mt-1.5">
+            An MSM Attanikkal Initiative
           </span>
         </div>
       </footer>

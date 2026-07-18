@@ -81,7 +81,21 @@ function shuffleArray<T>(array: T[]): T[] {
     return newArray
 }
 
-export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: string }) {
+export default function GameBoard({
+    ayats,
+    surahName,
+    startAyat,
+    endAyat,
+    studentClass,
+    userId
+}: {
+    ayats: Ayat[],
+    surahName: string,
+    startAyat: number,
+    endAyat: number,
+    studentClass: string,
+    userId: string
+}) {
     const [currentIndex, setCurrentIndex] = useState(0)
 
     // Game State
@@ -101,6 +115,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
     const currentAyat = ayats[currentIndex]
     // Filter actual valid words (no end markers)
     const validWords = currentAyat ? currentAyat.words.filter(w => w.char_type_name === 'word') : []
+
 
     useEffect(() => {
         if (startTime === null && ayats.length > 0) {
@@ -216,7 +231,7 @@ export default function GameBoard({ ayats, userId }: { ayats: Ayat[], userId: st
                     <h2 className="text-xl md:text-2xl font-bold tracking-tight text-foreground">
                         Ayat {currentIndex + 1} <span className="text-muted-foreground text-lg">/ {ayats.length}</span>
                     </h2>
-                    <p className="text-muted-foreground text-xs md:text-sm mt-1">Surah Al-Mulk</p>
+                    <p className="text-muted-foreground text-xs md:text-sm mt-1">{surahName} (Ayat {currentAyat?.verse_number || (startAyat + currentIndex)}) &bull; {studentClass}</p>
                 </div>
                 <div className="px-4 py-2 rounded-xl bg-muted border border-border text-emerald-600 dark:text-emerald-400 font-mono text-lg md:text-xl flex items-center justify-center min-w-[80px] md:min-w-[100px] shadow-inner">
                     {formatTime(elapsed)}

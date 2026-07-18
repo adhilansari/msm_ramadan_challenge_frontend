@@ -28,7 +28,7 @@ export async function GET() {
             status: 200,
             headers: {
                 'Content-Type': 'text/csv',
-                'Content-Disposition': 'attachment; filename="surah_mulk_challenge_users.csv"',
+                'Content-Disposition': 'attachment; filename="salafi_madrasa_students.csv"',
             },
         })
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { API_URL } from '@/lib/constants'
 import { Loader2 } from 'lucide-react'
@@ -19,13 +19,21 @@ interface LeaderboardListProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     initialData: any[];
     totalParticipants: number;
+    classFilter: string;
 }
 
-export default function LeaderboardList({ initialData, totalParticipants }: LeaderboardListProps) {
+export default function LeaderboardList({ initialData, totalParticipants, classFilter }: LeaderboardListProps) {
     const [items, setItems] = useState(initialData)
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+
+    // Sync state if initialData changes from parent filtering
+    useEffect(() => {
+        setItems(initialData)
+        setPage(1)
+        setError(null)
+    }, [initialData])
 
     const hasMore = items.length < totalParticipants
 
@@ -35,11 +43,11 @@ export default function LeaderboardList({ initialData, totalParticipants }: Lead
         setError(null)
         try {
             const nextPage = page + 1
-            const res = await fetch(`${API_URL}/game/leaderboard?page=${nextPage}&limit=20`)
+            const classQuery = classFilter !== 'All' ? `&class=${encodeURIComponent(classFilter)}` : '';
+            const res = await fetch(`${API_URL}/game/leaderboard?page=${nextPage}&limit=20${classQuery}`)
             if (!res.ok) throw new Error('Failed to fetch more data')
             const result = await res.json()
             setItems(prev => {
-                // To prevent duplicates in case of double-fetch
                 const existingIds = new Set(prev.map(i => i.user_id))
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const newItems = result.data.filter((i: any) => !existingIds.has(i.user_id))
@@ -60,7 +68,7 @@ export default function LeaderboardList({ initialData, totalParticipants }: Lead
 
             {!items.length && !error && (
                 <div className="p-12 text-center text-muted-foreground">
-                    No entries yet. Be the first to play!
+                    No entries yet for this category.
                 </div>
             )}
 
@@ -72,8 +80,13 @@ export default function LeaderboardList({ initialData, totalParticipants }: Lead
                             {index === 0 ? '🏆' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
                         </div>
                         <div className="flex-1 px-2 sm:px-4 min-w-0">
-                            <div className="font-semibold text-sm sm:text-base text-foreground truncate">{entry.full_name}</div>
-                            <div className="text-[10px] sm:text-xs text-muted-foreground truncate">{entry.place}, {entry.district} ({entry.msm_unit})</div>
+                            <div className="font-semibold text-sm sm:text-base text-foreground truncate">
+                                {entry.first_name || ''} {entry.last_name || ''}
+                                <span className="text-[10px] text-muted-foreground ml-2 font-normal">({entry.full_name})</span>
+                            </div>
+                            <div className="text-[10px] sm:text-xs text-muted-foreground truncate">
+                                {entry.place} {entry.class ? `• ${entry.class}` : ''} {entry.is_msm_member ? '• MSM Member' : ''}
+                            </div>
                         </div>
                         <div className="w-20 sm:w-32 text-right font-mono text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">
                             {formatTime(entry.best_time)}
@@ -97,3 +110,4 @@ export default function LeaderboardList({ initialData, totalParticipants }: Lead
         </div>
     )
 }
+

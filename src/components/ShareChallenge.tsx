@@ -120,7 +120,7 @@ export default function ShareChallenge() {
     }, [])
 
     const buildShareText = () => {
-        return `🕌 *Salafi Madrasa Learning Portal*\n\nJoin the Salafi Madrasa Attanikkal Quran Challenge! Test your memory and earn your reward!\n\n✨ ${quote.translation}\n— ${quote.source}\n\n🎯 Join me: ${SITE_URL}`
+        return `🕌 *Salafi Madrasa Attanikkal - Digital Learning Portal*\n\nAssalamu Alaikum! Dear parents and students, join our interactive Quran Challenge to test your memory and earn rewards!\n\n✨ ${quote.translation}\n— ${quote.source}\n\n🎯 Click the link below to participate:\n${SITE_URL}`
     }
 
     const handleWhatsApp = () => {

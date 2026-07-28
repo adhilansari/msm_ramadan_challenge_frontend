@@ -200,10 +200,13 @@ export default function MotivationCarousel() {
     }
 
     return (
-        <div className="w-full mt-24 mb-16 overflow-hidden bg-transparent relative">
-            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
-
+        <div 
+            className="w-full mt-24 mb-16 bg-transparent relative"
+            style={{ 
+                maskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)'
+            }}
+        >
             <div className="w-full flex items-center justify-between px-4 sm:px-12 mb-6">
                 <div className="flex-1" />
                 <h3 className="text-xl font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 justify-center flex-1">
@@ -245,27 +248,27 @@ export default function MotivationCarousel() {
                             tabIndex={0}
                             className="w-[350px] md:w-[450px] shrink-0 border border-emerald-500/10 shadow-sm rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between snap-center relative overflow-hidden group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer"
                         >
-                            {/* Card Background Image with overlay */}
-                            <div 
-                                className="absolute inset-0 bg-cover bg-center opacity-[0.18] dark:opacity-[0.12] transition-all duration-700 group-hover:scale-105 group-hover:opacity-[0.45] dark:group-hover:opacity-[0.35] group-focus-within:scale-105 group-focus-within:opacity-[0.45] dark:group-focus-within:opacity-[0.35] group-active:scale-105 group-active:opacity-[0.45] dark:group-active:opacity-[0.35]"
+                            {/* Card Background Image with zoom effect */}
+                            <div
+                                className="absolute inset-0 bg-cover bg-center opacity-100 transition-transform duration-1000 ease-out group-hover:scale-110 group-focus-within:scale-110 group-active:scale-110"
                                 style={{ backgroundImage: `url('${quote.bgImage}')` }}
                             />
-                            {/* Subtle background color overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-card/90 via-card/95 to-card/98 -z-10 transition-opacity duration-700 group-hover:opacity-[0.75] group-focus-within:opacity-[0.75] group-active:opacity-[0.75]" />
+                            {/* Dark gradient overlay for perfect text readability on any image */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 transition-opacity duration-500 group-hover:opacity-90" />
 
                             <div className="relative z-10">
-                                <p className="text-xl font-serif text-emerald-700 dark:text-emerald-300 text-right mb-4 leading-loose text-glow-arabic transition-all" dir="rtl">
+                                <p className="text-xl font-serif text-white text-right mb-4 leading-loose drop-shadow-lg transition-all" dir="rtl">
                                     {quote.arabic}
                                 </p>
-                                <p className="text-[15px] font-medium text-foreground/90 italic leading-relaxed text-glow-translation transition-all">
+                                <p className="text-[15px] font-medium text-white/95 italic leading-relaxed drop-shadow-md transition-all">
                                     &quot;{quote.text}&quot;
                                 </p>
                             </div>
-                            <div className="mt-6 flex items-center justify-between border-t border-emerald-500/10 pt-4 relative z-10">
-                                <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-sm ${quote.type === 'quran' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-amber-500/10 text-amber-600'}`}>
+                            <div className="mt-6 flex items-center justify-between border-t border-white/20 pt-4 relative z-10">
+                                <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-sm backdrop-blur-md ${quote.type === 'quran' ? 'bg-emerald-500/40 text-emerald-50 border border-emerald-400/30' : 'bg-amber-500/40 text-amber-50 border border-amber-400/30'}`}>
                                     {quote.type === 'quran' ? "The Qur'an" : 'Hadith'}
                                 </span>
-                                <span className="text-xs font-semibold text-muted-foreground font-mono">
+                                <span className="text-xs font-semibold text-white/80 font-mono drop-shadow">
                                     {quote.source}
                                 </span>
                             </div>

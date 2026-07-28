@@ -22,10 +22,10 @@ export default function RegisterSuccessPage() {
     return (
         <div className="min-h-screen flex items-center justify-center p-4 bg-transparent text-foreground relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-100/50 via-background to-background dark:from-emerald-900/20 dark:via-neutral-950/80 dark:to-neutral-950 -z-10" />
-            
+
             {/* Background Madrasa Image with soft blur & overlay */}
-            <div 
-                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px]" 
+            <div
+                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px]"
                 style={{ backgroundImage: `url('/village-madrasa.png')` }}
             />
 
@@ -50,7 +50,7 @@ export default function RegisterSuccessPage() {
                             <span className="text-4xl font-extrabold tracking-widest text-emerald-600 dark:text-emerald-400 font-mono drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
                                 {studentId}
                             </span>
-                            <button 
+                            <button
                                 onClick={handleCopy}
                                 className="p-2 hover:bg-emerald-500/10 rounded-lg text-emerald-600 dark:text-emerald-400 transition-colors"
                                 title="Copy Student ID"
@@ -70,7 +70,7 @@ export default function RegisterSuccessPage() {
 
                     <Link href="/play" className="block w-full">
                         <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white h-12 text-base font-medium rounded-xl transition-colors">
-                            Continue to Challenge Lobby
+                            Continue to Challenge
                         </Button>
                     </Link>
                 </CardContent>

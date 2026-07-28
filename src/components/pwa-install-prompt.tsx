@@ -15,6 +15,11 @@ export function PWAInstallPrompt() {
             // Stash the event so it can be triggered later.
             setDeferredPrompt(e)
 
+            // Check if user dismissed it recently
+            if (localStorage.getItem('pwa-prompt-dismissed') === 'true') {
+                return
+            }
+
             // Show a custom toast asking the user to install
             toast('Install Salafi Madrasa Learning Portal', {
                 description: 'Add this app to your home screen for quick access and full-screen experience.',
@@ -36,7 +41,10 @@ export function PWAInstallPrompt() {
                 },
                 cancel: {
                     label: 'Later',
-                    onClick: () => console.log('PWA installation dismissed')
+                    onClick: () => {
+                        localStorage.setItem('pwa-prompt-dismissed', 'true');
+                        console.log('PWA installation dismissed');
+                    }
                 }
             })
         }

@@ -28,9 +28,9 @@ const malayalam = Noto_Sans_Malayalam({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://msmquranchallenge.vercel.app"),
-  title: "Salafi Madrasa Attanikkal - Quran Challenge App",
-  description: "Dynamic word-ordering Quran challenge app for Salafi Madrasa Attanikkal students to test and build their Quran recitation and memorization skills.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://salafimadrasaportal.vercel.app"),
+  title: "Salafi Madrasa Attanikkal - Learning Portal",
+  description: "Dynamic learning portal for Salafi Madrasa Attanikkal students to test and build their Quran recitation and memorization skills.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
     title: "Quran Game",
   },
   openGraph: {
-    title: "Salafi Madrasa Attanikkal - Quran Challenge App",
-    description: "Dynamic word-ordering Quran challenge app for Salafi Madrasa Attanikkal students to test and build their Quran recitation and memorization skills.",
+    title: "Salafi Madrasa Attanikkal - Learning Portal",
+    description: "Dynamic learning portal for Salafi Madrasa Attanikkal students to test and build their Quran recitation and memorization skills.",
     url: "/",
     siteName: "Salafi Madrasa Attanikkal Quran Challenge",
     images: [
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Salafi Madrasa Attanikkal - Quran Challenge App",
-    description: "Dynamic word-ordering Quran challenge app for Salafi Madrasa Attanikkal students to test and build their Quran recitation and memorization skills.",
+    title: "Salafi Madrasa Attanikkal - Learning Portal",
+    description: "Dynamic learning portal for Salafi Madrasa Attanikkal students to test and build their Quran recitation and memorization skills.",
     images: ["/favicon.png"],
   },
 };
@@ -92,7 +92,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
         className={`${inter.variable} ${amiri.variable} ${malayalam.variable} antialiased font-sans flex flex-col min-h-screen bg-background text-foreground`}
         style={{

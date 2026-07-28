@@ -23,6 +23,7 @@ export interface SignupActionState {
 
 export async function signup(state: SignupActionState | null, formData: FormData) {
     let returnedFormData = {};
+    let redirectPath = '';
     try {
         const data = Object.fromEntries(formData.entries()) as Record<string, any>;
 
@@ -74,9 +75,8 @@ export async function signup(state: SignupActionState | null, formData: FormData
         }
 
         // Set cookie returned from backend on Frontend domain
-        const setCookieHeader = res.headers.get('set-cookie')
-        if (setCookieHeader) {
-            const token = setCookieHeader.split(';')[0].split('=')[1]
+        const token = body.access_token
+        if (token) {
             const cookieStore = await cookies()
             cookieStore.set('access_token', token, {
                 httpOnly: true,
@@ -86,11 +86,14 @@ export async function signup(state: SignupActionState | null, formData: FormData
         }
 
         revalidatePath('/', 'layout')
-        redirect(`/register/success?id=${body.user.student_id}`)
+        redirectPath = `/register/success?id=${body.user.student_id}`
     } catch (err) {
-        if (err instanceof Error && err.message === 'NEXT_REDIRECT') throw err
         console.error('Signup error:', err)
         return { error: 'An unexpected error occurred. Please try again.', ...returnedFormData }
+    }
+
+    if (redirectPath) {
+        redirect(redirectPath)
     }
 }
 
@@ -101,6 +104,7 @@ export interface LoginActionState {
 }
 
 export async function login(state: LoginActionState | null, formData: FormData) {
+    let redirectPath = '';
     try {
         const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
@@ -154,9 +158,8 @@ export async function login(state: LoginActionState | null, formData: FormData) 
 
         // Forward Set-Cookie JWT down to Next.js Client Cookie store
         let userRole = 'USER'
-        const setCookieHeader = res.headers.get('set-cookie')
-        if (setCookieHeader) {
-            const token = setCookieHeader.split(';')[0].split('=')[1]
+        const token = body.access_token
+        if (token) {
             const cookieStore = await cookies()
             cookieStore.set('access_token', token, {
                 httpOnly: true,
@@ -182,13 +185,16 @@ export async function login(state: LoginActionState | null, formData: FormData) 
         revalidatePath('/', 'layout')
 
         if (userRole === 'ADMIN') {
-            redirect('/admin')
+            redirectPath = '/admin'
         } else {
-            redirect('/play')
+            redirectPath = '/play'
         }
     } catch (err) {
-        if (err instanceof Error && err.message === 'NEXT_REDIRECT') throw err
         return { error: 'Connection failed. Please try again.' }
+    }
+
+    if (redirectPath) {
+        redirect(redirectPath)
     }
 }
 
@@ -282,9 +288,8 @@ export async function updateProfile(state: any, formData: FormData) {
         }
 
         // Set cookies if a new token was returned
-        const setCookieHeader = res.headers.get('set-cookie')
-        if (setCookieHeader) {
-            const newToken = setCookieHeader.split(';')[0].split('=')[1]
+        const newToken = body.access_token
+        if (newToken) {
             cookieStore.set('access_token', newToken, {
                 httpOnly: true,
                 path: '/',

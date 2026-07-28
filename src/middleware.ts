@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { jwtVerify } from 'jose'
+import { decodeJwt } from 'jose'
 
 const protectedRoutes = ['/play', '/admin']
 const publicRoutes = ['/login', '/register', '/', '/leaderboard']
@@ -20,12 +20,11 @@ export async function middleware(request: NextRequest) {
     let session: { payload: JWTPayload } | null = null
     if (token) {
         try {
-            // Decode JWT without necessarily verifying signature (since Next doesn't have the secret locally without duplicating it)
-            // For standard routing, just checking token existence valid shape is enough, backend APIs secure the data payload
-            const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'mulk_jwt_challenge_secret_key')
-            const result = await jwtVerify(token, secret)
-            session = result as unknown as { payload: JWTPayload }
+            // Decode JWT without verifying signature (backend secures APIs, middleware just needs role/existence)
+            const payload = decodeJwt(token)
+            session = { payload: payload as unknown as JWTPayload }
         } catch (e) {
+            console.error('Middleware JWT decode error:', e)
             session = null
         }
     }
@@ -45,7 +44,8 @@ export async function middleware(request: NextRequest) {
     // Handle public route logic (if logged in, redirect away from login/signup)
     // Exclude /leaderboard so logged-in users can still access it
     if (isPublicRoute && session?.payload && path !== '/' && path !== '/leaderboard') {
-        return NextResponse.redirect(new URL('/play', request.nextUrl))
+        const target = session.payload.role === 'ADMIN' ? '/admin' : '/profile'
+        return NextResponse.redirect(new URL(target, request.nextUrl))
     }
 
     return NextResponse.next()

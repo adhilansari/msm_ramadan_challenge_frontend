@@ -11,8 +11,8 @@ import Image from 'next/image'
 import { Eye, EyeOff, User, MapPin, Calendar, BookOpen, Shield, Phone, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react'
 
 const CLASSES = [
-    "Class 1", "Class 2", "Class 3", "Class 4", "Class 5", 
-    "Class 6", "Class 7", "Class 8", "Class 9", "Class 10", 
+    "Class 1", "Class 2", "Class 3", "Class 4", "Class 5",
+    "Class 6", "Class 7", "Class 8", "Class 9", "Class 10",
     "Class 11", "Class 12"
 ];
 
@@ -33,7 +33,7 @@ interface ProfileFormProps {
 
 const parsePhoneNumber = (phone: string) => {
     let clean = phone.replace(/\D/g, ''); // only digits
-    
+
     // Check Indian code: starts with 91
     if (clean.length === 12 && clean.startsWith('91')) {
         return { country: '+91', local: clean.slice(2) };
@@ -46,20 +46,20 @@ const parsePhoneNumber = (phone: string) => {
     if (clean.length === 12 && clean.startsWith('966')) {
         return { country: '+966', local: clean.slice(3) };
     }
-    
+
     // Fallback: try to see if it starts with any known code
     for (const code of ['91', '971', '966', '1', '44', '60', '65']) {
         if (clean.startsWith(code) && clean.length > code.length) {
             return { country: `+${code}`, local: clean.slice(code.length) };
         }
     }
-    
+
     return { country: '+91', local: clean };
 }
 
 export default function ProfileForm({ initialProfile }: ProfileFormProps) {
     const parsedPhone = parsePhoneNumber(initialProfile.phone_number);
-    
+
     const [countryCode, setCountryCode] = useState(parsedPhone.country);
     const [phoneLocal, setPhoneLocal] = useState(parsedPhone.local);
     const [firstName, setFirstName] = useState(initialProfile.first_name);
@@ -88,17 +88,17 @@ export default function ProfileForm({ initialProfile }: ProfileFormProps) {
     return (
         <div className="w-full relative py-4 sm:py-6">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-emerald-100/50 via-background to-background dark:from-emerald-900/20 dark:via-neutral-950/80 dark:to-neutral-950 -z-10 rounded-2xl sm:rounded-3xl" />
-            
+
             {/* Background Madrasa Image overlay */}
-            <div 
-                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px] rounded-2xl sm:rounded-3xl" 
+            <div
+                className="absolute inset-0 bg-cover bg-center -z-20 opacity-[0.18] dark:opacity-[0.12] pointer-events-none filter blur-[1px] rounded-2xl sm:rounded-3xl"
                 style={{ backgroundImage: `url('/village-madrasa.png')` }}
             />
 
             <div className="mb-4 px-1">
                 <Link href="/play" className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors">
                     <ArrowLeft className="w-4 h-4" />
-                    Back to Lobby
+                    Back to
                 </Link>
             </div>
 
@@ -314,7 +314,7 @@ export default function ProfileForm({ initialProfile }: ProfileFormProps) {
                             <h4 className="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
                                 Change Password <span className="text-[10px] sm:text-xs font-normal text-muted-foreground">(optional)</span>
                             </h4>
-                            
+
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 <div className="space-y-1.5">
                                     <Label htmlFor="password" className="text-xs sm:text-sm text-foreground">New Password</Label>
@@ -362,8 +362,8 @@ export default function ProfileForm({ initialProfile }: ProfileFormProps) {
                             </div>
                         </div>
 
-                        <Button 
-                            type="submit" 
+                        <Button
+                            type="submit"
                             disabled={isPending}
                             className="w-full bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg h-11 sm:h-12 text-sm sm:text-base font-bold tracking-wide shadow-lg shadow-emerald-600/10 hover:shadow-emerald-600/25 transition-all mt-4"
                         >

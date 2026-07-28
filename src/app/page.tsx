@@ -165,11 +165,6 @@ export default async function Home() {
           </div>
         )}
 
-        {/* Share Challenge Section (logged-in non-admin users) */}
-        {isAuthenticated && userRole !== 'ADMIN' && (
-          <ShareChallenge />
-        )}
-
         {/* Importance of Quranic Learning & Madrasa Section */}
         <div className="w-full max-w-4xl space-y-8 animate-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both">
           <div className="text-center space-y-2">
@@ -260,6 +255,11 @@ export default async function Home() {
 
         {/* Interactive Carousel */}
         <MotivationCarousel />
+
+        {/* Share Challenge Section (logged-in non-admin users) */}
+        {isAuthenticated && userRole !== 'ADMIN' && (
+          <ShareChallenge />
+        )}
 
 
       </main>

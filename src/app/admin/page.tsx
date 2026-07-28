@@ -196,6 +196,29 @@ export default function AdminDashboard() {
         return user.class === classFilter;
     });
 
+    const getTopPerformers = () => {
+        const allSessions = users.flatMap(u => (u.game_sessions || []).map(s => ({ ...s, user: u })));
+        const sortedSessions = allSessions.sort((a, b) => parseInt(a.total_time) - parseInt(b.total_time));
+        const uniqueTopUsers = [];
+        const seenUserIds = new Set();
+        for (const session of sortedSessions) {
+            if (!seenUserIds.has(session.user.id)) {
+                seenUserIds.add(session.user.id);
+                uniqueTopUsers.push({
+                    name: session.user.full_name,
+                    place: session.user.place,
+                    unit: session.user.msm_unit,
+                    time: formatTime(session.total_time),
+                    phone: session.user.phone_number
+                });
+                if (uniqueTopUsers.length >= 3) break;
+            }
+        }
+        return uniqueTopUsers;
+    };
+
+    const topPerformers = getTopPerformers();
+
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center bg-background text-foreground pb-32"><Loader2 className="w-8 h-8 animate-spin text-emerald-500" /></div>
     }
@@ -284,28 +307,24 @@ export default function AdminDashboard() {
                     </div>
                 )}
 
-                {/* Archive Hall of Champions */}
+                {/* Dynamic Hall of Champions */}
                 <Card className="glass-panel border-amber-500/30 overflow-hidden mb-6 rounded-3xl">
                     <CardHeader className="border-b border-border bg-gradient-to-r from-amber-500/10 to-transparent">
                         <CardTitle className="text-xl text-foreground flex items-center gap-2">
                             <Trophy className="w-5 h-5 text-amber-500" />
-                            Salafi Madrasa Attanikkal - Historical Hall of Champions
+                            Salafi Madrasa Attanikkal - Hall of Champions
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-6">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            {/* Round 1 */}
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-2 mb-2 px-2">
-                                    <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-500/30">Round 1</span>
-                                    <span className="text-sm text-muted-foreground font-medium">Ayat 1 to 10</span>
-                                </div>
-                                <div className="space-y-3">
-                                    {[
-                                        { name: 'Hanan', place: 'Karaparamb', unit: 'Karaparamb', time: '1m 2s', phone: '+91 8590 004 033' },
-                                        { name: 'Adil Noufan', place: 'Feroke', unit: 'Feroke town', time: '1m 6s', phone: '+91 7510 209 453' },
-                                        { name: 'Nafi', place: 'Athanikkal', unit: 'Athanikkal', time: '1m 18s', phone: '+91 9562 064 737' },
-                                    ].map((champ, idx) => (
+                        <div className="space-y-4">
+                            <div className="flex items-center gap-2 mb-2 px-2">
+                                <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-500/30">Top 3 Overall</span>
+                                <span className="text-sm text-muted-foreground font-medium">Fastest Completion Times</span>
+                            </div>
+                            
+                            {topPerformers.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    {topPerformers.map((champ, idx) => (
                                         <div key={idx} className="flex flex-col gap-2 glass-card p-3 sm:p-4 rounded-xl hover:shadow-md transition-all">
                                             <div className="flex items-center gap-3">
                                                 <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
@@ -328,43 +347,12 @@ export default function AdminDashboard() {
                                         </div>
                                     ))}
                                 </div>
-                            </div>
-
-                            {/* Round 2 */}
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-2 mb-2 px-2">
-                                    <span className="bg-amber-500/20 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-500/30">Round 2</span>
-                                    <span className="text-sm text-muted-foreground font-medium">Ayat 10 to 20</span>
+                            ) : (
+                                <div className="text-center py-8 text-muted-foreground">
+                                    <Trophy className="w-12 h-12 mx-auto mb-3 opacity-20" />
+                                    <p>No challenges have been completed yet.</p>
                                 </div>
-                                <div className="space-y-3">
-                                    {[
-                                        { name: 'Adil Noufan', place: 'Feroke', unit: 'Feroke town', time: '1m 10s', phone: '+91 7510 209 453' },
-                                        { name: 'afthab', place: 'athanikkal', unit: '', time: '1m 19s', phone: '+91 9526 492 238' },
-                                        { name: 'Umaiban.C', place: 'Feroke', unit: 'Feroke', time: '1m 34s', phone: '+91 9744 250 300' },
-                                    ].map((champ, idx) => (
-                                        <div key={idx} className="flex flex-col gap-2 glass-card p-3 sm:p-4 rounded-xl hover:shadow-md transition-all">
-                                            <div className="flex items-center gap-3">
-                                                <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-inner border-2 ${idx === 0 ? 'bg-gradient-to-br from-yellow-200 to-amber-500 border-amber-300' : idx === 1 ? 'bg-gradient-to-br from-slate-200 to-slate-400 border-slate-300' : 'bg-gradient-to-br from-orange-200 to-orange-500 border-orange-300'}`}>
-                                                    {idx === 0 ? '🏆' : idx === 1 ? '🥈' : '🥉'}
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <h4 className="font-bold text-foreground text-sm truncate">{champ.name}</h4>
-                                                    <p className="text-xs text-muted-foreground truncate">{champ.place} {champ.unit && `(${champ.unit})`}</p>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/20">
-                                                        {champ.time}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="text-xs text-muted-foreground flex justify-between border-t border-border pt-2 mt-1">
-                                                <span>Contact:</span>
-                                                <span className="font-medium text-foreground">{champ.phone}</span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            )}
                         </div>
                     </CardContent>
                 </Card>

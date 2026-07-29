@@ -1,7 +1,7 @@
 {
-    "name": "Surah Mulk Challenge",
-    "short_name": "Mulk Game",
-    "description": "Gamified Surah Mulk Word-Order Challenge PWA",
+    "name": "Salafi Madrasa Portal",
+    "short_name": "Madrasa App",
+    "description": "Interactive learning and challenge portal for Salafi Madrasa Attanikkal students.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

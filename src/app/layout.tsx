@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Quran Game",
+    title: "Madrasa App",
   },
   openGraph: {
     title: "Salafi Madrasa Attanikkal - Learning Portal",

@@ -87,8 +87,11 @@ export async function signup(state: SignupActionState | null, formData: FormData
 
         revalidatePath('/', 'layout')
         redirectPath = `/register/success?id=${body.user.student_id}`
-    } catch (err) {
+    } catch (err: any) {
         console.error('Signup error:', err)
+        if (err?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please try again in a minute.', ...returnedFormData }
+        }
         return { error: 'An unexpected error occurred. Please try again.', ...returnedFormData }
     }
 
@@ -189,7 +192,11 @@ export async function login(state: LoginActionState | null, formData: FormData) 
         } else {
             redirectPath = '/play'
         }
-    } catch (err) {
+    } catch (err: any) {
+        console.error('Login error:', err)
+        if (err?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please try again in a minute.' }
+        }
         return { error: 'Connection failed. Please try again.' }
     }
 
@@ -299,8 +306,11 @@ export async function updateProfile(state: any, formData: FormData) {
 
         revalidatePath('/', 'layout')
         return { success: 'Profile updated successfully!', user: body.user }
-    } catch (err) {
+    } catch (err: any) {
         console.error('updateProfile error:', err)
+        if (err?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please try again in a minute.' }
+        }
         return { error: 'An unexpected error occurred.' }
     }
 }

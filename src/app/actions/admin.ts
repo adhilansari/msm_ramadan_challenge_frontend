@@ -30,8 +30,11 @@ export async function fetchAdminDashboard() {
         const data = await res.json()
         return { data }
 
-    } catch (err) {
+    } catch (err: any) {
         console.error('Fetch Admin Dashboard error:', err)
+        if (err?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please refresh in a minute.' }
+        }
         return { error: 'An unexpected error occurred.' }
     }
 }
@@ -61,8 +64,11 @@ export async function updateAdminConfig(class_name: string, surah_number: number
         }
 
         return { success: true }
-    } catch (err) {
+    } catch (err: any) {
         console.error('Update Admin Config error:', err)
+        if (err?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please try again in a minute.' }
+        }
         return { error: 'An unexpected error occurred while saving configuration.' }
     }
 }
@@ -91,8 +97,11 @@ export async function resetAdminUserPassword(userId: string, newPassword: string
         }
 
         return { success: true }
-    } catch (err) {
+    } catch (err: any) {
         console.error('Reset Admin User Password error:', err)
+        if (err?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please try again in a minute.' }
+        }
         return { error: 'An unexpected error occurred while resetting the password.' }
     }
 }

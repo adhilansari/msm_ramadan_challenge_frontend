@@ -32,8 +32,11 @@ export async function saveSession(total_time: string) {
         revalidatePath('/')
 
         return { success: true }
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error saving session:', error)
+        if (error?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please try again in a minute.' }
+        }
         return { error: 'An unexpected error occurred' }
     }
 }

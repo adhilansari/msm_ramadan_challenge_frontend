@@ -36,19 +36,6 @@ export default async function Home() {
     } catch (e) { }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let topPerformers: any[] = []
-  try {
-    const res = await fetch(`${API_URL}/game/leaderboard/top`, {
-      next: { revalidate: 30 }
-    })
-    if (res.ok) {
-      topPerformers = await res.json()
-    }
-  } catch (error) {
-    console.error('Failed to fetch top performers for landing page', error)
-  }
-
   return (
     <div className="min-h-screen bg-transparent text-foreground flex flex-col items-center justify-start pt-16 pb-24 px-4 relative overflow-x-hidden">
       {/* Background Madrasa Image with soft blur & overlay */}
@@ -115,55 +102,6 @@ export default async function Home() {
 
         {/* Class Wise Results */}
         <ClassWiseResults />
-
-        {/* Live Top 7 Leaderboard */}
-        {topPerformers.length > 0 && (
-          <div className="w-full max-w-2xl glass-panel rounded-3xl overflow-hidden animate-in zoom-in-95 duration-700 delay-200 fill-mode-both">
-            {/* Header */}
-            <div className="bg-muted/30 px-4 sm:px-6 py-4 border-b border-border/50 flex items-center justify-between">
-              <div>
-                <h2 className="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400">Live Leaderboard</h2>
-                <p className="text-xs text-muted-foreground mt-0.5">Top 7 Fastest Performers</p>
-              </div>
-              <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-xs font-medium bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Live
-              </div>
-            </div>
-
-            {/* Column headers */}
-            <div className="flex justify-between items-center px-4 sm:px-6 py-2 bg-muted/20 border-b border-border/30 text-xs font-semibold text-muted-foreground">
-              <span className="w-10 sm:w-12 text-center">Rank</span>
-              <span className="flex-1 px-2 sm:px-4">Participant</span>
-              <span className="w-20 sm:w-28 text-right">Time</span>
-            </div>
-
-            {/* Rows */}
-            <div className="divide-y divide-border/50">
-              {topPerformers.map((user, idx) => (
-                <div key={idx} className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 hover:bg-muted/50 transition-colors">
-                  <div className="w-10 sm:w-12 text-center font-mono text-lg sm:text-xl font-bold text-muted-foreground">
-                    {idx === 0 ? '🏆' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`}
-                  </div>
-                  <div className="flex-1 px-2 sm:px-4 min-w-0">
-                    <div className="font-semibold text-sm sm:text-base text-foreground truncate">{user.full_name}</div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground truncate">{user.place}, {user.district} {user.msm_unit && `(${user.msm_unit})`}</div>
-                  </div>
-                  <div className="w-20 sm:w-28 text-right font-mono text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-medium whitespace-nowrap">
-                    {formatTime(user.best_time)}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="p-4 bg-muted/20 border-t border-border/30 text-center">
-              <Link href="/leaderboard" className="text-sm font-semibold text-emerald-600 hover:text-emerald-500 flex items-center justify-center gap-2 transition-colors">
-                View Full Leaderboard
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-              </Link>
-            </div>
-          </div>
-        )}
 
         {/* Importance of Quranic Learning & Madrasa Section */}
         <div className="w-full max-w-4xl space-y-8 animate-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both">

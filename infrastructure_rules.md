@@ -21,4 +21,4 @@ The user has explicitly mandated that under zero circumstances should production
   - Production mode: Vercel frontend MUST use the Fly.io *Public Domain* URL (not `.internal`) set in `NEXT_PUBLIC_API_URL`.
 - **Backend CORS Policy:**
   - Local mode: Backend allows traffic from `http://localhost:3000`
-  - Production mode: Backend `process.env.FRONTEND_URL` MUST be `https://msmquranchallenge.vercel.app` (without a trailing slash).
+  - Production mode: Backend `process.env.FRONTEND_URL` MUST be `https://salafi-madrasa.vercel.app/` (without a trailing slash).

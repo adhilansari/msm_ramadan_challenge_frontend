@@ -1,15 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { fetchAdminDashboard, updateAdminConfig, resetAdminUserPassword } from '@/app/actions/admin'
+import { fetchAdminDashboard, updateAdminConfig, resetAdminUserPassword, deleteAdminGameSession } from '@/app/actions/admin'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Loader2, Settings2, Users, Download, Trophy, Target, Clock, KeyRound } from 'lucide-react'
+import { Loader2, Settings2, Users, Download, Trophy, Target, Clock, KeyRound, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import ShareChallenge from '@/components/ShareChallenge'
 
@@ -21,6 +21,7 @@ interface ClassChallenge {
 }
 
 interface UserSession {
+    id: string;
     total_time: string;
     completed_at: string;
 }
@@ -87,6 +88,8 @@ export default function AdminDashboard() {
     const [resettingUserId, setResettingUserId] = useState<string | null>(null)
     const [newPassword, setNewPassword] = useState('')
     const [isResetting, setIsResetting] = useState(false)
+    const [expandedUserId, setExpandedUserId] = useState<string | null>(null)
+    const [deletingSessionId, setDeletingSessionId] = useState<string | null>(null)
     const router = useRouter()
 
     useEffect(() => {
@@ -203,6 +206,24 @@ export default function AdminDashboard() {
             toast.error('An error occurred during password reset');
         } finally {
             setIsResetting(false);
+        }
+    }
+
+    const handleDeleteSession = async (sessionId: string) => {
+        if (!confirm("Are you sure you want to delete this play record? This cannot be undone.")) return;
+        setDeletingSessionId(sessionId);
+        try {
+            const result = await deleteAdminGameSession(sessionId);
+            if (result.success) {
+                toast.success('Session deleted successfully!');
+                await fetchDashboardData();
+            } else {
+                toast.error(result.error || 'Failed to delete session');
+            }
+        } catch (err) {
+            toast.error('An error occurred during session deletion');
+        } finally {
+            setDeletingSessionId(null);
         }
     }
 
@@ -498,69 +519,112 @@ export default function AdminDashboard() {
                                             : '--';
 
                                         return (
-                                            <TableRow key={user.id} className="border-border hover:bg-muted/50 transition-colors">
-                                                <TableCell className="font-mono font-bold text-emerald-600 dark:text-emerald-400 py-4">
-                                                    {user.student_id || 'N/A'}
-                                                </TableCell>
-                                                <TableCell className="font-medium text-foreground py-4">
-                                                    <div>{user.first_name || ''} {user.last_name || ''}</div>
-                                                    <div className="text-xs text-muted-foreground">{user.full_name}</div>
-                                                </TableCell>
-                                                <TableCell className="text-muted-foreground py-4">{user.phone_number}</TableCell>
-                                                <TableCell className="py-4">
-                                                    <div className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{user.class || 'N/A'}</div>
-                                                    <div className="text-xs text-muted-foreground">DOB: {user.dob ? new Date(user.dob).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'}) : 'N/A'}</div>
-                                                </TableCell>
-                                                <TableCell className="py-4">
-                                                    <div className="text-sm text-foreground">{user.place}</div>
-                                                    <div className="text-xs text-muted-foreground">MSM: {user.is_msm_member ? `Yes (${user.msm_unit || 'No unit'})` : 'No'}</div>
-                                                </TableCell>
-                                                <TableCell className="text-right pr-6 py-4">
-                                                    <div className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-lg">{bestTime !== '--' ? formatTime(bestTime) : '--'}</div>
-                                                    <div className="text-xs text-muted-foreground font-medium">{user.game_sessions.length} attempts</div>
-                                                </TableCell>
-                                                <TableCell className="py-4 text-center">
-                                                    {resettingUserId === user.id ? (
-                                                        <div className="flex items-center gap-2 max-w-[200px] ml-auto mr-auto">
-                                                            <Input
-                                                                type="text"
-                                                                placeholder="New pass"
-                                                                className="h-8 text-xs bg-background"
-                                                                value={newPassword}
-                                                                onChange={(e) => setNewPassword(e.target.value)}
-                                                                disabled={isResetting}
-                                                            />
-                                                            <Button
-                                                                size="sm"
-                                                                className="h-8 bg-emerald-600 hover:bg-emerald-500 text-white"
-                                                                onClick={() => handleResetPassword(user.id)}
-                                                                disabled={isResetting}
-                                                            >
-                                                                Save
-                                                            </Button>
-                                                            <Button
-                                                                size="sm"
-                                                                variant="ghost"
-                                                                className="h-8 px-2"
-                                                                onClick={() => { setResettingUserId(null); setNewPassword(''); }}
-                                                                disabled={isResetting}
-                                                            >
-                                                                Cancel
-                                                            </Button>
-                                                        </div>
-                                                    ) : (
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            className="text-muted-foreground hover:text-emerald-500 hover:bg-emerald-500/10"
-                                                            onClick={() => setResettingUserId(user.id)}
+                                            <React.Fragment key={user.id}>
+                                                <TableRow className="border-border hover:bg-muted/50 transition-colors">
+                                                    <TableCell className="font-mono font-bold text-emerald-600 dark:text-emerald-400 py-4">
+                                                        {user.student_id || 'N/A'}
+                                                    </TableCell>
+                                                    <TableCell className="font-medium text-foreground py-4">
+                                                        <div>{user.first_name || ''} {user.last_name || ''}</div>
+                                                        <div className="text-xs text-muted-foreground">{user.full_name}</div>
+                                                    </TableCell>
+                                                    <TableCell className="text-muted-foreground py-4">{user.phone_number}</TableCell>
+                                                    <TableCell className="py-4">
+                                                        <div className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{user.class || 'N/A'}</div>
+                                                        <div className="text-xs text-muted-foreground">DOB: {user.dob ? new Date(user.dob).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'}) : 'N/A'}</div>
+                                                    </TableCell>
+                                                    <TableCell className="py-4">
+                                                        <div className="text-sm text-foreground">{user.place}</div>
+                                                        <div className="text-xs text-muted-foreground">MSM: {user.is_msm_member ? `Yes (${user.msm_unit || 'No unit'})` : 'No'}</div>
+                                                    </TableCell>
+                                                    <TableCell className="text-right pr-6 py-4">
+                                                        <div className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-lg">{bestTime !== '--' ? formatTime(bestTime) : '--'}</div>
+                                                        <button 
+                                                            onClick={() => setExpandedUserId(expandedUserId === user.id ? null : user.id)}
+                                                            className="flex items-center justify-end w-full gap-1 mt-1 text-xs text-muted-foreground font-medium hover:text-emerald-500 transition-colors cursor-pointer"
                                                         >
-                                                            <KeyRound className="w-4 h-4 mr-2" />
-                                                            Reset Pass
-                                                        </Button>
-                                                    )}
-                                                </TableCell>
-                                            </TableRow>
+                                                            {user.game_sessions.length} attempts
+                                                            {expandedUserId === user.id ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                                                        </button>
+                                                    </TableCell>
+                                                    <TableCell className="py-4 text-center">
+                                                        {resettingUserId === user.id ? (
+                                                            <div className="flex items-center gap-2 max-w-[200px] ml-auto mr-auto">
+                                                                <Input
+                                                                    type="text"
+                                                                    placeholder="New pass"
+                                                                    className="h-8 text-xs bg-background"
+                                                                    value={newPassword}
+                                                                    onChange={(e) => setNewPassword(e.target.value)}
+                                                                    disabled={isResetting}
+                                                                />
+                                                                <Button
+                                                                    size="sm"
+                                                                    className="h-8 bg-emerald-600 hover:bg-emerald-500 text-white"
+                                                                    onClick={() => handleResetPassword(user.id)}
+                                                                    disabled={isResetting}
+                                                                >
+                                                                    Save
+                                                                </Button>
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="h-8 px-2"
+                                                                    onClick={() => { setResettingUserId(null); setNewPassword(''); }}
+                                                                    disabled={isResetting}
+                                                                >
+                                                                    Cancel
+                                                                </Button>
+                                                            </div>
+                                                        ) : (
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="sm"
+                                                                className="text-muted-foreground hover:text-emerald-500 hover:bg-emerald-500/10"
+                                                                onClick={() => setResettingUserId(user.id)}
+                                                            >
+                                                                <KeyRound className="w-4 h-4 mr-2" />
+                                                                Reset Pass
+                                                            </Button>
+                                                        )}
+                                                    </TableCell>
+                                                </TableRow>
+                                                {expandedUserId === user.id && (
+                                                    <TableRow className="bg-muted/10 hover:bg-muted/10">
+                                                        <TableCell colSpan={7} className="p-0 border-b border-border">
+                                                            <div className="p-4 pl-12 shadow-inner">
+                                                                <div className="font-semibold text-muted-foreground mb-3">Play Records</div>
+                                                                {user.game_sessions.length === 0 ? (
+                                                                    <div className="text-xs text-muted-foreground">No records found.</div>
+                                                                ) : (
+                                                                    <div className="grid gap-2">
+                                                                        {[...user.game_sessions]
+                                                                            .sort((a, b) => new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime())
+                                                                            .map(session => (
+                                                                            <div key={session.id} className="flex items-center justify-between bg-background border border-border p-3 rounded-xl max-w-xl">
+                                                                                <div className="flex items-center gap-6">
+                                                                                    <div className="text-emerald-600 font-mono font-bold text-base">{formatTime(session.total_time)}</div>
+                                                                                    <div className="text-muted-foreground text-xs font-medium flex items-center gap-1.5"><Clock className="w-3 h-3" /> {new Date(session.completed_at).toLocaleString('en-IN')}</div>
+                                                                                </div>
+                                                                                <Button
+                                                                                    variant="ghost"
+                                                                                    size="sm"
+                                                                                    onClick={() => handleDeleteSession(session.id)}
+                                                                                    disabled={deletingSessionId === session.id}
+                                                                                    className="h-7 px-3 text-xs text-red-500 hover:text-red-600 hover:bg-red-500/10 transition-colors"
+                                                                                >
+                                                                                    {deletingSessionId === session.id ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Trash2 className="w-3 h-3 mr-1" />}
+                                                                                    Delete
+                                                                                </Button>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )}
+                                            </React.Fragment>
                                         )
                                     })}
                                     {filteredUsers.length === 0 && (

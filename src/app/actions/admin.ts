@@ -105,3 +105,36 @@ export async function resetAdminUserPassword(userId: string, newPassword: string
         return { error: 'An unexpected error occurred while resetting the password.' }
     }
 }
+
+export async function deleteAdminGameSession(sessionId: string) {
+    try {
+        const cookieStore = await cookies()
+        const token = cookieStore.get('access_token')?.value
+
+        if (!token) {
+            return { error: 'Unauthorized' }
+        }
+
+        const res = await fetch(\/admin/delete-session, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': \Bearer \\
+            },
+            body: JSON.stringify({ sessionId })
+        })
+
+        if (!res.ok) {
+            const data = await res.json()
+            return { error: data.message || 'Failed to delete session' }
+        }
+
+        return { success: true }
+    } catch (err: any) {
+        console.error('Delete Admin Game Session error:', err)
+        if (err?.message?.includes('fetch failed')) {
+            return { error: 'Server is starting up (this can take up to 50s on the free tier). Please try again in a minute.' }
+        }
+        return { error: 'An unexpected error occurred while deleting the session.' }
+    }
+}
